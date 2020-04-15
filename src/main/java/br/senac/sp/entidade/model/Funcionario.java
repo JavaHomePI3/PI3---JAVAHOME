@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.sp.gerenprodgames.model;
+package br.senac.sp.entidade.model;
 
-import br.senac.sp.gerenprodgames.enums.Departamento;
+import br.senac.sp.entidade.enums.Departamento;
 import java.util.Date;
 
 /**

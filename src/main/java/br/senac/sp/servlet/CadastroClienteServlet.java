@@ -1,6 +1,6 @@
 package br.senac.sp.servlet;
 
-import br.senac.sp.dao.ClienteDAO;
+import br.senac.sp.entidade.dao.ClienteDAO;
 import br.senac.sp.entidade.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,7 +29,7 @@ public class CadastroClienteServlet extends HttpServlet {
         
         Cliente cliente = new Cliente(nome, email);
         boolean ok = ClienteDAO.cadastrarCliente(cliente);
-        PrintWriter out = response.getWriter();
+        //PrintWriter out = response.getWriter();
 
         String url = "";
         if (ok) {
@@ -39,8 +39,6 @@ public class CadastroClienteServlet extends HttpServlet {
         }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request,response);
-       
-
     }
 
     /**
