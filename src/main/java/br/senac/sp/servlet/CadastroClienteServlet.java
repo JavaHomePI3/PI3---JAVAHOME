@@ -29,7 +29,7 @@ public class CadastroClienteServlet extends HttpServlet {
         
         Cliente cliente = new Cliente(nome, email);
         boolean ok = ClienteDAO.cadastrarCliente(cliente);
-        PrintWriter out = response.getWriter();
+        //PrintWriter out = response.getWriter();
 
         String url = "";
         if (ok) {
