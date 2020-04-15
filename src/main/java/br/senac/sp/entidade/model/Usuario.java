@@ -1,4 +1,4 @@
-package br.senac.sp.gerenprodgames.model;
+package br.senac.sp.entidade.model;
 
 import java.util.Date;
 

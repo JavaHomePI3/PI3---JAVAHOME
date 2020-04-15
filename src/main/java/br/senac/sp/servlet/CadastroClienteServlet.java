@@ -39,8 +39,6 @@ public class CadastroClienteServlet extends HttpServlet {
         }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request,response);
-       
-
     }
 
     /**
