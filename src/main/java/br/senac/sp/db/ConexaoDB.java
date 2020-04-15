@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author tiago.bscarton
  */
 public class ConexaoDB {
-
+    private static Connection CONEXAO;
     static {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -26,10 +26,14 @@ public class ConexaoDB {
     }
 
     public static Connection getConexao() throws SQLException {
-        String dbURL = "jdbc:mysql://localhost/test?useTimezone=true&serverTimezone=UTC";
-        String user = "root";
-        String password = "";
-        return DriverManager.getConnection(dbURL, user, password);
+        if ( CONEXAO == null){
+            String dbURL = "jdbc:mysql://localhost/test?useTimezone=true&serverTimezone=UTC";
+            String user = "root";
+            String password = "";
+            CONEXAO = DriverManager.getConnection(dbURL, user, password);
+            return CONEXAO;
+        }
+       return CONEXAO;
     }
 
 }

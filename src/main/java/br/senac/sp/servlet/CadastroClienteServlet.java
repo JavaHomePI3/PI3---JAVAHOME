@@ -1,6 +1,6 @@
 package br.senac.sp.servlet;
 
-import br.senac.sp.dao.ClienteDAO;
+import br.senac.sp.entidade.dao.ClienteDAO;
 import br.senac.sp.entidade.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
