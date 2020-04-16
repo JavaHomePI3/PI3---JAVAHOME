@@ -18,13 +18,13 @@ public abstract class Usuario {
   private String telefone;
   private Endereco endereco;
 
-    public Usuario(int idUsuario, String nomeUsuario, String sobreNomeUsuario, String cpf, String email, Character genenero, Date dataNascimento, String telefone, Endereco endereco) {
+    public Usuario(int idUsuario, String nomeUsuario, String sobreNomeUsuario, String cpf, String email, Character genero, Date dataNascimento, String telefone, Endereco endereco) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.sobreNomeUsuario = sobreNomeUsuario;
         this.cpf = cpf;
         this.email = email;
-        this.genenero = genenero;
+        this.genenero = genero;
         this.dataNascimento = dataNascimento;
         this.telefone = telefone;
         this.endereco = endereco;
@@ -78,8 +78,8 @@ public abstract class Usuario {
         return genenero;
     }
 
-    public void setGenenero(Character genenero) {
-        this.genenero = genenero;
+    public void setGenenero(Character genero) {
+        this.genero = genero;
     }
 
     public Date getDataNascimento() {
