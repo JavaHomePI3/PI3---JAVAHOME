@@ -14,14 +14,16 @@ public class Cliente extends Usuario {
 
     private Integer quantidadeCompras;
 
-    public Cliente(Integer quantidadeCompras, int idUsuario, String nomeUsuario,
-                   String sobreNomeUsuario, String cpf, String email, Character genenero,
-                   Date dataNascimento, String telefone, Endereco endereco) {
-        super(idUsuario, nomeUsuario, sobreNomeUsuario, cpf, email, genenero,
-                dataNascimento, telefone, endereco);
-
+    public Cliente(Integer quantidadeCompras, int idUsuario, String nomeUsuario, String sobreNomeUsuario, 
+            String cpf, String email, Character genero, Date dataNascimento, String telefone, String cep, 
+            String rua, String bairro, String complemento, String cidade, int numero, String estado) {
+        super(idUsuario, nomeUsuario, sobreNomeUsuario, cpf, email, genero, dataNascimento, telefone, cep,
+            rua, bairro, complemento, cidade, numero, estado);
+        
         this.quantidadeCompras = quantidadeCompras;
     }
+
+  
 
     public Integer getQuantidadeCompras() {
         return quantidadeCompras;

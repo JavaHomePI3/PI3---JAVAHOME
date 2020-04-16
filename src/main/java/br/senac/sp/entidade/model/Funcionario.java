@@ -18,18 +18,18 @@ public class Funcionario extends Usuario {
     private Double salario;
     private String cargo;
 
-    public Funcionario(Departamento departamento, Double salario, String cargo,
-            int idUsuario, String nomeUsuario, String sobreNomeUsuario, String cpf,
-            String email, Character genenero, Date dataNascimento, String telefone,
-            Endereco endereco) {
-        
-        super(idUsuario, nomeUsuario, sobreNomeUsuario, cpf, email, genenero, 
-                dataNascimento, telefone, endereco);
-        
+    public Funcionario(Departamento departamento, Double salario, String cargo, int idUsuario, String nomeUsuario, 
+            String sobreNomeUsuario, String cpf, String email, Character genero, Date dataNascimento, 
+            String telefone, String cep, String rua, String bairro, String complemento, 
+            String cidade, int numero, String estado) {
+        super(idUsuario, nomeUsuario, sobreNomeUsuario, cpf, email, genero, dataNascimento, telefone,
+                cep, rua, bairro, complemento, cidade, numero, estado);
         this.departamento = departamento;
         this.salario = salario;
         this.cargo = cargo;
     }
+
+   
 
     public Departamento getDepartamento() {
         return departamento;
