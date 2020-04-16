@@ -27,9 +27,9 @@ public class ConexaoDB {
 
     public static Connection getConexao() throws SQLException {
         if ( CONEXAO == null){
-            String dbURL = "jdbc:mysql://localhost/test?useTimezone=true&serverTimezone=UTC";
-            String user = "root";
-            String password = "";
+            String dbURL = "jdbc:mysql://localhost/senac?useTimezone=true&serverTimezone=UTC";
+            String user = "senac";
+            String password = "senac";
             CONEXAO = DriverManager.getConnection(dbURL, user, password);
             return CONEXAO;
         }
