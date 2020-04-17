@@ -1,7 +1,5 @@
-<%@ page import="java.util.List" %>
-<%@ page import="br.senac.sp.entidade.Cliente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@    taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:import url="header.jsp" />
 <div class="container">
     <div>
@@ -64,13 +62,14 @@
             </tr>
             </thead>
             <tbody>
-            <jsp:useBean id="dao" class="br.senac.sp.entidade.dao.ClienteDAO"/>
-            <c:forEach var="cliente" items="${dao.clientes}">
+            <c:forEach var="produto" items="${requestScope.produto}">
                 <tr>
-                    <th scope="row">${cliente.id}</th>
-                    <td>${cliente.nome}</td>
-                    <td>${cliente.email}</td>
-                    <td>@mdo</td>
+                    <th scope="row">${produto.id}</th>
+                    <td>${produto.idItens}</td>
+                    <td>${produto.idCliente}</td>
+                    <td>${produto.idVendedor}</td>
+                    <td>${produto.precoTotal}</td>
+                    <td>${produto.dataDaVenda}</td>
                 </tr>
             </c:forEach>
             </tbody>
