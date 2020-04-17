@@ -1,50 +1,91 @@
 package br.senac.sp.entidade.model;
 
+import br.senac.sp.entidade.dao.Dao;
+
 import java.util.Date;
 import java.util.List;
 
 public class Venda {
     private int id;
-    private List<Produto> listaDeProdutos;
-    private Cliente cliente;
-    private Funcionario vendedor;
-    private double totalDaVenda;
+    private int idItens;
+    private int idCliente;
+    private int idVendedor;
+    private double precoTotal;
     private Date dataDaVenda;
+    private List<Produto> itens;
+
+    public Venda(int id, List<Produto> itens, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
+        this.id = id;
+        this.itens = itens;
+        this.idCliente = idCliente;
+        this.idVendedor = idVendedor;
+        this.precoTotal = precoTotal;
+        this.dataDaVenda = dataDaVenda;
+    }
+    public Venda(int idCliente, int idVendedor,List<Produto> itens) {
+        this.idCliente = idCliente;
+        this.idVendedor = idVendedor;
+        this.itens = itens;
+    }
+
+    public Venda(int idItens, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
+        this.idItens = idItens;
+        this.idCliente = idCliente;
+        this.idVendedor = idVendedor;
+        this.precoTotal = precoTotal;
+        this.dataDaVenda = dataDaVenda;
+    }
+
+    public Venda(List<Produto> itens, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
+        this.itens = itens;
+        this.idCliente = idCliente;
+        this.idVendedor = idVendedor;
+        this.precoTotal = precoTotal;
+        this.dataDaVenda = dataDaVenda;
+    }
 
     public int getId() {
         return id;
     }
 
-    public List<Produto> getListaDeProdutos() {
-        return listaDeProdutos;
+    public List<Produto> getItens() {
+        return itens;
     }
 
-    public void setListaDeProdutos(List<Produto> listaDeProdutos) {
-        this.listaDeProdutos = listaDeProdutos;
+    public void setItens(List<Produto> itens) {
+        this.itens = itens;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public int getIdItens() {
+        return idItens;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setIdItens(int idItens) {
+        this.idItens = idItens;
     }
 
-    public Funcionario getVendedor() {
-        return vendedor;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setVendedor(Funcionario vendedor) {
-        this.vendedor = vendedor;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public double getTotalDaVenda() {
-        return totalDaVenda;
+    public int getIdVendedor() {
+        return idVendedor;
     }
 
-    public void setTotalDaVenda(double totalDaVenda) {
-        this.totalDaVenda = totalDaVenda;
+    public void setIdVendedor(int idVendedor) {
+        this.idVendedor = idVendedor;
+    }
+
+    public double getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public void setPrecoTotal(double precoTotal) {
+        this.precoTotal = precoTotal;
     }
 
     public Date getDataDaVenda() {

@@ -3,28 +3,31 @@ package br.senac.sp.entidade.model;
 import java.util.Date;
 
 /**
- *
  * @author Walter Prata
  */
 public abstract class Usuario {
-    
-  private int idUsuario;
-  private String nomeUsuario;
-  private String sobrenomeUsuario;   
-  private String cpf;
-  private String email;
-  private Character genero;
-  private Date dataNascimento;
-  private String telefone;
-  private String cep;
-  private String rua;
-  private String bairro;
-  private String complemento;
-  private String cidade;
-  private int numero;
-  private String estado;
 
-    public Usuario(int idUsuario, String nomeUsuario, String sobrenomeUsuario, String cpf, String email, Character genero, Date dataNascimento, String telefone, String cep, String rua, String bairro, String complemento, String cidade, int numero, String estado) {
+    private int idUsuario;
+    private String nomeUsuario;
+    private String sobrenomeUsuario;
+    private String cpf;
+    private String email;
+    private Character genero;
+    private Date dataNascimento;
+    private String telefone;
+    private String cep;
+    private String rua;
+    private String bairro;
+    private String complemento;
+    private String cidade;
+    private int numero;
+    private String estado;
+
+    public Usuario(){}
+
+    public Usuario(int idUsuario, String nomeUsuario, String sobrenomeUsuario, String cpf, String email,
+                   Character genero, Date dataNascimento, String telefone, String cep, String rua,
+                   String bairro, String complemento, String cidade, int numero, String estado) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.sobrenomeUsuario = sobrenomeUsuario;
@@ -41,7 +44,7 @@ public abstract class Usuario {
         this.numero = numero;
         this.estado = estado;
     }
-  
+
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -186,10 +189,6 @@ public abstract class Usuario {
         }
         return true;
     }
-    
-    
 
-    
-  
-   
+
 }

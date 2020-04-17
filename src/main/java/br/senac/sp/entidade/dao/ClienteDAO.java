@@ -14,40 +14,41 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class ClienteDAO {
+public class ClienteDAO implements Dao<Cliente>{
     private ArrayList listaDeClientes;
 
-    public static boolean cadastrarCliente(Cliente cliente) {
-        boolean ok = false;
+    @Override
+    public boolean inserir(Cliente entidade) {
         Connection con;
         try {
             con = ConexaoDB.getConexao();
             String sql = "insert into cliente values (default,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, cliente.getNomeUsuario());
-            ps.setString(2, cliente.getSobrenomeUsuario());
-            ps.setString(3, cliente.getCpf());
-            ps.setString(4, cliente.getEmail());
-            ps.setString(5, cliente.getGenero().toString());
-            ps.setDate(6, (Date) cliente.getDataNascimento());
-            ps.setString(7, cliente.getTelefone());
-            ps.setString(8, cliente.getCep());
-            ps.setString(9, cliente.getRua());
-            ps.setString(10, cliente.getBairro());
-            ps.setString(11, cliente.getComplemento());
-            ps.setString(12, cliente.getCidade());
-            ps.setInt(13, cliente.getNumero());
-            ps.setString(14, cliente.getEstado());
-            
+            ps.setString(1, entidade.getNomeUsuario());
+            ps.setString(2, entidade.getSobrenomeUsuario());
+            ps.setString(3, entidade.getCpf());
+            ps.setString(4, entidade.getEmail());
+            ps.setString(5, entidade.getGenero().toString());
+            ps.setDate(6, (Date) entidade.getDataNascimento());
+            ps.setString(7, entidade.getTelefone());
+            ps.setString(8, entidade.getCep());
+            ps.setString(9, entidade.getRua());
+            ps.setString(10, entidade.getBairro());
+            ps.setString(11, entidade.getComplemento());
+            ps.setString(12, entidade.getCidade());
+            ps.setInt(13, entidade.getNumero());
+            ps.setString(14, entidade.getEstado());
+
             ps.execute();
-            ok = true;
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return ok;
+        return false;
     }
 
-    public List<Cliente> getClientes(){
+    @Override
+    public List<Cliente> buscar() {
         Connection con;
         listaDeClientes = new ArrayList();
         try {
@@ -57,25 +58,13 @@ public class ClienteDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
-//                listaDeClientes.add(new Cliente(
-//                        rs.getInt("id"),
-//                        rs.getInt("nomeUsuario"),
-//                        rs.getString("sobreNome"),
-//                        rs.getString("cpf"), 
-//                        rs.getString("email"), 
-//                        rs.getString("genero"),
-//                        rs.getString("genero"),
-//                        rs.getString("genero"),
-//                        rs.getString("genero"),
-//                        rs.getString("genero"),
-//                        rs.getString("genero"),
-//                        rs.getString("genero"),
-//                        rs.getString("genero"),
-//                        rs.getString("genero"),
-//                        rs.getString("genero"),
-//                        rs.getString("genero")));
-               
+                listaDeClientes.add(new Cliente(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email")
+                ));
             }
+
             ps.close();
             rs.close();
 
@@ -83,5 +72,15 @@ public class ClienteDAO {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaDeClientes;
+    }
+
+    @Override
+    public boolean editar(Cliente entidade) {
+        return false;
+    }
+
+    @Override
+    public boolean remover(Cliente entidade) {
+        return false;
     }
 }

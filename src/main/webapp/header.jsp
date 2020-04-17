@@ -22,7 +22,7 @@
                     <a class="nav-link" href="cadastroCliente.jsp">Cadastro de Cliente</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="cadastraVenda.jsp">Cadastro de Venda</a>
+                    <a class="nav-link" href="cadastraVenda">Cadastro de Venda</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
