@@ -10,7 +10,7 @@ public abstract class Usuario {
     
   private int idUsuario;
   private String nomeUsuario;
-  private String sobreNomeUsuario;   
+  private String sobrenomeUsuario;   
   private String cpf;
   private String email;
   private Character genero;
@@ -24,10 +24,10 @@ public abstract class Usuario {
   private int numero;
   private String estado;
 
-    public Usuario(int idUsuario, String nomeUsuario, String sobreNomeUsuario, String cpf, String email, Character genero, Date dataNascimento, String telefone, String cep, String rua, String bairro, String complemento, String cidade, int numero, String estado) {
+    public Usuario(int idUsuario, String nomeUsuario, String sobrenomeUsuario, String cpf, String email, Character genero, Date dataNascimento, String telefone, String cep, String rua, String bairro, String complemento, String cidade, int numero, String estado) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
-        this.sobreNomeUsuario = sobreNomeUsuario;
+        this.sobrenomeUsuario = sobrenomeUsuario;
         this.cpf = cpf;
         this.email = email;
         this.genero = genero;
@@ -58,12 +58,12 @@ public abstract class Usuario {
         this.nomeUsuario = nomeUsuario;
     }
 
-    public String getSobreNomeUsuario() {
-        return sobreNomeUsuario;
+    public String getSobrenomeUsuario() {
+        return sobrenomeUsuario;
     }
 
-    public void setSobreNomeUsuario(String sobreNomeUsuario) {
-        this.sobreNomeUsuario = sobreNomeUsuario;
+    public void setSobrenomeUsuario(String sobrenomeUsuario) {
+        this.sobrenomeUsuario = sobrenomeUsuario;
     }
 
     public String getCpf() {
@@ -82,11 +82,11 @@ public abstract class Usuario {
         this.email = email;
     }
 
-    public Character getGenenero() {
+    public Character getGenero() {
         return genero;
     }
 
-    public void setGenenero(Character genero) {
+    public void setGenero(Character genero) {
         this.genero = genero;
     }
 
@@ -104,14 +104,6 @@ public abstract class Usuario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public Character getGenero() {
-        return genero;
-    }
-
-    public void setGenero(Character genero) {
-        this.genero = genero;
     }
 
     public String getCep() {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.senac.sp.entidade.model;
 
 import java.util.Date;
@@ -20,7 +16,7 @@ public class Cliente extends Usuario {
         super(idUsuario, nomeUsuario, sobreNomeUsuario, cpf, email, genero, dataNascimento, telefone, cep,
             rua, bairro, complemento, cidade, numero, estado);
         
-        this.quantidadeCompras = quantidadeCompras;
+        this.quantidadeCompras = 0;
     }
 
   
@@ -29,9 +25,5 @@ public class Cliente extends Usuario {
         return quantidadeCompras;
     }
 
-    public void setQuantidadeCompras(Integer quantidadeCompras) {
-        this.quantidadeCompras = quantidadeCompras;
-    }
-
-
+    
 }
