@@ -10,7 +10,10 @@ public class Cliente extends Usuario {
 
     private Integer quantidadeCompras;
 
-
+    public Cliente(){
+        
+    }
+    
     public Cliente(Integer quantidadeCompras, int idUsuario, String nomeUsuario, String sobreNomeUsuario, 
             String cpf, String email, Character genero, Date dataNascimento, String telefone, String cep, 
             String rua, String bairro, String complemento, String cidade, int numero, String estado) {
@@ -20,12 +23,6 @@ public class Cliente extends Usuario {
         this.quantidadeCompras = 0;
     }
 
-    public Cliente(int id,String nomeUsuario,String email){
-        super();
-        this.setNomeUsuario(nomeUsuario);
-        this.setEmail(email);
-        this.setIdUsuario(id);
-    }
 
     public Integer getQuantidadeCompras() {
         return quantidadeCompras;

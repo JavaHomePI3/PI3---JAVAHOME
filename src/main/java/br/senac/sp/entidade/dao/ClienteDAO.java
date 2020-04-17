@@ -58,11 +58,11 @@ public class ClienteDAO implements Dao<Cliente>{
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
-                listaDeClientes.add(new Cliente(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("email")
-                ));
+//                listaDeClientes.add(new Cliente(
+//                        rs.getInt("id"),
+//                        rs.getString("nome"),
+//                        rs.getString("email")
+//                ));
             }
 
             ps.close();
