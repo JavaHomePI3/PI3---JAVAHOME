@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * @author Vitoria Cristina
  */
 public class JogoDao {
+    // Realizado só para constar na contribuição
      private Connection conexao = null;
 
     Jogos jogo = new Jogos(null, 0, null, null, 0, null, 0);
