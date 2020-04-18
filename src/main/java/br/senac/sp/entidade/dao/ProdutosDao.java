@@ -16,6 +16,9 @@ import java.util.ArrayList;
  * @author Vitoria Cristina
  */
 public class ProdutosDao {
+    
+    // Teste
+    
      private Connection conexao = null;
 
     Produto produtos = new Produto(null, 0, null, null, 0, null,0);
