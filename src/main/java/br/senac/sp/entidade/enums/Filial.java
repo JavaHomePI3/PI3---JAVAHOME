@@ -12,8 +12,8 @@ package br.senac.sp.entidade.enums;
 public enum Filial {
     
     FILIALSP,
-    FILIALRJ,
-    FILIALRS,
-    FILIALMG;
+    FILIALRN,
+    FILIALDF,
+    FILIALSC;
     
 }
