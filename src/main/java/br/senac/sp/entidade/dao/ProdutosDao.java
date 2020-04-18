@@ -16,12 +16,11 @@ import java.util.ArrayList;
  * @author Vitoria Cristina
  */
 public class ProdutosDao {
-    
-    // Teste
-    
-     private Connection conexao = null;
 
-    Produto produtos = new Produto(null, 0, null, null, 0, null,0);
+    // Teste2
+    private Connection conexao = null;
+
+    Produto produtos = new Produto(null, 0, null, null, 0, null, 0);
 
     private java.util.List<Produto> listaProd = new ArrayList<Produto>();
 
@@ -38,7 +37,7 @@ public class ProdutosDao {
                     + "datacadastroprod, descricaoprod,categoriaprod, quantidadeprod, idloja)"
                     + " VALUES ('" + produtos.getCodigoprod() + "','" + produtos.getNomeprod()
                     + "'," + produtos.getValorprod() + ",now(),'"
-                    + produtos.getDescricaoprod() + "','" + produtos.getCategoriaprod() + "'," + produtos.getQtdestoque() +","+produtos.getIdloja()+ ");");
+                    + produtos.getDescricaoprod() + "','" + produtos.getCategoriaprod() + "'," + produtos.getQtdestoque() + "," + produtos.getIdloja() + ");");
 
             conexao.close();
 
@@ -103,7 +102,6 @@ public class ProdutosDao {
                 produtos.setQtdestoque(result.getInt("idloja"));
 
                 //produtos.setListaProd(produtos);
-
             }
 
             conexao.close();
@@ -138,14 +136,14 @@ public class ProdutosDao {
 
             selectprod = "select count(*) quantidadeprod from produtos where codigobarrasprod = '" + buscaprod + "'";
             ResultSet resultprod = stprod.executeQuery(selectprod);
-            
+
             while (resultprod.next()) {
 
                 qtdprodcadastrado = resultprod.getInt("quantidadeprod");
                 System.out.println(qtdpetcadastrado);
 
             }
-            
+
             java.sql.Statement stpet = conexao.createStatement();
 
             selectpet = "select count(*) quantidade from jogos where codigobarras = '" + buscaprod + "'";
@@ -228,5 +226,3 @@ public class ProdutosDao {
     }
 
 }
-
-
