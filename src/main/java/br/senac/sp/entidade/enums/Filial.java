@@ -11,20 +11,9 @@ package br.senac.sp.entidade.enums;
  */
 public enum Filial {
     
-    FILIALSP("filialSP"),
-    FILIALRJ("filialRJ"),
-    FILIALRS("filialRS"),
-    FILIALMG("filialMG");
-    
-    private String filial;
-
-    private Filial(String filial) {
-        this.filial = filial;
-    }
-
-    public String getDepartamento() {
-        return filial;
-    }
-    
+    FILIALSP,
+    FILIALRJ,
+    FILIALRS,
+    FILIALMG;
     
 }

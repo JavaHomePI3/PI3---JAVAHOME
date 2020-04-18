@@ -11,20 +11,9 @@ package br.senac.sp.entidade.enums;
  */
 public enum Departamento {
     
-    ADM("adm"),
-    VENDAS("vendas"),
-    BACKOFFICE("backoffice"),
-    TI("ti");
-    
-    private String departamento;
-
-    private Departamento(String departamento) {
-        this.departamento = departamento;
-    }
-
-    public String getDepartamento() {
-        return departamento;
-    }
-    
+    ADM,
+    VENDAS,
+    BACKOFFICE,
+    TI
     
 }
