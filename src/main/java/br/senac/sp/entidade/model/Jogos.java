@@ -10,6 +10,7 @@ import java.util.Date;
 /**
  *
  * @author Vitoria Cristina
+ * 
  */
 public class Jogos {
      private String codigobarras;
