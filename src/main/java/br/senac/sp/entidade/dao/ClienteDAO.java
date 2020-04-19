@@ -179,7 +179,6 @@ public class ClienteDAO implements Dao<Cliente>{
        
     }
 
-    
     public void removerCliente(int idUsuario) throws SQLException {
         
          try {
