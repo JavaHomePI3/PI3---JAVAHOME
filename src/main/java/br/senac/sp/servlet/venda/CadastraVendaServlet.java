@@ -1,8 +1,6 @@
-package br.senac.sp.servlet;
+package br.senac.sp.servlet.venda;
 
-import br.senac.sp.entidade.dao.ClienteDAO;
 import br.senac.sp.entidade.dao.VendaDao;
-import br.senac.sp.entidade.model.Cliente;
 import br.senac.sp.entidade.model.Venda;
 
 import javax.servlet.RequestDispatcher;
@@ -19,7 +17,7 @@ import java.util.logging.Logger;
 
 @WebServlet(name = "cadastraVendaServlet",value = "/cadastraVenda")
 public class CadastraVendaServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

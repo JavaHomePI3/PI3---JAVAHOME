@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
-<body>
+<body id="page-top">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary container-fluid">
         <a class="navbar-brand" href="index.jsp">Navbar</a>
@@ -21,8 +21,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="cadastroCliente.jsp">Cadastro de Cliente</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cadastraVenda">Cadastro de Venda</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Venda
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownVenda">
+                        <a class="dropdown-item" href="cadastraVenda">Cadastro de Venda</a>
+                        <a class="dropdown-item" href="cadastraVenda">Consulta Venda</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Produtos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="cadastraProduto">Cadastro Produto</a>
+                        <a class="dropdown-item" href="consultaProduto">Consulta Produto</a>
+                    </div>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">

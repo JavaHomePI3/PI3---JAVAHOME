@@ -7,35 +7,31 @@ package br.senac.sp.entidade.dao;
 
 import br.senac.sp.db.ConexaoDB;
 import br.senac.sp.entidade.model.Produto;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- *
  * @author Vitoria Cristina
  */
 public class ProdutosDao {
-     private Connection conexao = null;
-
-    Produto produtos = new Produto(null, 0, null, null, 0, null,0);
-
+    private Connection conexao = null;
+    final Produto produtos = new Produto(null, 0, null, null, 0, null);
     private java.util.List<Produto> listaProd = new ArrayList<Produto>();
 
     public void gravarproduto(Produto produtos) {
 
-        ConexaoDB bancoconexao = new ConexaoDB();
-
         try {
 
-            Connection conexao = bancoconexao.getConnection();
+            conexao = ConexaoDB.getConexao();
 
             java.sql.Statement st = conexao.createStatement();
             st.executeUpdate("INSERT INTO produtos (codigobarrasprod, nomeprod,valor,"
                     + "datacadastroprod, descricaoprod,categoriaprod, quantidadeprod, idloja)"
                     + " VALUES ('" + produtos.getCodigoprod() + "','" + produtos.getNomeprod()
                     + "'," + produtos.getValorprod() + ",now(),'"
-                    + produtos.getDescricaoprod() + "','" + produtos.getCategoriaprod() + "'," + produtos.getQtdestoque() +","+produtos.getIdloja()+ ");");
+                    + produtos.getDescricaoprod() + "','" + produtos.getCategoriaprod() + "'," + produtos.getQtdestoque() + "," + produtos.getIdloja() + ");");
 
             conexao.close();
 
@@ -49,11 +45,9 @@ public class ProdutosDao {
 
     public void atualizarprod(Produto produtos) {
 
-        ConexaoDB bancoconexao = new ConexaoDB();
-
         try {
 
-            Connection conexao = bancoconexao.getConnection();
+            conexao = ConexaoDB.getConexao();
 
             java.sql.Statement st = conexao.createStatement();
             st.executeUpdate("UPDATE PRODUTOS set codigobarrasprod = '" + produtos.getCodigoprod() + "', nomeprod = '" + produtos.getNomeprod() + "',"
@@ -77,12 +71,9 @@ public class ProdutosDao {
 
         String select = "";
 
-        ConexaoDB bancoconexao = new ConexaoDB();
-
         try {
-            Class.forName("com.mysql.jdbc.Driver");
 
-            conexao = bancoconexao.getConnection();
+            conexao = ConexaoDB.getConexao();
 
             java.sql.Statement st = conexao.createStatement();
             select = "select * from produtos where codigobarrasprod = '" + codigobarrasprod.trim() + "'";
@@ -124,25 +115,21 @@ public class ProdutosDao {
         int qtdprodcadastrado = 0;
         int qtdpetcadastrado = 0;
 
-        ConexaoDB bancoconexao = new ConexaoDB();
-
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-
-            conexao = bancoconexao.getConnection();
+            conexao = ConexaoDB.getConexao();
 
             java.sql.Statement stprod = conexao.createStatement();
 
             selectprod = "select count(*) quantidadeprod from produtos where codigobarrasprod = '" + buscaprod + "'";
             ResultSet resultprod = stprod.executeQuery(selectprod);
-            
+
             while (resultprod.next()) {
 
                 qtdprodcadastrado = resultprod.getInt("quantidadeprod");
                 System.out.println(qtdpetcadastrado);
 
             }
-            
+
             java.sql.Statement stpet = conexao.createStatement();
 
             selectpet = "select count(*) quantidade from jogos where codigobarras = '" + buscaprod + "'";
@@ -173,12 +160,8 @@ public class ProdutosDao {
 
         boolean deletado = false;
 
-        ConexaoDB bancoconexao = new ConexaoDB();
-
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-
-            conexao = bancoconexao.getConnection();
+            conexao = ConexaoDB.getConexao();
 
             java.sql.Statement st = conexao.createStatement();
             st.executeUpdate("delete from produtos where codigobarrasprod = '" + codigobarrasprod + "'");
@@ -199,12 +182,8 @@ public class ProdutosDao {
 
         String selectgeral = "";
 
-        ConexaoDB bancoconexao = new ConexaoDB();
-
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-
-            conexao = bancoconexao.getConnection();
+            conexao = ConexaoDB.getConexao();
 
             java.sql.Statement st = conexao.createStatement();
             selectgeral = "select * from produtos";

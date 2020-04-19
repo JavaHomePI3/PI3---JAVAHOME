@@ -28,24 +28,11 @@ public class ConexaoDB {
     public static Connection getConexao() throws SQLException {
         if ( CONEXAO == null){
             String dbURL = "jdbc:mysql://localhost/senac?useTimezone=true&serverTimezone=UTC";
-            String user = "senac";
-            String password = "senac";
+            String user = "root";
+            String password = "";
             CONEXAO = DriverManager.getConnection(dbURL, user, password);
             return CONEXAO;
         }
        return CONEXAO;
     }
-
-    public Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public int idloja(String sessaoid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public int idLoja(String sessaoid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

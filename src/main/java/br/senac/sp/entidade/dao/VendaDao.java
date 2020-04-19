@@ -7,14 +7,12 @@ import br.senac.sp.entidade.model.Venda;
 import com.google.gson.Gson;
 
 import java.sql.*;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class VendaDao implements Dao<Venda> {
-    private List<Venda> vendas = new ArrayList<>();
+    private final List<Venda> vendas = new ArrayList<>();
     private Connection conexao;
 
     @Override
@@ -76,7 +74,7 @@ public class VendaDao implements Dao<Venda> {
     private void calculaPrecoTotal(Venda entidade) {
         double precoTotal = 0;
         for (Produto produto : entidade.getItens()) {
-            precoTotal += produto.getPreco();
+            precoTotal += produto.getValorprod();
         }
         entidade.setPrecoTotal(precoTotal);
     }
@@ -115,7 +113,7 @@ public class VendaDao implements Dao<Venda> {
                     rs.getInt("id_cliente"),
                     rs.getInt("id_funcionario"),
                     rs.getDouble("preco_total"),
-                    rs.getDate("create_at")
+                    rs.getString("create_at")
             ));
         }
 

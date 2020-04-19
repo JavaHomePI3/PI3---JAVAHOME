@@ -6,14 +6,6 @@
 package br.senac.sp.entidade.enums;
 
 /**
- *
  * @author Walter Prata
  */
-public enum Filial {
-    
-    FILIALSP,
-    FILIALRN,
-    FILIALDF,
-    FILIALSC;
-    
-}
+public enum Filial {FILIALSP, FILIALRN, FILIALDF, FILIALSC}

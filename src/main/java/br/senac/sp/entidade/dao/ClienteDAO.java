@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 
 
 public class ClienteDAO implements Dao<Cliente>{
-    private ArrayList listaDeClientes;
 
     @Override
     public boolean inserir(Cliente entidade) {
@@ -50,7 +49,7 @@ public class ClienteDAO implements Dao<Cliente>{
     @Override
     public List<Cliente> buscar() {
         Connection con;
-        listaDeClientes = new ArrayList();
+        ArrayList listaDeClientes = new ArrayList();
         try {
             con = ConexaoDB.getConexao();
             String sql = "SELECT * FROM cliente";

@@ -10,15 +10,13 @@ import java.io.IOException;
 public class CadastroClienteServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         //Empty
     }
 
    
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
 //        String nome = request.getParameter("nome");
 //        String email = request.getParameter("email");

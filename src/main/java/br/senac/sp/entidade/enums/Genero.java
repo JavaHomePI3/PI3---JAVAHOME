@@ -6,12 +6,6 @@
 package br.senac.sp.entidade.enums;
 
 /**
- *
  * @author muril
  */
-public enum Genero {
-    
-    FEMININO,
-    MASCULINO;
-    
-}
+public enum Genero {FEMININO, MASCULINO}

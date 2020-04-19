@@ -6,14 +6,6 @@
 package br.senac.sp.entidade.enums;
 
 /**
- *
  * @author Walter Prata
  */
-public enum Departamento {
-    
-    ADM,
-    VENDAS,
-    BACKOFFICE,
-    TI
-    
-}
+public enum Departamento {ADM, VENDAS, BACKOFFICE, TI}

@@ -1,8 +1,5 @@
 package br.senac.sp.entidade.model;
 
-import br.senac.sp.entidade.dao.Dao;
-
-import java.util.Date;
 import java.util.List;
 
 public class Venda {
@@ -11,10 +8,10 @@ public class Venda {
     private int idCliente;
     private int idVendedor;
     private double precoTotal;
-    private Date dataDaVenda;
+    private String dataDaVenda;
     private List<Produto> itens;
 
-    public Venda(int id, List<Produto> itens, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
+    public Venda(int id, List<Produto> itens, int idCliente, int idVendedor, double precoTotal, String dataDaVenda) {
         this.id = id;
         this.itens = itens;
         this.idCliente = idCliente;
@@ -28,7 +25,7 @@ public class Venda {
         this.itens = itens;
     }
 
-    public Venda(int idItens, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
+    public Venda(int idItens, int idCliente, int idVendedor, double precoTotal, String dataDaVenda) {
         this.idItens = idItens;
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
@@ -36,7 +33,7 @@ public class Venda {
         this.dataDaVenda = dataDaVenda;
     }
 
-    public Venda(List<Produto> itens, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
+    public Venda(List<Produto> itens, int idCliente, int idVendedor, double precoTotal, String dataDaVenda) {
         this.itens = itens;
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
@@ -88,11 +85,11 @@ public class Venda {
         this.precoTotal = precoTotal;
     }
 
-    public Date getDataDaVenda() {
+    public String getDataDaVenda() {
         return dataDaVenda;
     }
 
-    public void setDataDaVenda(Date dataDaVenda) {
+    public void setDataDaVenda(String dataDaVenda) {
         this.dataDaVenda = dataDaVenda;
     }
 }
