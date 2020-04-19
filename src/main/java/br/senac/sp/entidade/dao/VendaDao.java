@@ -35,6 +35,7 @@ public class VendaDao implements Dao<Venda> {
 
             //criar venda
             salvaNovaVemda(entidade, idIten);
+            conexao.close();
             return true;
         } catch (SQLException e) {
             throw new VendasException("Erro ao Cadastrar Venda!\nErro: " + e.getMessage());
@@ -51,6 +52,7 @@ public class VendaDao implements Dao<Venda> {
 
             //criar venda
             salvaNovaVemda(entidade, idIten);
+            conexao.close();
             return true;
         } catch (SQLException e) {
             throw new VendasException("Erro ao Cadastrar Venda!\nErro: " + e.getMessage());
@@ -100,30 +102,35 @@ public class VendaDao implements Dao<Venda> {
 
     @Override
     public List<Venda> buscar() throws SQLException {
-        conexao = ConexaoDB.getConexao();
+        try {
+            conexao = ConexaoDB.getConexao();
+            String sql = "SELECT * FROM vendas";
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
 
-        String sql = "SELECT * FROM vendas";
-        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
-        ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                vendas.add(new Venda(
+                        rs.getInt("id"),
+                        null,//falta fazer a logica para tratar o json
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_funcionario"),
+                        rs.getDouble("preco_total"),
+                        rs.getString("create_at")
+                ));
+            }
 
-        while (rs.next()) {
-            vendas.add(new Venda(
-                    rs.getInt("id"),
-                    null,//falta fazer a logica para tratar o json
-                    rs.getInt("id_cliente"),
-                    rs.getInt("id_funcionario"),
-                    rs.getDouble("preco_total"),
-                    rs.getString("create_at")
-            ));
+            preparedStatement.close();
+            rs.close();
+            if (vendas.isEmpty()) {
+                throw new VendasException("Erro ao buscar produtos!");
+            }
+            return vendas;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            conexao.close();
         }
-
-        preparedStatement.close();
-        rs.close();
-
-        if (vendas.isEmpty()) {
-            throw new VendasException("Erro ao buscar produtos!");
-        }
-        return vendas;
+        return null;
     }
 
     @Override
@@ -146,10 +153,13 @@ public class VendaDao implements Dao<Venda> {
             preparedStatement.execute();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
+                conexao.close();
                 return rs.getInt(1);
             } else {
+                conexao.close();
                 throw new SQLException();
             }
+
         } catch (SQLException e) {
             throw new VendasException("Erro ao Inserir itens no Banco.\nErro: " + e.getMessage());
         }
