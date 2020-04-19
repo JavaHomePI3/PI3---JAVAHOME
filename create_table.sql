@@ -6,18 +6,6 @@ CREATE TABLE cliente (
 
 -- Parte Vitória de cadastro de jogos e produtos
 
-CREATE TABLE jogos(
-  id INT NOT NULL AUTO_INCREMENT,
-  codigobarras Varchar (30) NOT NULL,
-  nome Varchar (30) NOT NULL,
-  valor FLOAT (10,2),
-  dataCadastro DATE,
-  descricao Varchar (60) NOT NULL,
-  categoria Varchar (30) NOT NULL,
-  quantidade INT NOT NULL,
-  idloja INT NOT NULL,
-  PRIMARY KEY (Id));
-  
   CREATE TABLE produtos(
   idprod INT NOT NULL AUTO_INCREMENT,
   codigobarrasprod Varchar (30) NOT NULL,
