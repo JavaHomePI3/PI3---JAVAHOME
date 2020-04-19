@@ -1,7 +1,21 @@
-CREATE TABLE cliente (
+CREATE schema IF NOT EXISTS senac;
+
+CREATE TABLE IF NOT EXISTS cliente (
    id INT not null primary KEY,
-   nome VARCHAR(255),
-   email VARCHAR(255)
+   nome VARCHAR(30),
+   sobrenome VARCHAR(50),
+   cpf VARCHAR(11),
+   email VARCHAR(30),
+   genero ENUM('masculino','feminino'),
+   data_nascimento DATE,
+   telefone VARCHAR(30),
+   cep VARCHAR(30),
+   rua VARCHAR(30),
+   bairro VARCHAR(30),
+   complemento VARCHAR(30),
+   cidade VARCHAR(30),
+   numero VARCHAR(30),
+   estado VARCHAR(30)
 );
 
 -- Parte Vitória de cadastro de jogos e produtos
