@@ -27,7 +27,7 @@
     <h1>Cadastrar Produto</h1>
 
     <div class="col-md-6 mb-3">
-        <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/CadastrarProd" method="POST">
+        <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/cadastraProduto" method="POST">
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label>Código do Produto</label>
