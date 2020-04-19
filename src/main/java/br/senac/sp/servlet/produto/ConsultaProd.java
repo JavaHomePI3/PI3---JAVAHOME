@@ -8,6 +8,7 @@ package br.senac.sp.servlet.produto;
 import br.senac.sp.entidade.dao.ProdutosDao;
 import br.senac.sp.entidade.model.Produto;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +36,11 @@ public class ConsultaProd extends HttpServlet {
 
         if (consultaProd.trim() != null) {
 
-            produtos = selectprod.PesquisarProduto(consultaProd);
+            try {
+                produtos = selectprod.PesquisarProduto(consultaProd);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             System.out.println("to aqui");
 

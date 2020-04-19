@@ -1,35 +1,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:import url="header.jsp" />
+<c:import url="header.jsp"/>
 <div class="container">
     <div>
-        <form action="#">
+        <form action="cadastraVenda" method="post">
             <div class="form-row">
-
-                <input type="hidden" disabled value="" name="idProduto">
+                <c:set var="resultado" value="${requestScope.produtoEncontrado}"/>
+                <input type="hidden"  value="<c:out value="${resultado.idProduto}"/>" name="idProduto">
                 <div class="form-group col-md-6">
                     <label for="produtoNome">Nome do produto</label>
-                    <input type="text" class="form-control" id="produtoNome">
+                    <input type="text" disabled class="form-control" id="produtoNome" value="<c:out value="${resultado.nomeprod}"/>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="codigoProduto">Código de Barras</label>
-                    <input type="text" class="form-control" id="codigoProduto">
+                    <input type="text" disabled class="form-control" id="codigoProduto" value="<c:out value="${resultado.codigobarrasprod}"/>">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
                     <label for="pesoProduto">Peso do produto</label>
-                    <input type="text" class="form-control" id="pesoProduto" placeholder="200gm">
+                    <input type="text" disabled class="form-control" id="pesoProduto" placeholder="200gm">
                 </div>
                 <div class="form-group col">
                     <label for="quantidadeProduto">Quantidade</label>
-                    <input type="number" class="form-control" id="quantidadeProduto">
+                    <input type="number" class="form-control" id="quantidadeProduto" name="quantidade" >
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
                     <label for="precoProduto">Preço</label>
-                    <input type="text" class="form-control" id="precoProduto" placeholder="R$ 00,00">
+                    <input type="text" disabled class="form-control" id="precoProduto" placeholder="R$ 00,00" value="<c:out value="${resultado.valorprod}"/>">
                 </div>
                 <div class="form-group col">
                     <label for="inputState">Desconto</label>
@@ -39,14 +39,17 @@
                     </select>
                 </div>
                 <div class="form-group col">
-                    <label for="inputZip">Seila</label>
-                    <input type="text" class="form-control" id="inputZip">
+                    <label for="inputZip">Estoque</label>
+                    <input type="text" class="form-control" id="inputZip" disabled value="<c:out value="${resultado.qtdestoque}"/>">
                 </div>
             </div>
-            <a type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" style="color: white">Pesquisar
+
+            <a type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
+               style="color: white">Pesquisar
                 produto
             </a>
-            <button type="submit" class="btn btn-primary">Adicionar produto a Venda</button>
+            <input type="text" hidden value="adiciona" name="metodo">
+            <button type="submit" class="btn btn-primary" onclick="">Adicionar produto a Venda</button>
         </form>
 
     </div>
@@ -64,12 +67,12 @@
             <tbody>
             <c:forEach var="produto" items="${requestScope.produto}">
                 <tr>
-                    <th scope="row">${produto.id}</th>
-                    <td>${produto.idItens}</td>
-                    <td>${produto.idCliente}</td>
-                    <td>${produto.idVendedor}</td>
-                    <td>${produto.precoTotal}</td>
-                    <td>${produto.dataDaVenda}</td>
+                    <th scope="row">${produto.idProduto}</th>
+                    <td>${produto.nomeprod}</td>
+                    <td>${produto.codigobarrasprod}</td>
+                    <td>${produto.categoriaprod}</td>
+                    <td>${produto.qtdestoque}</td>
+                    <td>${produto.valorprod}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -87,7 +90,9 @@
                     <label for="cpfCliente">CPF cliente</label>
                     <input type="password" class="form-control" id="cpfCliente" placeholder="333-333-333-33">
                 </div>
+                <input type="text" hidden value="vender" name="metodo">
                 <button type="submit" class="btn btn-primary">Realizar Venda</button>
+
             </form>
         </div>
     </div>
@@ -98,8 +103,27 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <h1>Pesquisar Produtos</h1>
+            <div class="container">
+                <form class="form-row" action="cadastraVenda" method="get" style="margin: 30px;">
+                    <label for="codigoProdutoModal">Código de Barras</label>
+                    <input type="text" class="form-control" id="codigoProdutoModal" name="codigoDoProduto">
+                    <input type="text" hidden value="pesquisar" name="metodo">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    var mensagem = "${mensagem}"
+    var codigo = "${codigobarras}"
 
-<c:import url="footer.jsp" />
+    if (mensagem == "Produto encontrado") {
+        alert(mensagem +" : "+ codigo)
+    } else if (mensagem == "nao") {
+        alert("Não foi encontrado protudo com esse código de barras!\nCódigo:" + codigo)
+    }else if (mensagem == "erro add") {
+        alert("Não foi adicionar protudo")
+    }
+</script>
+<c:import url="footer.jsp"/>

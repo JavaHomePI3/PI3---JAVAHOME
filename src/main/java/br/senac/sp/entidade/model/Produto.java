@@ -7,7 +7,7 @@ import java.util.Date;
  * 
  */
 public class Produto {
-
+    private int idProduto;
     private String codigobarrasprod;
 
     private double valorprod;
@@ -37,6 +37,14 @@ public class Produto {
         this.descricaoprod = descricaoprod;
         this.qtdestoque = qtdestoque;
         this.categoriaprod = categoriaprod;
+    }
+
+    public int getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
     }
 
     public String getCodigobarrasprod() {

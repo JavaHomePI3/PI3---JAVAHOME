@@ -26,7 +26,7 @@
                         Venda
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownVenda">
-                        <a class="dropdown-item" href="cadastraVenda">Cadastro de Venda</a>
+                        <a class="dropdown-item" href="cadastraVenda">Realiza Venda</a>
                         <a class="dropdown-item" href="cadastraVenda">Consulta Venda</a>
                     </div>
                 </li>

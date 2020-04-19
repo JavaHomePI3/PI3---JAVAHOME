@@ -7,9 +7,11 @@ package br.senac.sp.entidade.dao;
 
 import br.senac.sp.db.ConexaoDB;
 import br.senac.sp.entidade.model.Produto;
+import com.google.gson.internal.$Gson$Preconditions;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +32,7 @@ public class ProdutosDao {
             st.executeUpdate("INSERT INTO produtos (codigobarrasprod, nomeprod,valor,"
                     + "datacadastroprod, descricaoprod,categoriaprod, quantidadeprod, idloja)"
                     + " VALUES ('" + produtos.getCodigoprod() + "','" + produtos.getNomeprod()
-                    + "'," + produtos.getValorprod() + ",now(),'"
+                    + "'," + produtos.getValorprod() + ",now() ,'"
                     + produtos.getDescricaoprod() + "','" + produtos.getCategoriaprod() + "'," + produtos.getQtdestoque() + "," + produtos.getIdloja() + ");");
 
             conexao.close();
@@ -67,10 +69,10 @@ public class ProdutosDao {
 
     }
 
-    public Produto PesquisarProduto(String codigobarrasprod) {
+    public Produto PesquisarProduto(String codigobarrasprod) throws SQLException {
 
         String select = "";
-
+        Produto resultado = null;
         try {
 
             conexao = ConexaoDB.getConexao();
@@ -80,29 +82,56 @@ public class ProdutosDao {
             ResultSet result = st.executeQuery(select);
 
             while (result.next()) {
-
-                produtos.setCodigoprod(result.getString("codigobarrasprod"));
-                produtos.setNomeprod(result.getString("nomeprod"));
-                produtos.setValorprod(result.getDouble("valor"));
-                produtos.setDtCadastro(result.getDate("datacadastroprod"));
-                produtos.setDescricaoprod(result.getString("descricaoprod"));
-                produtos.setCategoriaprod(result.getString("categoriaprod"));
-                produtos.setQtdestoque(result.getInt("quantidadeprod"));
-                produtos.setQtdestoque(result.getInt("idloja"));
-
+                resultado = new Produto();
+                resultado.setIdProduto(result.getInt("idprod"));
+                resultado.setCodigoprod(result.getString("codigobarrasprod"));
+                resultado.setNomeprod(result.getString("nomeprod"));
+                resultado.setValorprod(result.getDouble("valor"));
+                resultado.setDtCadastro(result.getDate("datacadastroprod"));
+                resultado.setDescricaoprod(result.getString("descricaoprod"));
+                resultado.setCategoriaprod(result.getString("categoriaprod"));
+                resultado.setQtdestoque(result.getInt("quantidadeprod"));
+                resultado.setIdloja(result.getInt("idloja"));
                 //produtos.setListaProd(produtos);
-
             }
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        } finally {
             conexao.close();
-
-        } catch (Exception e) {
-
-            System.out.println("erro" + e.getMessage());
-
         }
 
-        return produtos;
+        return resultado;
+    }
+
+    public Produto PesquisarProdutoPorId(int id) throws SQLException {
+        Produto resultado = null;
+        try {
+            conexao = ConexaoDB.getConexao();
+
+            java.sql.Statement st = conexao.createStatement();
+            String sql = "select * from produtos where idprod ="+id;
+            ResultSet result = st.executeQuery(sql);
+
+            while (result.next()) {
+                resultado = new Produto();
+                resultado.setIdProduto(result.getInt("idprod"));
+                resultado.setCodigoprod(result.getString("codigobarrasprod"));
+                resultado.setNomeprod(result.getString("nomeprod"));
+                resultado.setValorprod(result.getDouble("valor"));
+                resultado.setDtCadastro(result.getDate("datacadastroprod"));
+                resultado.setDescricaoprod(result.getString("descricaoprod"));
+                resultado.setCategoriaprod(result.getString("categoriaprod"));
+                resultado.setQtdestoque(result.getInt("quantidadeprod"));
+                resultado.setIdloja(result.getInt("idloja"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        } finally {
+            conexao.close();
+        }
+        return resultado;
     }
 
     public boolean validacadastradoprod(String buscaprod) {

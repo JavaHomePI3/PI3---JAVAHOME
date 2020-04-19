@@ -63,14 +63,13 @@ public class VendaDao implements Dao<Venda> {
 
     private void salvaNovaVemda(Venda entidade, int idIten) throws SQLException {
         Calendar c = Calendar.getInstance();
-        String sql = "insert into vendas values (default,?,?,?,?,?)";
+        String sql = "insert into vendas values (default,?,?,?,?,now())";
         PreparedStatement ps = conexao.prepareStatement(sql);
         ps.setInt(1, idIten);
         ps.setInt(2, entidade.getIdCliente());
         ps.setInt(3, entidade.getIdVendedor());
         calculaPrecoTotal(entidade);
         ps.setDouble(4, entidade.getPrecoTotal());
-        ps.setString(5, c.getTime().toString());
         ps.execute();
         ps.close();
     }
@@ -117,7 +116,7 @@ public class VendaDao implements Dao<Venda> {
                         rs.getInt("id_cliente"),
                         rs.getInt("id_funcionario"),
                         rs.getDouble("preco_total"),
-                        rs.getString("create_at")
+                        rs.getDate("create_at")
                 ));
             }
             preparedStatement.close();
