@@ -8,6 +8,7 @@ package br.senac.sp.entidade.model;
 /**
  *
  * @author Vitoria Cristina
+ * 
  */
 public class Jogos extends Produto {
 

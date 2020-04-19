@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * @author Vitoria Cristina
+ * 
  */
 public class Produto {
 
