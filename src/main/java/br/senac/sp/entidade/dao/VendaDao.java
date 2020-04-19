@@ -16,7 +16,7 @@ public class VendaDao implements Dao<Venda> {
     private Connection conexao;
 
     @Override
-    public boolean inserir(Venda entidade) throws VendasException {
+    public boolean inserir(Venda entidade) throws SQLException {
         try {
             conexao = ConexaoDB.getConexao();
             String sqlValida;
@@ -35,14 +35,15 @@ public class VendaDao implements Dao<Venda> {
 
             //criar venda
             salvaNovaVemda(entidade, idIten);
-            conexao.close();
             return true;
         } catch (SQLException e) {
             throw new VendasException("Erro ao Cadastrar Venda!\nErro: " + e.getMessage());
+        } finally {
+            conexao.close();
         }
     }
 
-    public boolean inserirSemValidacao(Venda entidade) throws VendasException {
+    public boolean inserirSemValidacao(Venda entidade) throws SQLException {
         try {
             conexao = ConexaoDB.getConexao();
 
@@ -52,10 +53,11 @@ public class VendaDao implements Dao<Venda> {
 
             //criar venda
             salvaNovaVemda(entidade, idIten);
-            conexao.close();
             return true;
         } catch (SQLException e) {
             throw new VendasException("Erro ao Cadastrar Venda!\nErro: " + e.getMessage());
+        } finally {
+            conexao.close();
         }
     }
 
@@ -118,7 +120,6 @@ public class VendaDao implements Dao<Venda> {
                         rs.getString("create_at")
                 ));
             }
-
             preparedStatement.close();
             rs.close();
             if (vendas.isEmpty()) {
@@ -127,7 +128,7 @@ public class VendaDao implements Dao<Venda> {
             return vendas;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             conexao.close();
         }
         return null;
@@ -143,7 +144,7 @@ public class VendaDao implements Dao<Venda> {
         return false;
     }
 
-    public int criaIten(List<Produto> itens) throws VendasException {
+    public int criaIten(List<Produto> itens) throws SQLException {
         try {
             Gson gson = new Gson();
             conexao = ConexaoDB.getConexao();
@@ -153,16 +154,15 @@ public class VendaDao implements Dao<Venda> {
             preparedStatement.execute();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
-                conexao.close();
                 return rs.getInt(1);
             } else {
-                conexao.close();
                 throw new SQLException();
             }
 
         } catch (SQLException e) {
             throw new VendasException("Erro ao Inserir itens no Banco.\nErro: " + e.getMessage());
+        } finally {
+            conexao.close();
         }
-
     }
 }
