@@ -18,8 +18,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cadastroCliente.jsp">Cadastro de Cliente</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cadastro Ciente
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
+                        <a class="dropdown-item" href="cadastroCliente.jsp">Cadastrar</a>
+                        <a class="dropdown-item" href="listaClientes.jsp">Editar</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

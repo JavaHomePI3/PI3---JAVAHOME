@@ -19,7 +19,7 @@
     Sobrenome:<input type="text" name="sobrenome"/><br>
     CPF:<input type="text" name="cpf"/><br>
     Email:<input type="email" name="email"/><br>
-    Sexo:<select name="genero" required>
+    Sexo:<select name="genero" >
         <option value="">Nenhum...</option>
         <option>MASCULINO</option>
         <option>FEMININO</option>
@@ -38,5 +38,7 @@
 
 
     <button type="submit" >Cadastrar</button>
+    
 </form>
+            <a href="ListaClientes.jsp" >Lista</a>
 <c:import url="footer.jsp"/>
