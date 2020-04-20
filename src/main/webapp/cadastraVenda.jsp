@@ -9,11 +9,11 @@
                 <input type="hidden"  value="<c:out value="${resultado.idProduto}"/>" name="idProduto">
                 <div class="form-group col-md-6">
                     <label for="produtoNome">Nome do produto</label>
-                    <input type="text" disabled class="form-control" id="produtoNome" value="<c:out value="${resultado.nomeprod}"/>">
+                    <input type="text" disabled class="form-control" id="produtoNome" value="<c:out value="${resultado.nomeprod}"/>" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="codigoProduto">Código de Barras</label>
-                    <input type="text" disabled class="form-control" id="codigoProduto" value="<c:out value="${resultado.codigobarrasprod}"/>">
+                    <input type="text" disabled class="form-control" id="codigoProduto" value="<c:out value="${resultado.codigobarrasprod}"/>" required>
                 </div>
             </div>
             <div class="form-row">
@@ -23,13 +23,13 @@
                 </div>
                 <div class="form-group col">
                     <label for="quantidadeProduto">Quantidade</label>
-                    <input type="number" class="form-control" id="quantidadeProduto" name="quantidade" >
+                    <input type="number" class="form-control" id="quantidadeProduto" name="quantidade" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
                     <label for="precoProduto">Preço</label>
-                    <input type="text" disabled class="form-control" id="precoProduto" placeholder="R$ 00,00" value="<c:out value="${resultado.valorprod}"/>">
+                    <input type="text" disabled class="form-control" id="precoProduto" placeholder="R$ 00,00" value="<c:out value="${resultado.valorprod}"/>" required>
                 </div>
                 <div class="form-group col">
                     <label for="inputState">Desconto</label>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group col">
                     <label for="inputZip">Estoque</label>
-                    <input type="text" class="form-control" id="inputZip" disabled value="<c:out value="${resultado.qtdestoque}"/>">
+                    <input type="text" class="form-control" id="inputZip" disabled value="<c:out value="${resultado.qtdestoque}"/>" required>
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
                 produto
             </a>
             <input type="text" hidden value="adiciona" name="metodo">
-            <button type="submit" class="btn btn-primary" onclick="">Adicionar produto a Venda</button>
+            <button type="submit" class="btn btn-primary">Adicionar produto a Venda</button>
         </form>
 
     </div>
@@ -62,17 +62,17 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Quantidade</th>
                 <th scope="col">Preço</th>
+                <th scope="col">Categoria</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="produto" items="${requestScope.produto}">
                 <tr>
-                    <th scope="row">${produto.idProduto}</th>
-                    <td>${produto.nomeprod}</td>
-                    <td>${produto.codigobarrasprod}</td>
-                    <td>${produto.categoriaprod}</td>
-                    <td>${produto.qtdestoque}</td>
-                    <td>${produto.valorprod}</td>
+                    <th scope="row">${produto.key.codigobarrasprod}</th>
+                    <td>${produto.key.nomeprod}</td>
+                    <td>${produto.value}</td>
+                    <td>${produto.key.valorprod}</td>
+                    <td>${produto.key.categoriaprod}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -81,10 +81,11 @@
     <div class="form-row">
         <div class="col"><h2>Dados da venda</h2></div>
         <div class="col">
+            <c:set var="totalVenda" value="${requestScope.precoTotal}"/>
             <form class="form-row" action="#">
                 <div class="form-group col-md-6">
                     <label for="totalVenda">Total da venda</label>
-                    <input type="email" class="form-control" id="totalVenda" placeholder="R$: 1000,00">
+                    <input type="email" class="form-control" id="totalVenda" placeholder="R$: 1000,00" disabled value="<c:out value="${totalVenda}"/>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="cpfCliente">CPF cliente</label>
