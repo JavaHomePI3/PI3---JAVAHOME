@@ -66,13 +66,13 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="produto" items="${requestScope.produto}">
+            <c:forEach var="carrinho" items="${requestScope.produto}">
                 <tr>
-                    <th scope="row">${produto.key.codigobarrasprod}</th>
-                    <td>${produto.key.nomeprod}</td>
-                    <td>${produto.value}</td>
-                    <td>${produto.key.valorprod}</td>
-                    <td>${produto.key.categoriaprod}</td>
+                    <th scope="row">${carrinho.key.codigobarrasprod}</th>
+                    <td>${carrinho.key.nomeprod}</td>
+                    <td>${carrinho.value}</td>
+                    <td>${carrinho.key.valorprod}</td>
+                    <td>${carrinho.key.categoriaprod}</td>
                 </tr>
             </c:forEach>
             </tbody>
