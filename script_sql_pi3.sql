@@ -18,9 +18,21 @@ USE `senac`;
 
 -- Copiando estrutura para tabela senac.cliente
 CREATE TABLE IF NOT EXISTS `cliente` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(30) DEFAULT NULL,
+  `sobrenome` varchar(50) DEFAULT NULL,
+  `cpf` varchar(11) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `genero` varchar(30) DEFAULT NULL,
+  `data_nascimento` date DEFAULT NULL,
+  `telefone` varchar(30) DEFAULT NULL,
+  `cep` varchar(8) DEFAULT NULL,
+  `rua` varchar(30) DEFAULT NULL,
+  `bairro` varchar(30) DEFAULT NULL,
+  `complemento` varchar(30) DEFAULT NULL,
+  `cidade` varchar(30) DEFAULT NULL,
+  `numero` varchar(10) DEFAULT NULL,
+  `estado` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
@@ -83,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   `create_at` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_itens` (`id_itens`),
-  KEY `FK_cliente` (`id_cliente`),
   KEY `FK_func` (`id_funcionario`),
+  KEY `FK_cliente` (`id_cliente`),
   CONSTRAINT `FK_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_func` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_itens` FOREIGN KEY (`id_itens`) REFERENCES `itens` (`id`) ON DELETE CASCADE ON UPDATE CASCADE

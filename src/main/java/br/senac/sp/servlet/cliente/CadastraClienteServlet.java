@@ -3,6 +3,7 @@ package br.senac.sp.servlet.cliente;
 import br.senac.sp.entidade.dao.ClienteDAO;
 import br.senac.sp.entidade.exception.ClienteException;
 import br.senac.sp.entidade.model.Cliente;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,14 +12,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
 /**
- *
  * @author walter_prata
  */
 @WebServlet(name = "CadastraClienteServlet", urlPatterns = {"/CadastroCliente"})
@@ -26,18 +28,18 @@ public class CadastraClienteServlet extends HttpServlet {
 
     private static String INSERIR_OU_EDITAR = "/cadastroCliente.jsp";
     private static String LISTA_CLIENTE = "listaClientes.jsp";
-    private ClienteDAO dao;
+    private ClienteDAO dao = new ClienteDAO();
 
     public CadastraClienteServlet() {
         super();
-        dao = new ClienteDAO();
+
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward = "";
         String acao = request.getParameter("action");
-
+        List<Cliente> listaDeCliente = new ArrayList<>();
         if (acao.equalsIgnoreCase("deletar")) {
 
             try {
@@ -63,7 +65,9 @@ public class CadastraClienteServlet extends HttpServlet {
         } else if (acao.equalsIgnoreCase("listar")) {
             forward = LISTA_CLIENTE;
             try {
-                request.setAttribute("clientes", dao.buscar());
+                listaDeCliente = dao.buscar();
+                request.setAttribute("clientes", listaDeCliente);
+
             } catch (ClienteException ex) {
                 Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -72,49 +76,44 @@ public class CadastraClienteServlet extends HttpServlet {
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
+        request.setAttribute("clientes", listaDeCliente);
         view.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cliente cliente = new Cliente();
-        cliente.setIdUsuario(Integer.parseInt(request.getParameter("id_usuario")));
-        cliente.setNomeUsuario(request.getParameter("nome"));
-        cliente.setSobrenomeUsuario(request.getParameter("sobrenome"));
-        cliente.setCpf(request.getParameter("cpf"));
-        cliente.setEmail(request.getParameter("email"));
+        //cliente.setIdUsuario(Integer.parseInt(request.getParameter("id_usuario")));
+        cliente.setNomeUsuario(request.getParameter("nomeCliente"));
+        cliente.setSobrenomeUsuario(request.getParameter("sobrenomeCliente"));
+        cliente.setCpf(request.getParameter("cpfCliente"));
+        cliente.setEmail(request.getParameter("emailCliente"));
         cliente.setGenero(request.getParameter("genero").charAt(0));
+        //Date dataNascimento = null;
+        String teste = request.getParameter("data_nascimento");
+        System.out.println(teste);
+//            if (request.getParameter("data_nascimento") != null) {
+//                dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("dob"));
+//            } else {
+//                dataNascimento = null;
+//            }
+        cliente.setDataNascimento(teste);
+
+        cliente.setTelefone(request.getParameter("telefoneCliente"));
+        cliente.setCep(request.getParameter("cepCliente"));
+        cliente.setRua(request.getParameter("ruaCliente"));
+        cliente.setBairro(request.getParameter("bairroCliente"));
+        cliente.setComplemento(request.getParameter("complementoCliente"));
+        cliente.setCidade(request.getParameter("cidadeCliente"));
+        cliente.setNumero(Integer.parseInt(request.getParameter("numero")));
+        cliente.setEstado(request.getParameter("uf"));
+
         try {
-            Date dataNascimento = null;
-            String teste = request.getParameter("data_nascimento");
-            System.out.println(teste);
-            if (request.getParameter("data_nascimento") != null) {
-                dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("dob"));
-            } else {
-                dataNascimento = null;
-            }
-            cliente.setDataNascimento(dataNascimento);
-        } catch (ParseException e) {
+            dao.inserir(cliente);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        cliente.setTelefone(request.getParameter("sobrenome"));
-        cliente.setCep(request.getParameter("sobrenome"));
-        cliente.setRua(request.getParameter("sobrenome"));
-        cliente.setBairro(request.getParameter("sobrenome"));
-        cliente.setComplemento(request.getParameter("sobrenome"));
-        cliente.setCidade(request.getParameter("sobrenome"));
-        cliente.setNumero(Integer.parseInt(request.getParameter("numero")));
-        cliente.setEstado(request.getParameter("estado"));
-        
-        try {
-            RequestDispatcher view = request.getRequestDispatcher(LISTA_CLIENTE);
-            request.setAttribute("clientes", dao.buscar());
-            view.forward(request, response);
-        } catch (ClienteException ex) {
-            Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-
+        RequestDispatcher view = request.getRequestDispatcher(LISTA_CLIENTE);
+        view.forward(request, response);
     }
 }

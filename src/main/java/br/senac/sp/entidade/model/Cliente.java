@@ -15,7 +15,7 @@ public class Cliente extends Usuario {
     }
     
     public Cliente(Integer quantidadeCompras, int idUsuario, String nomeUsuario, String sobreNomeUsuario, 
-            String cpf, String email, Character genero, Date dataNascimento, String telefone, String cep, 
+            String cpf, String email, Character genero, String dataNascimento, String telefone, String cep,
             String rua, String bairro, String complemento, String cidade, int numero, String estado) {
         super(idUsuario, nomeUsuario, sobreNomeUsuario, cpf, email, genero, dataNascimento, telefone, cep,
             rua, bairro, complemento, cidade, numero, estado);

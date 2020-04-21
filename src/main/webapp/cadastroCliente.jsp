@@ -22,12 +22,12 @@
     
         <div class="col-md-6 mb-3">
             <h6>Dados Pessoais</h6><br>
-        <form method="POST" action='/CadastroCliente' name="inserir" >
+        <form method="POST" action='CadastroCliente' name="inserir" >
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label>Nome</label>
                 <input name="nomeCliente" type="text" class="form-control" id="nomeCliente" placeholder="" value=""
-                       maxlength="30" required>
+                       maxlength="30" required >
                 <div class="invalid-feedback">
                     Nome obrigatório
                 </div>
@@ -42,14 +42,14 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label>Data de Nascimento</label>
-                <input name="dataNascimento" type="date" class="form-control" id="dataNascimento" placeholder="" value=""
+                <input name="data_nascimento" type="date" class="form-control" id="dataNascimento" placeholder="" value=""
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Inseri Data de Nascimento
                 </div>
             </div>
                 <div class="col-md-3 mb-3">
-                <label for="sexo">Sexo</label>
+                <label for="generoCliente">Sexo</label>
                 <select name="genero" class="custom-select d-block w-100" id="generoCliente" required>
                     <option value="">Selecionar...</option>
                     <option>Feminino</option>
@@ -107,7 +107,7 @@
             </div>
             <div class="col-md-2 mb-3">
                 <label>Nº</label>
-                <input name="nCliente" type="number" class="form-control" id="numeroCliente" placeholder="" value=""
+                <input name="numero" type="number" class="form-control" id="numeroCliente" placeholder="" value=""
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Número obrigatório
@@ -138,7 +138,7 @@
                 </div>
             </div> 
             <div class="col-md-4 mb-3">
-                <label for="uf">UF</label>
+                <label for="ufCliente">UF</label>
                 <select name="uf" class="custom-select d-block w-100" id="ufCliente" required>
                     <option value="">Selecionar...</option>
                     <option>AC</option>

@@ -1,7 +1,5 @@
 package br.senac.sp.entidade.model;
 
-import java.util.Date;
-
 /**
  * @author Walter Prata
  */
@@ -13,7 +11,7 @@ public abstract class Usuario {
     private String cpf;
     private String email;
     private Character genero;
-    private Date dataNascimento;
+    private String dataNascimento;
     private String telefone;
     private String cep;
     private String rua;
@@ -26,7 +24,7 @@ public abstract class Usuario {
     public Usuario(){}
 
     public Usuario(int idUsuario, String nomeUsuario, String sobrenomeUsuario, String cpf, String email,
-                   Character genero, Date dataNascimento, String telefone, String cep, String rua,
+                   Character genero, String dataNascimento, String telefone, String cep, String rua,
                    String bairro, String complemento, String cidade, int numero, String estado) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
@@ -93,11 +91,11 @@ public abstract class Usuario {
         this.genero = genero;
     }
 
-    public Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

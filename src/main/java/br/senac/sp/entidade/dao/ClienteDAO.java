@@ -34,7 +34,7 @@ public class ClienteDAO implements Dao<Cliente>{
             stmt.setString(3, entidade.getCpf());
             stmt.setString(4, entidade.getEmail());
             stmt.setString(5, entidade.getGenero().toString());
-            stmt.setDate(6, new java.sql.Date(entidade.getDataNascimento().getTime()));
+            stmt.setString(6, entidade.getDataNascimento());
             stmt.setString(7, entidade.getTelefone());
             stmt.setString(8, entidade.getCep());
             stmt.setString(9, entidade.getRua());
@@ -73,7 +73,7 @@ public class ClienteDAO implements Dao<Cliente>{
                cliente.setCpf(rs.getString("cpf"));
                cliente.setEmail(rs.getString("email"));
                cliente.setGenero(rs.getString("genero").charAt(0));
-               cliente.setDataNascimento(rs.getDate("data_nascimento"));
+               cliente.setDataNascimento(rs.getString("data_nascimento"));
                cliente.setTelefone(rs.getString("telefone"));
                cliente.setCep(rs.getString("cep"));
                cliente.setRua(rs.getString("rua"));
@@ -121,7 +121,7 @@ public class ClienteDAO implements Dao<Cliente>{
             stmt.setString(3, entidade.getCpf());
             stmt.setString(4, entidade.getEmail());
             stmt.setString(5, entidade.getGenero().toString());
-            stmt.setDate(6, new java.sql.Date(entidade.getDataNascimento().getTime()));
+            stmt.setString(6, entidade.getDataNascimento());
             stmt.setString(7, entidade.getTelefone());
             stmt.setString(8, entidade.getCep());
             stmt.setString(9, entidade.getRua());
@@ -158,7 +158,7 @@ public class ClienteDAO implements Dao<Cliente>{
                cliente.setCpf(rs.getString("cpf"));
                cliente.setEmail(rs.getString("email"));
                cliente.setGenero(rs.getString("genero").charAt(0));
-               cliente.setDataNascimento(rs.getDate("data_nascimento"));
+               cliente.setDataNascimento(rs.getString("data_nascimento"));
                cliente.setTelefone(rs.getString("telefone"));
                cliente.setCep(rs.getString("cep"));
                cliente.setRua(rs.getString("rua"));

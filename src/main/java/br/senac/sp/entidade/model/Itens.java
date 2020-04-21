@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Itens <T>{
     private int id;
-    private List<T> entidades = new ArrayList<>();
+    private Carrinho carrinho;
 
     public Itens(int id) {
         this.id = id;
@@ -19,11 +19,11 @@ public class Itens <T>{
         this.id = id;
     }
 
-    public List<T> getEntidades() {
-        return entidades;
+    public Carrinho getCarrinho() {
+        return carrinho;
     }
 
-    public void setEntidades(List<T> entidades) {
-        this.entidades = entidades;
+    public void setCarrinho(Carrinho carrinho) {
+        this.carrinho = carrinho;
     }
 }
