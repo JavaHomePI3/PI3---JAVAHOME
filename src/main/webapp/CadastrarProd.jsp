@@ -53,8 +53,7 @@
                     Descrição necessária
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="categoria">Categoria</label>
+            <div class="col-md-4 mb-3"><label for="categoria">Categoria</label>
                 <select name="categoriaprod" class="custom-select d-block w-100" id="categoria" required>
                     <option value="">Selecionar...</option>
                     <option>Jogo</option>

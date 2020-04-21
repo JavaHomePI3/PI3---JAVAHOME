@@ -21,29 +21,31 @@ import javax.servlet.ServletException;
  *
  * @author walter_prata
  */
-@WebServlet(name = "Cliente", urlPatterns = "/CadastroCliente")
+@WebServlet(name = "CadastraClienteServlet", urlPatterns = {"/CadastroCliente"})
 public class CadastraClienteServlet extends HttpServlet {
 
     private static String INSERIR_OU_EDITAR = "/cadastroCliente.jsp";
-    private static String LISTA_CLIENTE = "/listaCliente.jsp";
+    private static String LISTA_CLIENTE = "listaClientes.jsp";
     private ClienteDAO dao;
 
     public CadastraClienteServlet() {
+        super();
         dao = new ClienteDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward = "";
-        String acao = request.getParameter("acao");
+        String acao = request.getParameter("action");
 
         if (acao.equalsIgnoreCase("deletar")) {
 
             try {
                 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+                String cpf = request.getParameter("cpf");
                 dao.removerCliente(idUsuario);
                 forward = LISTA_CLIENTE;
-                request.setAttribute("cliente", dao.buscar());
+                request.setAttribute("cliente", dao.buscarClientePeloCpf(cpf));
             } catch (SQLException ex) {
                 Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -61,7 +63,7 @@ public class CadastraClienteServlet extends HttpServlet {
         } else if (acao.equalsIgnoreCase("listar")) {
             forward = LISTA_CLIENTE;
             try {
-                request.setAttribute("cliente", dao.buscar());
+                request.setAttribute("clientes", dao.buscar());
             } catch (ClienteException ex) {
                 Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

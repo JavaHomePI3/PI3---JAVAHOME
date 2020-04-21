@@ -20,11 +20,11 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Cadastro Ciente
+                        Ciente
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
-                        <a class="dropdown-item" href="cadastroCliente.jsp">Cadastrar</a>
-                        <a class="dropdown-item" href="listaClientes.jsp">Editar</a>
+                        <a class="dropdown-item" href="cadastroCliente.jsp">Novo Cliente</a>
+                        <a class="dropdown-item" href="listaClientes.jsp">Editar Cliente</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -41,8 +41,8 @@
                         Produtos
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="cadastraProduto">Cadastro Produto</a>
-                        <a class="dropdown-item" href="consultaProduto">Consulta Produto</a>
+                        <a class="dropdown-item" href="cadastraProduto">Novo Produto</a>
+                        <a class="dropdown-item" href="consultaProduto">Editar Produto</a>
                     </div>
                 </li>
             </ul>
