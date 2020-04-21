@@ -1,11 +1,12 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
-       
+       <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
         <title>Lista de Clientes</title>
     </head>
 <body>
@@ -32,14 +33,15 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${cliente}" var="cliente">
+            <a href="/CadastroCliente?action=listar"/>Listar Clientes</a>
+            <c:forEach items="${clientes}" var="cliente">
                 <tr>
                     <td><c:out value="${cliente.idUsuario}" /></td>
                     <td><c:out value="${cliente.nomeUsuario}" /></td>
                     <td><c:out value="${cliente.cpf}" /></td>
                     <td><c:out value="${cliente.email}" /></td>
                     <td><c:out value="${cliente.genero}" /></td>
-                    <td><fmt:formatDate pattern="dd/MM/yyyy" value="${cliente.dataNascimento}" /></td>
+                    <td><fmt:formatDate pattern="dd/MM/yyyy" value="${cliente.data_nascimento}" /></td>
                     <td><c:out value="${cliente.telefone}" /></td>
                     <td><c:out value="${cliente.cep}" /></td>
                     <td><c:out value="${cliente.rua}" /></td>
@@ -49,8 +51,8 @@
                     <td><c:out value="${cliente.cidade}" /></td>
                     <td><c:out value="${cliente.estado}" /></td>
                     
-                    <td><a href="CadastroClienteServlet?action=editar=<c:out value="${cliente.idUsuario}"/>">Editar</a></td>
-                    <td><a href="CadastroClienteServlet?action=deletar=<c:out value="${cliente.idUsuario}"/>">Deletar</a></td>
+                    <td><a href="CadastroClienteServlet?acao=editar&idUsuario=<c:out value="${cliente.idUsuario}"/>">Editar</a></td>
+                    <td><a href="CadastroClienteServlet?acao=deletar&idUsuario=<c:out value="${cliente.idUsuario}"/>">Deletar</a></td>
                 </tr>
             </c:forEach>
         </tbody>

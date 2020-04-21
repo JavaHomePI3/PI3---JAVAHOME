@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS cliente (
    sobrenome VARCHAR(50),
    cpf VARCHAR(11),
    email VARCHAR(30),
-   genero ENUM('masculino','feminino'),
+   genero VARCHAR(30),
    data_nascimento DATE,
    telefone VARCHAR(30),
    cep VARCHAR(8),
