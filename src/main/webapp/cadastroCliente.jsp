@@ -13,16 +13,16 @@
     <br>
 <center><h1>Cadastrar Cliente</h1></center>
     <br>
-<form action="CadastraClienteServlet" method="POST">
+
     <script>
         $(function() {
-            $('input[name=data_nascimento]').datepicker();
+            $('input[name=dataNascimento]').datepicker();
         });
     </script> 
     
         <div class="col-md-6 mb-3">
             <h6>Dados Pessoais</h6><br>
-        <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/cadastraCliente" method="POST">
+        <form method="POST" action='/CadastroCliente' name="inserir" >
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label>Nome</label>
@@ -52,7 +52,6 @@
                 <label for="sexo">Sexo</label>
                 <select name="genero" class="custom-select d-block w-100" id="generoCliente" required>
                     <option value="">Selecionar...</option>
-                    <option>Nenhum</option>
                     <option>Feminino</option>
                     <option>Masculino</option>
                 </select>
@@ -86,7 +85,7 @@
             </div>
             </div>
         </div>
-        </form>
+        
             <div class="col-md-6 mb-3">
                 <h6>Endereço</h6><br>
             <div class="row">

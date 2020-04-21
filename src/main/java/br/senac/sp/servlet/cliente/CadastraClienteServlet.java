@@ -42,9 +42,10 @@ public class CadastraClienteServlet extends HttpServlet {
 
             try {
                 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+                String cpf = request.getParameter("cpf");
                 dao.removerCliente(idUsuario);
                 forward = LISTA_CLIENTE;
-                request.setAttribute("cliente", dao.buscar());
+                request.setAttribute("cliente", dao.buscarClientePeloCpf(cpf));
             } catch (SQLException ex) {
                 Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
