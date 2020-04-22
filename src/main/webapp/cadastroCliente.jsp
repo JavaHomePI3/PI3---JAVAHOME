@@ -2,17 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:import url="header.jsp"/>
-<link type="text/css"
-    href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
-<script type="text/javascript" src="http://www.godtur.no/godtur/js/jquery-ui-1.8.18.custom.min.js"></script>
- 
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
 <link href="topodapagina.css" rel="stylesheet">
 <div align="center">
-    <br>
-    <br>
-<center><h1>Cadastrar Cliente</h1></center>
-    <br>
+
+        <h1 align="cemter">Cadastrar Cliente</h1>
+
 
     <script>
         $(function() {
