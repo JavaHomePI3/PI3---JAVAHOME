@@ -1,16 +1,16 @@
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<c:import url="header.jsp"/>
 <html>
     <head>
        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-        <title>Lista de Clientes</title>
+    <br>
+        <h1 align="center">Lista de Clientes</h1><br>
     </head>
 <body>
-    <table border=1>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            <a href="/CadastroCliente?action=listar"/>Listar Clientes</a>
+            
             <c:forEach items="${clientes}" var="cliente">
                 <tr>
                     <td><c:out value="${cliente.idUsuario}" /></td>
@@ -57,6 +57,8 @@
             </c:forEach>
         </tbody>
     </table>
-    <p><a href="index.jsp">Voltar</a></p>
+    <center>
+    <a class="btn btn-primary" href="index.jsp" role="button">Voltar</a>
+    </center>
 </body>
 </html>
