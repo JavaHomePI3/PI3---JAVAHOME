@@ -10,12 +10,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="JSPServlet" target="9" />
+      <module name="JSPServlet" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="JSPServlet" options="-endorseddirs D:\Projetos\PI3---JAVAHOME\target/endorsed" />
+      <module name="JSPServlet" options="" />
     </option>
   </component>
 </project>

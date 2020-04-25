@@ -22,14 +22,13 @@
                 <th>Data Nascimento</th>
                 <th>Telefone</th>
                 <th>CEP</th>
-                <th>Endereço</th>
+                <th>EndereÃ§o</th>
                 <th>Numero</th>
                 <th>Bairro</th>
                 <th>Complemento</th>
                 <th>Cidade</th>
                 <th>Estado</th>
-                   
-                <th colspan=2>Ação</th>
+                <th colspan=2>AÃ§Ã£o</th>
             </tr>
         </thead>
         <tbody>
@@ -38,10 +37,11 @@
                 <tr>
                     <td><c:out value="${cliente.idUsuario}" /></td>
                     <td><c:out value="${cliente.nomeUsuario}" /></td>
+                    <td><c:out value="${cliente.sobrenomeUsuario}" /></td>
                     <td><c:out value="${cliente.cpf}" /></td>
                     <td><c:out value="${cliente.email}" /></td>
                     <td><c:out value="${cliente.genero}" /></td>
-                    <td><fmt:formatDate pattern="dd/MM/yyyy" value="${cliente.data_nascimento}" /></td>
+                    <td><c:out value="${cliente.dataNascimento}" /></td>
                     <td><c:out value="${cliente.telefone}" /></td>
                     <td><c:out value="${cliente.cep}" /></td>
                     <td><c:out value="${cliente.rua}" /></td>

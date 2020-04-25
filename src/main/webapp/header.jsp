@@ -31,7 +31,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
                                 <a class="dropdown-item" href="cadastroCliente.jsp">Novo Cliente</a>
-                                <a class="dropdown-item" href="listaClientes.jsp">Editar Cliente</a>
+                                <a class="dropdown-item" href="CadastroCliente?action=listar">Editar Cliente</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">

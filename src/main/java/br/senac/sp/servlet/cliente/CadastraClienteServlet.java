@@ -76,7 +76,6 @@ public class CadastraClienteServlet extends HttpServlet {
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
-        request.setAttribute("clientes", listaDeCliente);
         view.forward(request, response);
     }
 

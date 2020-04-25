@@ -57,17 +57,18 @@ public class ClienteDAO implements Dao<Cliente>{
 
     @Override
     public List<Cliente> buscar() throws ClienteException {
-        
+
         
         try {
-            String sql = "SELECT * FROM cliente";
             conn = ConexaoDB.getConexao();
-            rs = st.executeQuery(sql);
+            String sql = "SELECT * FROM cliente";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
 
             while (rs.next()){
                Cliente cliente = new Cliente();
    
-               cliente.setIdUsuario(rs.getInt("id_cliente"));
+               cliente.setIdUsuario(rs.getInt("id"));
                cliente.setNomeUsuario(rs.getString("nome"));
                cliente.setSobrenomeUsuario(rs.getString("sobrenome"));
                cliente.setCpf(rs.getString("cpf"));
