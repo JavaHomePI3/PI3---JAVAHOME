@@ -51,7 +51,7 @@
                     <td><c:out value="${cliente.cidade}" /></td>
                     <td><c:out value="${cliente.estado}" /></td>
                     
-                    <td><a href="CadastroCliente?action=editar&idUsuario=<c:out value="${cliente.idUsuario}"/>">Editar</a></td>
+                    <td><a href="CadastroCliente?action=editar&cpf=<c:out value="${cliente.cpf}"/>">Editar</a></td>
                     <td><a href="CadastroCliente?action=deletar&idUsuario=<c:out value="${cliente.idUsuario}"/>">Deletar</a></td>
                 </tr>
             </c:forEach>

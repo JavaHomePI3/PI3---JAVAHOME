@@ -99,7 +99,7 @@ public class ClienteDAO implements Dao<Cliente>{
         
          try {
             conn = ConexaoDB.getConexao();
-            String sql = "UPDATE cliente SET (" +
+            String sql = "UPDATE cliente SET " +
                      "nome = ?," +
                      "sobrenome = ?," +
                      "cpf = ?," +
@@ -114,7 +114,7 @@ public class ClienteDAO implements Dao<Cliente>{
                      "cidade = ?," +
                      "numero = ?," +
                      "estado = ?" +
-                     " WHERE id_usuario = ?";
+                     " WHERE cpf = ?";
             
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, entidade.getNomeUsuario());
@@ -131,7 +131,7 @@ public class ClienteDAO implements Dao<Cliente>{
             stmt.setString(12, entidade.getCidade());
             stmt.setInt(13, entidade.getNumero());
             stmt.setString(14, entidade.getEstado());
-            stmt.setInt(15, entidade.getIdUsuario());
+            stmt.setString(15, entidade.getCpf());
             stmt.execute();
             
             return true;
@@ -153,7 +153,7 @@ public class ClienteDAO implements Dao<Cliente>{
             rs = stmt.executeQuery();
             
             if(rs.next()){
-               cliente.setIdUsuario(rs.getInt("id_cliente"));
+               cliente.setIdUsuario(rs.getInt("id"));
                cliente.setNomeUsuario(rs.getString("nome"));
                cliente.setSobrenomeUsuario(rs.getString("sobrenome"));
                cliente.setCpf(rs.getString("cpf"));

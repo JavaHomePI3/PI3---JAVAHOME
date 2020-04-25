@@ -58,7 +58,7 @@ public class CadastraClienteServlet extends HttpServlet {
                 forward = INSERIR_OU_EDITAR;
                 String cpf = request.getParameter("cpf");
                 Cliente cliente = dao.buscarClientePeloCpf(cpf);
-                request.setAttribute("user", cliente);
+                request.setAttribute("cliente", cliente);
             } catch (SQLException ex) {
                 Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -109,7 +109,18 @@ public class CadastraClienteServlet extends HttpServlet {
         cliente.setEstado(request.getParameter("ufCliente"));
 
         try {
-            dao.inserir(cliente);
+            String cpf = request.getParameter("cpfCliente");
+            if(cpf == null || cpf.isEmpty())
+            {
+                dao.inserir(cliente);
+            }
+            else
+            {
+                cliente.setCpf(cpf);
+                dao.editar(cliente);
+            }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
