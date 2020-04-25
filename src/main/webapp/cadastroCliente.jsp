@@ -21,7 +21,8 @@
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label>Nome</label>
-                <input name="nomeCliente" type="text" class="form-control" id="nomeCliente" placeholder="" value=""
+                <input name="nomeCliente" type="text" class="form-control" id="nomeCliente" placeholder=""
+                       value="<c:out value="${cliente.nomeCliente}" />"
                        maxlength="30" required >
                 <div class="invalid-feedback">
                     Nome obrigatório
@@ -29,7 +30,8 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label>Sobrenome</label>
-                <input name="sobrenomeCliente" type="text" class="form-control" id="sobrenomeCliente" placeholder="" value=""
+                <input name="sobrenomeCliente" type="text" class="form-control" id="sobrenomeCliente" placeholder=""
+                       value="<c:out value="${cliente.sobrenomeCliente}" />"
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Sobrenome obrigatório
@@ -37,7 +39,8 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label>Data de Nascimento</label>
-                <input name="data_nascimento" type="date" class="form-control" id="dataNascimento" placeholder="" value=""
+                <input name="data_nascimento" type="date" class="form-control" id="dataNascimento" placeholder=""
+                       value="<c:out value="${cliente.data_nascimento}" />"
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Inseri Data de Nascimento
@@ -45,8 +48,8 @@
             </div>
                 <div class="col-md-3 mb-3">
                 <label for="generoCliente">Sexo</label>
-                <select name="genero" class="custom-select d-block w-100" id="generoCliente" required>
-                    <option value="">Selecionar...</option>
+                <select name="generoCliente" class="custom-select d-block w-100" id="generoCliente" required>
+                    <option value="<c:out value="${cliente.generoCliente}" />" >Selecionar...</option>
                     <option>Feminino</option>
                     <option>Masculino</option>
                 </select>
@@ -56,7 +59,8 @@
                 </div>
             <div class="col-md-4 mb-3">
                 <label>CPF</label>
-                <input name="cpfCliente" type="number" class="form-control" id="cpfCliente" placeholder="000.000.000-00" value=""
+                <input name="cpfCliente" type="number" class="form-control" id="cpfCliente" placeholder="000.000.000-00"
+                       value="<c:out value="${cliente.cpfCliente}" />"
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Inserir CPF válido
@@ -64,7 +68,8 @@
             </div>
             <div class="col-md-5 mb-3">
                 <label>E-mail</label>
-                <input name="emailCliente" type="text" class="form-control" id="emailCliente" placeholder="" value=""
+                <input name="emailCliente" type="text" class="form-control" id="emailCliente" placeholder=""
+                       value="<c:out value="${cliente.emailCliente}" />"
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     E-mail obrigatório
@@ -72,21 +77,22 @@
             </div>
             <div class="col-md-3 mb-3">
                 <label>Telefone</label>
-                <input name="telefoneCliente" type="number" class="form-control" id="telefoneCliente" placeholder="(00) 00000-0000" value=""
-                       maxlength="30" required>
+                <input name="telefoneCliente" type="number" class="form-control" id="telefoneCliente" placeholder="(00) 00000-0000"
+                       value="<c:out value="${cliente.telefoneCliente}" />"
+                       maxlength="30" required >
                 <div class="invalid-feedback">
                     Inserir telefone
                 </div>
             </div>
             </div>
-        </div>
         
             <div class="col-md-6 mb-3">
                 <h6>Endereço</h6><br>
             <div class="row">
             <div class="col-md-4 mb-3">
                 <label>CEP</label>
-                <input name="cepCliente" type="number" class="form-control" id="cepCliente" placeholder="00000-000" value=""
+                <input name="cepCliente" type="number" class="form-control" id="cepCliente" placeholder="00000-000"
+                       value="<c:out value="${cliente.cepCliente}" />"
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     CEP obrigatório
@@ -94,7 +100,8 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label>Rua</label>
-                <input name="ruaCliente" type="text" class="form-control" id="ruaCliente" placeholder="" value=""
+                <input name="ruaCliente" type="text" class="form-control" id="ruaCliente" placeholder=""
+                       value="<c:out value="${cliente.ruaCliente}" />"
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Rua obrigatório
@@ -102,15 +109,17 @@
             </div>
             <div class="col-md-2 mb-3">
                 <label>Nº</label>
-                <input name="numero" type="number" class="form-control" id="numeroCliente" placeholder="" value=""
-                       maxlength="30" required>
+                <input name="numeroCliente" type="number" class="form-control" id="numeroCliente" placeholder=""
+                       value="<c:out value="${cliente.numeroCliente}" />"
+                       maxlength= "30" required />
                 <div class="invalid-feedback">
                     Número obrigatório
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label>Complemento</label>
-                <input name="complementoCliente" type="text" class="form-control" id="complementoCliente" placeholder="" value=""
+                <input name="complementoCliente" type="text" class="form-control" id="complementoCliente" placeholder=""
+                       value="<c:out value="${cliente.telefoneCliente}" />"
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Complemento
@@ -118,7 +127,8 @@
             </div>  
             <div class="col-md-8 mb-3">
                 <label>Bairro</label>
-                <input name="bairroCliente" type="text" class="form-control" id="bairroCliente" placeholder="" value=""
+                <input name="bairroCliente" type="text" class="form-control" id="bairroCliente" placeholder=""
+                       value="<c:out value="${cliente.bairroCliente}" />"
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Bairro
@@ -126,7 +136,8 @@
             </div> 
             <div class="col-md-8 mb-3">
                 <label>Cidade</label>
-                <input name="cidadeCliente" type="text" class="form-control" id="cidadeCliente" placeholder="" value=""
+                <input name="cidadeCliente" type="text" class="form-control" id="cidadeCliente" placeholder=""
+                       value="<c:out value="${cliente.cidadeCliente}" />"
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Cidade
@@ -134,8 +145,8 @@
             </div> 
             <div class="col-md-4 mb-3">
                 <label for="ufCliente">UF</label>
-                <select name="uf" class="custom-select d-block w-100" id="ufCliente" required>
-                    <option value="">Selecionar...</option>
+                <select name="ufCliente" class="custom-select d-block w-100" id="ufCliente" required>
+                    <option value="<c:out value="${cliente.ufCliente}" />">Selecionar...</option>
                     <option>AC</option>
                     <option>AL</option>
                     <option>AM</option>

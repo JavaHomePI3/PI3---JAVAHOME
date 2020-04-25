@@ -183,7 +183,7 @@ public class ClienteDAO implements Dao<Cliente>{
     public void removerCliente(int idUsuario) throws SQLException {
         
          try {
-           String sql = "DELETE FROM cliente where id_cliente = " + idUsuario;
+           String sql = "DELETE FROM cliente where id = " + idUsuario;
            st = conn.createStatement();
            st.execute(sql);
   

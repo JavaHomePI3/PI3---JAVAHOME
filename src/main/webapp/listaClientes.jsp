@@ -22,13 +22,13 @@
                 <th>Data Nascimento</th>
                 <th>Telefone</th>
                 <th>CEP</th>
-                <th>Endereço</th>
+                <th>Endere&ccedil;o</th>
                 <th>Numero</th>
                 <th>Bairro</th>
                 <th>Complemento</th>
                 <th>Cidade</th>
                 <th>Estado</th>
-                <th colspan=2>Ação</th>
+                <th colspan=2>A&ccedil;&atilde;o</th>
             </tr>
         </thead>
         <tbody>
@@ -51,8 +51,8 @@
                     <td><c:out value="${cliente.cidade}" /></td>
                     <td><c:out value="${cliente.estado}" /></td>
                     
-                    <td><a href="CadastroClienteServlet?acao=editar&idUsuario=<c:out value="${cliente.idUsuario}"/>">Editar</a></td>
-                    <td><a href="CadastroClienteServlet?acao=deletar&idUsuario=<c:out value="${cliente.idUsuario}"/>">Deletar</a></td>
+                    <td><a href="CadastroCliente?action=editar&idUsuario=<c:out value="${cliente.idUsuario}"/>">Editar</a></td>
+                    <td><a href="CadastroCliente?action=deletar&idUsuario=<c:out value="${cliente.idUsuario}"/>">Deletar</a></td>
                 </tr>
             </c:forEach>
         </tbody>

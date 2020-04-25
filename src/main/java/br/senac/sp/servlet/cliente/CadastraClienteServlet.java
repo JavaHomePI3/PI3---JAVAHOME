@@ -28,6 +28,7 @@ public class CadastraClienteServlet extends HttpServlet {
 
     private static String INSERIR_OU_EDITAR = "/cadastroCliente.jsp";
     private static String LISTA_CLIENTE = "listaClientes.jsp";
+    private static String LISTAR = "CadastroCliente?action=listar";
     private ClienteDAO dao = new ClienteDAO();
 
     public CadastraClienteServlet() {
@@ -87,7 +88,7 @@ public class CadastraClienteServlet extends HttpServlet {
         cliente.setSobrenomeUsuario(request.getParameter("sobrenomeCliente"));
         cliente.setCpf(request.getParameter("cpfCliente"));
         cliente.setEmail(request.getParameter("emailCliente"));
-        cliente.setGenero(request.getParameter("genero").charAt(0));
+        cliente.setGenero(request.getParameter("generoCliente").charAt(0));
         //Date dataNascimento = null;
         String teste = request.getParameter("data_nascimento");
         System.out.println(teste);
@@ -104,8 +105,8 @@ public class CadastraClienteServlet extends HttpServlet {
         cliente.setBairro(request.getParameter("bairroCliente"));
         cliente.setComplemento(request.getParameter("complementoCliente"));
         cliente.setCidade(request.getParameter("cidadeCliente"));
-        cliente.setNumero(Integer.parseInt(request.getParameter("numero")));
-        cliente.setEstado(request.getParameter("uf"));
+        cliente.setNumero(Integer.parseInt(request.getParameter("numeroCliente")));
+        cliente.setEstado(request.getParameter("ufCliente"));
 
         try {
             dao.inserir(cliente);
