@@ -40,7 +40,6 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownVenda">
                                 <a class="dropdown-item" href="cadastraVenda">Realiza Venda</a>
-                                <a class="dropdown-item" href="cadastraVenda">Consulta Venda</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
