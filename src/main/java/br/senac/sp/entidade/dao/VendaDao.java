@@ -2,6 +2,7 @@ package br.senac.sp.entidade.dao;
 
 import br.senac.sp.db.ConexaoDB;
 import br.senac.sp.entidade.exception.VendasException;
+import br.senac.sp.entidade.model.Carrinho;
 import br.senac.sp.entidade.model.Produto;
 import br.senac.sp.entidade.model.Venda;
 import com.google.gson.Gson;
@@ -10,6 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class VendaDao implements Dao<Venda> {
     private final List<Venda> vendas = new ArrayList<>();
@@ -18,7 +20,7 @@ public class VendaDao implements Dao<Venda> {
     @Override
     public boolean inserir(Venda entidade) throws SQLException {
         try {
-            conexao = ConexaoDB.getConexao();
+
             String sqlValida;
 
             //verificar se o cliente existe
@@ -31,10 +33,12 @@ public class VendaDao implements Dao<Venda> {
 
             //criar iten
             //retornar id de itens
-            int idIten = criaIten(entidade.getItens());
+            int idIten = criaIten(entidade.getCarrinho());
 
             //criar venda
+            conexao = ConexaoDB.getConexao();
             salvaNovaVemda(entidade, idIten);
+
             return true;
         } catch (SQLException e) {
             throw new VendasException("Erro ao Cadastrar Venda!\nErro: " + e.getMessage());
@@ -49,7 +53,7 @@ public class VendaDao implements Dao<Venda> {
 
             //criar iten
             //retornar id de itens
-            int idIten = criaIten(entidade.getItens());
+            int idIten = criaIten(entidade.getCarrinho());
 
             //criar venda
             salvaNovaVemda(entidade, idIten);
@@ -63,30 +67,23 @@ public class VendaDao implements Dao<Venda> {
 
     private void salvaNovaVemda(Venda entidade, int idIten) throws SQLException {
         Calendar c = Calendar.getInstance();
-        String sql = "insert into vendas values (default,?,?,?,?,now())";
+        String sql = "insert into vendas values (default,?,?,?,?,?,now())";
         PreparedStatement ps = conexao.prepareStatement(sql);
         ps.setInt(1, idIten);
         ps.setInt(2, entidade.getIdCliente());
         ps.setInt(3, entidade.getIdVendedor());
-        calculaPrecoTotal(entidade);
-        ps.setDouble(4, entidade.getPrecoTotal());
+        ps.setInt(4,entidade.getIdFilial());
+        ps.setDouble(5, entidade.getCarrinho().getPrecoTotal());
         ps.execute();
         ps.close();
     }
 
-    private void calculaPrecoTotal(Venda entidade) {
-        double precoTotal = 0;
-        for (Produto produto : entidade.getItens()) {
-            precoTotal += produto.getValorprod();
-        }
-        entidade.setPrecoTotal(precoTotal);
-    }
-
-    private void buscaEntidade(String sqlValida) throws VendasException {
+    private void buscaEntidade(String sqlValida) throws SQLException {
         PreparedStatement preparedStatement;
         ResultSet existe;
 
         try {
+            conexao = ConexaoDB.getConexao();
             preparedStatement = conexao.prepareStatement(sqlValida);
             existe = preparedStatement.executeQuery();
             if (existe.next()) {
@@ -97,6 +94,8 @@ public class VendaDao implements Dao<Venda> {
             }
         } catch (SQLException e) {
             throw new VendasException("Erro ao Procurar entidade no banco \nErro: " + e.getMessage());
+        }finally {
+            conexao.close();
         }
 
     }
@@ -143,15 +142,18 @@ public class VendaDao implements Dao<Venda> {
         return false;
     }
 
-    public int criaIten(List<Produto> itens) throws SQLException {
+    public int criaIten(Carrinho itens) throws SQLException {
         try {
+            List<Produto> parseMapForList = parseMapForList(itens);
             Gson gson = new Gson();
             conexao = ConexaoDB.getConexao();
             String sql = "insert into itens values (default,?)";//tratar criar json para slavar no banco
+
             PreparedStatement preparedStatement = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, gson.toJson(itens));//itens vira um json
+            preparedStatement.setString(1, gson.toJson(parseMapForList));//itens vira um json
             preparedStatement.execute();
             ResultSet rs = preparedStatement.getGeneratedKeys();
+
             if (rs.next()) {
                 return rs.getInt(1);
             } else {
@@ -163,5 +165,14 @@ public class VendaDao implements Dao<Venda> {
         } finally {
             conexao.close();
         }
+    }
+
+    private List<Produto> parseMapForList(Carrinho itens) {
+        List<Produto> parseMapForList = new ArrayList<>();
+        for (Map.Entry<Produto, Integer> produto : itens.getCarrinho().entrySet()) {
+           produto.getKey().setItensvenda(produto.getValue());
+           parseMapForList.add(produto.getKey());
+        }
+        return parseMapForList;
     }
 }

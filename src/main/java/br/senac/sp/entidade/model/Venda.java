@@ -1,7 +1,6 @@
 package br.senac.sp.entidade.model;
 
 import java.sql.Date;
-import java.util.List;
 
 public class Venda {
     private int id;
@@ -10,32 +9,35 @@ public class Venda {
     private int idVendedor;
     private double precoTotal;
     private Date dataDaVenda;
-    private List<Produto> itens;
+    private Carrinho carrinho;
+    private int idFilial;
 
-    public Venda(int id, List<Produto> itens, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
+    public Venda(int id, Carrinho carrinho, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
         this.id = id;
-        this.itens = itens;
+        this.carrinho = carrinho;
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
         this.precoTotal = precoTotal;
         this.dataDaVenda = dataDaVenda;
     }
-    public Venda(int idCliente, int idVendedor,List<Produto> itens) {
+    public Venda(int idCliente, int idVendedor,int idFilial,Carrinho carrinho) {
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
-        this.itens = itens;
+        this.carrinho = carrinho;
+        this.idFilial = idFilial;
     }
 
-    public Venda(int idItens, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
+    public Venda(int idItens, int idCliente, int idVendedor, int idFilial, double precoTotal, Date dataDaVenda) {
         this.idItens = idItens;
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
         this.precoTotal = precoTotal;
         this.dataDaVenda = dataDaVenda;
+        this.idFilial = idFilial;
     }
 
-    public Venda(List<Produto> itens, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
-        this.itens = itens;
+    public Venda(Carrinho carrinho, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
+        this.carrinho = carrinho;
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
         this.precoTotal = precoTotal;
@@ -46,12 +48,20 @@ public class Venda {
         return id;
     }
 
-    public List<Produto> getItens() {
-        return itens;
+    public Carrinho getCarrinho() {
+        return carrinho;
     }
 
-    public void setItens(List<Produto> itens) {
-        this.itens = itens;
+    public int getIdFilial() {
+        return idFilial;
+    }
+
+    public void setIdFilial(int idFilial) {
+        this.idFilial = idFilial;
+    }
+
+    public void setCarrinho(Carrinho carrinho) {
+        this.carrinho = carrinho;
     }
 
     public int getIdItens() {

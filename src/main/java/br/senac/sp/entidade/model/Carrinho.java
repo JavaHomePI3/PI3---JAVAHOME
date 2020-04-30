@@ -1,5 +1,7 @@
 package br.senac.sp.entidade.model;
 
+import br.senac.sp.entidade.exception.VendasException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,23 +15,45 @@ public class Carrinho {
         }
     }
 
-    public void adicionaProdutoAoCarrinho(Produto resultado, int quantidade) {
+    public void adicionaProdutoAoCarrinho(Produto resultado, int quantidade) throws VendasException {
         if (!verificaSeTemProduto(resultado, quantidade)) {
             carrinho.put(resultado, quantidade);
         }
         calculaPrecoTotal();
     }
 
-    private boolean verificaSeTemProduto(Produto resultado, int quantidade) {
+    private boolean verificaSeTemProduto(Produto resultado, int quantidade) throws VendasException {
         for (Map.Entry<Produto, Integer> produto : carrinho.entrySet()) {
             if (produto.getKey().equals(resultado)) {
-                produto.setValue(produto.getValue() + quantidade);
-                return true;
+                if (quantidade <= (produto.getKey().getQtdestoque() - produto.getValue())) {
+                    produto.setValue(produto.getValue() + quantidade);
+                    return true;
+                }else {
+                    throw new VendasException("Quantidade informada é maior do que a do estoque.");
+                }
             }
         }
         return false;
     }
 
+    public boolean verificaSeTemProduto(Produto resultado) {
+        for (Map.Entry<Produto, Integer> produto : carrinho.entrySet()) {
+            if (produto.getKey().equals(resultado)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean removeProduto(Produto p){
+        for (Map.Entry<Produto, Integer> produto : carrinho.entrySet()) {
+            if (produto.getKey().equals(p)) {
+                carrinho.remove(produto.getKey(),produto.getValue());
+                calculaPrecoTotal();
+                return true;
+            }
+        }
+        return false;
+    }
     public Map<Produto, Integer> getCarrinho() {
         return carrinho;
     }

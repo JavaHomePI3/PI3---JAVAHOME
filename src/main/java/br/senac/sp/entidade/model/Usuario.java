@@ -43,7 +43,7 @@ public abstract class Usuario {
         this.estado = estado;
     }
 
-    public int getIdUsuario() {
+    public int getId() {
         return idUsuario;
     }
 
