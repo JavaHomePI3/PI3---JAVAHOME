@@ -25,10 +25,10 @@ public class Carrinho {
     private boolean verificaSeTemProduto(Produto resultado, int quantidade) throws VendasException {
         for (Map.Entry<Produto, Integer> produto : carrinho.entrySet()) {
             if (produto.getKey().equals(resultado)) {
-                if (quantidade <= (produto.getKey().getQtdestoque() - produto.getValue())) {
+                if (quantidade <= (produto.getKey().getQtdestoque() - produto.getValue()) - 1) {
                     produto.setValue(produto.getValue() + quantidade);
                     return true;
-                }else {
+                } else {
                     throw new VendasException("Quantidade informada é maior do que a do estoque.");
                 }
             }
@@ -44,16 +44,19 @@ public class Carrinho {
         }
         return false;
     }
-    public boolean removeProduto(Produto p){
+
+    public boolean removeProduto(Produto p) {
         for (Map.Entry<Produto, Integer> produto : carrinho.entrySet()) {
             if (produto.getKey().equals(p)) {
-                carrinho.remove(produto.getKey(),produto.getValue());
+                carrinho.remove(produto.getKey(), produto.getValue());
+                precoTotal-= (produto.getKey().getValorprod() * produto.getValue());
                 calculaPrecoTotal();
                 return true;
             }
         }
         return false;
     }
+
     public Map<Produto, Integer> getCarrinho() {
         return carrinho;
     }

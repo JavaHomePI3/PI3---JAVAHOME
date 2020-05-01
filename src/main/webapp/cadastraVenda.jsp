@@ -60,6 +60,7 @@
             <c:if test="${resultado.qtdestoque > 0}">
                 <button type="submit" class="btn btn-primary">Adicionar produto a Venda</button>
             </c:if>
+
             <c:if test="${resultado.qtdestoque == 0}">
                 <div class="alert alert-danger" role="alert" style="margin-top: 20px;margin-bottom: 20px;">Produto sem
                     estoque!
@@ -76,7 +77,7 @@
                 <th scope="col">Código</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Quantidade</th>
-                <th scope="col">Preço</th>
+                <th scope="col">Preço unitário</th>
                 <th scope="col">Categoria</th>
             </tr>
             </thead>
