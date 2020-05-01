@@ -10,6 +10,7 @@ public class Carrinho {
     private double precoTotal = 0;
 
     private void calculaPrecoTotal() {
+        precoTotal = 0;
         for (Map.Entry<Produto, Integer> produto : carrinho.entrySet()) {
             precoTotal += produto.getKey().getValorprod() * produto.getValue();
         }
