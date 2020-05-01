@@ -136,8 +136,12 @@ public class CadastraVendaServlet extends HttpServlet {
                 Produto resultado = dao.PesquisarProdutoPorId(Integer.parseInt(idProduto));
                 if (resultado != null) {
                     quantidade = Integer.parseInt(quantidadeProdutoVenda);
-                    carrinho.adicionaProdutoAoCarrinho(resultado, quantidade);
-                    atualizaListaDeProdutos(request);
+                    if (quantidade <= resultado.getQtdestoque()){
+                        carrinho.adicionaProdutoAoCarrinho(resultado, quantidade);
+                        atualizaListaDeProdutos(request);
+                    }else{
+                       quantidadeInvalida(request,quantidadeProdutoVenda);
+                    }
                 } else {
                     request.setAttribute("mensagem", "semProduto");
                 }
