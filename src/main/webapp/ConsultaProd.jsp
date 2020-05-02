@@ -1,6 +1,6 @@
 <%-- 
     Document   : ConsultaProd
-    Created on : 02/05/2020, 13:04:22
+    Created on : 02/05/2020, 13:13:34
     Author     : Vitoria Cristina
 --%>
 
@@ -51,7 +51,7 @@
                 </div>        
 
                 <footer class="my-5 pt-5 text-muted text-center text-small">
-                    <p class="mb-1">&copy; JavaHome - PI III </p>
+                    <p class="mb-1">&copy; JavaHome - PI III</p>
                     <ul class="list-inline">
                         <li class="list-inline-item"><a href="#">Privacidade</a></li>
                         <li class="list-inline-item"><a href="#">Termos</a></li>
@@ -72,7 +72,7 @@
             alert(resultado)
 
         } else if (prodalterado == "Produto Alterado") {
-
+            
             alert(prodalterado)
 
         }
@@ -81,4 +81,3 @@
 
     </script>
 </html>
-
