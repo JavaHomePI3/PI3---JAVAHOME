@@ -66,14 +66,15 @@
                     <td  bgcolor="#33CCCC">Categoria do Produto</td>
                     <td  bgcolor="#33CCCC">Valor</td> 
                     <td  bgcolor="#33CCCC">Alterar Produto</td> 
-                    
-                    
-                   <!--     Realizar o exportar para excel se for interessante.
-                   <td><button type="submit" class="button" name ="exportar" 
-                   value="ExportarProdutos" formaction="Exportar">Exportar</button></td> -->
+
+
+                    <!--Realizar o exportar para excel se for interessante. - na pasta exportar tem
+                    o exportProdutos e tem o servlet de exportar também-->
+                <button type="submit" class="button" name ="exportar" 
+                        value="ExportarProdutos" formaction="Exportar">Exportar</button></td>
 
                 </tr>
-                
+
                 <%  int linha = 1;
                     ResultSet produtos = (ResultSet) request.getAttribute("produtos");
                     while (produtos.next()) {
@@ -113,7 +114,7 @@
 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>');</script>
 <script src="../../../../assets/js/vendor/popper.min.js"></script>
 <script src="../../../../dist/js/bootstrap.min.js"></script>
 <script src="../../../../assets/js/vendor/holder.min.js"></script>
