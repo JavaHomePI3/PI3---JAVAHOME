@@ -7,6 +7,8 @@
 <c:set var="idFuncionario" value="${requestScope.idFuncionario}"/>
 <c:set var="idFilial" value="${requestScope.idFilial}"/>
 <div class="container">
+    <h1 align="center" style="margin: 20px;">Realizar Venda</h1>
+    <hr>
     <div>
         <form action="cadastraVenda" method="post">
             <div class="form-row">

@@ -82,22 +82,38 @@ public class CadastraClienteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cliente cliente = criaCliente(request);
+        try {
+//            String cpf = request.getParameter("cpfCliente");
+//            if(cpf == null || cpf.isEmpty())
+//            {
+//                dao.inserir(cliente);
+//            }
+//            else
+//            {
+//                cliente.setCpf(cpf);
+//                dao.editar(cliente);
+//            }
+
+        dao.inserir(cliente);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        RequestDispatcher view = request.getRequestDispatcher(LISTA_CLIENTE);
+        view.forward(request, response);
+    }
+
+    private Cliente criaCliente(HttpServletRequest request) {
         Cliente cliente = new Cliente();
-        //cliente.setIdUsuario(Integer.parseInt(request.getParameter("id_usuario")));
+
         cliente.setNomeUsuario(request.getParameter("nomeCliente"));
         cliente.setSobrenomeUsuario(request.getParameter("sobrenomeCliente"));
         cliente.setCpf(request.getParameter("cpfCliente"));
         cliente.setEmail(request.getParameter("emailCliente"));
         cliente.setGenero(request.getParameter("generoCliente").charAt(0));
-        //Date dataNascimento = null;
-        String teste = request.getParameter("data_nascimento");
-        System.out.println(teste);
-//            if (request.getParameter("data_nascimento") != null) {
-//                dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("dob"));
-//            } else {
-//                dataNascimento = null;
-//            }
-        cliente.setDataNascimento(teste);
+
+        String dataDeNascimento = request.getParameter("data_nascimento");
+        cliente.setDataNascimento(dataDeNascimento);
 
         cliente.setTelefone(request.getParameter("telefoneCliente"));
         cliente.setCep(request.getParameter("cepCliente"));
@@ -107,24 +123,6 @@ public class CadastraClienteServlet extends HttpServlet {
         cliente.setCidade(request.getParameter("cidadeCliente"));
         cliente.setNumero(Integer.parseInt(request.getParameter("numeroCliente")));
         cliente.setEstado(request.getParameter("ufCliente"));
-
-        try {
-            String cpf = request.getParameter("cpfCliente");
-            if(cpf == null || cpf.isEmpty())
-            {
-                dao.inserir(cliente);
-            }
-            else
-            {
-                cliente.setCpf(cpf);
-                dao.editar(cliente);
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        RequestDispatcher view = request.getRequestDispatcher(LISTA_CLIENTE);
-        view.forward(request, response);
+        return cliente;
     }
 }
