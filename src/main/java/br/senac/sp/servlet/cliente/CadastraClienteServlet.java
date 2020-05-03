@@ -27,57 +27,66 @@ import javax.servlet.ServletException;
 public class CadastraClienteServlet extends HttpServlet {
 
     private static String INSERIR_OU_EDITAR = "/cadastroCliente.jsp";
-    private static String LISTA_CLIENTE = "listaClientes.jsp";
+    private static String LISTA_CLIENTE = "/listaClientes.jsp";
     private static String LISTAR = "CadastroCliente?action=listar";
     private ClienteDAO dao = new ClienteDAO();
-
-    public CadastraClienteServlet() {
-        super();
-
-    }
+    private RequestDispatcher view;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward = "";
         String acao = request.getParameter("action");
-        List<Cliente> listaDeCliente = new ArrayList<>();
-        if (acao.equalsIgnoreCase("deletar")) {
-
-            try {
-                int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-                String cpf = request.getParameter("cpf");
-                dao.removerCliente(idUsuario);
-                forward = LISTA_CLIENTE;
-                request.setAttribute("cliente", dao.buscarClientePeloCpf(cpf));
-            } catch (SQLException ex) {
-                Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        if (acao != null){
+            if (acao.equalsIgnoreCase("deletar")) {
+               deletaCliente(request, response);
+            } else if (acao.equalsIgnoreCase("editar")) {
+                editaCliente(request, response);
+            } else if (acao.equalsIgnoreCase("listar")) {
+                listaCliente(request,response);
+            } else {
+                view = request.getRequestDispatcher(INSERIR_OU_EDITAR);
+                view.forward(request, response);
             }
-        } else if (acao.equalsIgnoreCase("editar")) {
-
-            try {
-                forward = INSERIR_OU_EDITAR;
-                String cpf = request.getParameter("cpf");
-                Cliente cliente = dao.buscarClientePeloCpf(cpf);
-                request.setAttribute("cliente", cliente);
-            } catch (SQLException ex) {
-                Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else if (acao.equalsIgnoreCase("listar")) {
-            forward = LISTA_CLIENTE;
-            try {
-                listaDeCliente = dao.buscar();
-                request.setAttribute("clientes", listaDeCliente);
-
-            } catch (ClienteException ex) {
-                Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            forward = INSERIR_OU_EDITAR;
         }
 
-        RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
+    }
+
+    private void listaCliente(HttpServletRequest request, HttpServletResponse response) {
+        List<Cliente> listaDeCliente;
+        try {
+            listaDeCliente = dao.buscar();
+            request.setAttribute("clientes", listaDeCliente);
+            view = request.getRequestDispatcher(LISTA_CLIENTE);
+            view.forward(request, response);
+        } catch (ClienteException | ServletException | IOException ex) {
+            System.out.println("Erro ao listar clientes\nErro: "+ex.getMessage());
+            Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void editaCliente(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String cpf = request.getParameter("cpf");
+            Cliente cliente = dao.buscarClientePeloCpf(cpf);
+            request.setAttribute("cliente", cliente);
+            view = request.getRequestDispatcher(INSERIR_OU_EDITAR);
+            view.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void deletaCliente(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+            String cpf = request.getParameter("cpf");
+            dao.removerCliente(idUsuario);
+            request.setAttribute("cliente", dao.buscarClientePeloCpf(cpf));
+            view = request.getRequestDispatcher(LISTA_CLIENTE);
+            view.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
