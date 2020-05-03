@@ -7,13 +7,10 @@ package br.senac.sp.entidade.dao;
 
 import br.senac.sp.db.ConexaoDB;
 import br.senac.sp.entidade.model.Produto;
-import com.google.gson.internal.$Gson$Preconditions;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 /**
  * @author Vitoria Cristina
  */
