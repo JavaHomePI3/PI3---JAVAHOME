@@ -1,7 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <c:import url="header.jsp"/>
-    <h1 align="center">Lista de Clientes</h1><br>
-    <table class="table table-striped">
+    <h1 align="center" style="margin: 20px;">Lista de Clientes</h1><br>
+    <table class="table table-striped" style="margin: 5 auto;">
         <thead>
         <tr>
             <th>ID</th>
@@ -24,27 +26,30 @@
         </thead>
         <tbody>
 
-        <c:forEach items="${requestScope.clientes}" var="cliente">
-            <tr>
-                <td><c:out value="${cliente.id}" /></td>
-                <td><c:out value="${cliente.nomeUsuario}" /></td>
-                <td><c:out value="${cliente.sobrenomeUsuario}" /></td>
-                <td><c:out value="${cliente.cpf}" /></td>
-                <td><c:out value="${cliente.email}" /></td>
-                <td><c:out value="${cliente.genero}" /></td>
-                <td><c:out value="${cliente.dataNascimento}" /></td>
-                <td><c:out value="${cliente.telefone}" /></td>
-                <td><c:out value="${cliente.cep}" /></td>
-                <td><c:out value="${cliente.rua}" /></td>
-                <td><c:out value="${cliente.numero}" /></td>
-                <td><c:out value="${cliente.bairro}" /></td>
-                <td><c:out value="${cliente.complemento}" /></td>
-                <td><c:out value="${cliente.cidade}" /></td>
-                <td><c:out value="${cliente.estado}" /></td>
+        <c:forEach var="cliente" items="${requestScope.clientes}">
+                <tr>
+                    <td>${cliente.id}</td>
+                    <td>${cliente.nomeUsuario}</td>
+                    <td>${cliente.sobrenomeUsuario}</td>
+                    <td>${cliente.cpf}</td>
+                    <td>${cliente.email}</td>
+                    <c:if test="${cliente.genero != null}">
+                        <td>${cliente.genero}</td>
+                    </c:if>
 
-                <td><a href="CadastroCliente?action=editar&cpf=<c:out value="${cliente.cpf}"/>">Editar</a></td>
-                <td><a href="CadastroCliente?action=deletar&idUsuario=<c:out value="${cliente.id}"/>">Deletar</a></td>
-            </tr>
+                    <td>${cliente.dataNascimento}</td>
+                    <td>${cliente.telefone}</td>
+                    <td>${cliente.cep}</td>
+                    <td>${cliente.rua}</td>
+                    <td>${cliente.numero}</td>
+                    <td>${cliente.bairro}</td>
+                    <td>${cliente.complemento}</td>
+                    <td>${cliente.cidade}</td>
+                    <td>${cliente.estado}</td>
+
+                    <td><a href="CadastroCliente?action=editar&cpf=<c:out value="${cliente.cpf}"/>">Editar</a></td>
+                    <td><a href="CadastroCliente?action=deletar&idUsuario=<c:out value="${cliente.id}"/>">Deletar</a></td>
+                </tr>
         </c:forEach>
         </tbody>
     </table>

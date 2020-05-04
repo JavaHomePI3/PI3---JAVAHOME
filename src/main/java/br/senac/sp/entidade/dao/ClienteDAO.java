@@ -2,14 +2,12 @@
 package br.senac.sp.entidade.dao;
 
 import br.senac.sp.db.ConexaoDB;
+import br.senac.sp.entidade.enums.ConvertStringForGenero;
+import br.senac.sp.entidade.enums.ConvertStringForUf;
 import br.senac.sp.entidade.exception.ClienteException;
 import br.senac.sp.entidade.model.Cliente;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class ClienteDAO implements Dao<Cliente> {
     private PreparedStatement stmt;
     private Statement st;
     private ResultSet rs;
-    private ArrayList listaDeClientes = new ArrayList();
+
 
     @Override
     public boolean inserir(Cliente entidade) throws SQLException {
@@ -33,7 +31,7 @@ public class ClienteDAO implements Dao<Cliente> {
             stmt.setString(2, entidade.getSobrenomeUsuario());
             stmt.setString(3, entidade.getCpf());
             stmt.setString(4, entidade.getEmail());
-            stmt.setString(5, entidade.getGenero().toString());
+            stmt.setString(5, String.valueOf(entidade.getGenero()));
             stmt.setString(6, entidade.getDataNascimento());
             stmt.setString(7, entidade.getTelefone());
             stmt.setString(8, entidade.getCep());
@@ -42,7 +40,7 @@ public class ClienteDAO implements Dao<Cliente> {
             stmt.setString(11, entidade.getComplemento());
             stmt.setString(12, entidade.getCidade());
             stmt.setInt(13, entidade.getNumero());
-            stmt.setString(14, entidade.getEstado());
+            stmt.setString(14, String.valueOf(entidade.getEstado()));
 
             stmt.execute();
 
@@ -57,8 +55,7 @@ public class ClienteDAO implements Dao<Cliente> {
 
     @Override
     public List<Cliente> buscar() throws ClienteException {
-
-
+        List<Cliente> listaDeClientes = new ArrayList<>();
         try {
             conn = ConexaoDB.getConexao();
             String sql = "SELECT * FROM cliente";
@@ -73,7 +70,7 @@ public class ClienteDAO implements Dao<Cliente> {
                 cliente.setSobrenomeUsuario(rs.getString("sobrenome"));
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setGenero(rs.getString("genero").charAt(0));
+                cliente.setGenero(ConvertStringForGenero.parse(rs.getString("genero")));
                 cliente.setDataNascimento(rs.getString("data_nascimento"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setCep(rs.getString("cep"));
@@ -82,7 +79,7 @@ public class ClienteDAO implements Dao<Cliente> {
                 cliente.setComplemento(rs.getString("complemento"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setNumero(rs.getInt("numero"));
-                cliente.setEstado(rs.getString("estado"));
+                cliente.setEstado(ConvertStringForUf.parse(rs.getString("estado")));
                 listaDeClientes.add(cliente);
             }
 
@@ -98,49 +95,52 @@ public class ClienteDAO implements Dao<Cliente> {
     public boolean editar(Cliente entidade) throws SQLException {
 
         try {
+            Cliente clienteEncontrado = buscarClientePeloCpf(entidade.getCpf());
             conn = ConexaoDB.getConexao();
-            String sql = "UPDATE cliente SET " +
-                    "nome = ?," +
-                    "sobrenome = ?," +
-                    "cpf = ?," +
-                    "email = ?" +
-                    "genero = ?" +
-                    "data_nascimento = ?," +
-                    "telefone = ?," +
-                    "cep = ?," +
-                    "rua = ?," +
-                    "bairro = ?," +
-                    "complemento = ?," +
-                    "cidade = ?," +
-                    "numero = ?," +
-                    "estado = ?" +
-                    " WHERE cpf = ?";
+            if (!entidade.equals(clienteEncontrado)){
 
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, entidade.getNomeUsuario());
-            stmt.setString(2, entidade.getSobrenomeUsuario());
-            stmt.setString(3, entidade.getCpf());
-            stmt.setString(4, entidade.getEmail());
-            stmt.setString(5, entidade.getGenero().toString());
-            stmt.setString(6, entidade.getDataNascimento());
-            stmt.setString(7, entidade.getTelefone());
-            stmt.setString(8, entidade.getCep());
-            stmt.setString(9, entidade.getRua());
-            stmt.setString(10, entidade.getBairro());
-            stmt.setString(11, entidade.getComplemento());
-            stmt.setString(12, entidade.getCidade());
-            stmt.setInt(13, entidade.getNumero());
-            stmt.setString(14, entidade.getEstado());
-            stmt.setString(15, entidade.getCpf());
-            stmt.execute();
+                String sql = "UPDATE cliente SET " +
+                        "nome = ?," +
+                        "sobrenome = ?," +
+                        "cpf = ?," +
+                        "email = ?" +
+                        "genero = ?" +
+                        "data_nascimento = ?," +
+                        "telefone = ?," +
+                        "cep = ?," +
+                        "rua = ?," +
+                        "bairro = ?," +
+                        "complemento = ?," +
+                        "cidade = ?," +
+                        "numero = ?," +
+                        "estado = ?" +
+                        " WHERE cpf = ?";
 
-            return true;
+                stmt = conn.prepareStatement(sql);
+                stmt.setString(1, entidade.getNomeUsuario());
+                stmt.setString(2, entidade.getSobrenomeUsuario());
+                stmt.setString(3, entidade.getCpf());
+                stmt.setString(4, entidade.getEmail());
+                stmt.setString(5, String.valueOf(entidade.getGenero()));
+                stmt.setString(6, entidade.getDataNascimento());
+                stmt.setString(7, entidade.getTelefone());
+                stmt.setString(8, entidade.getCep());
+                stmt.setString(9, entidade.getRua());
+                stmt.setString(10, entidade.getBairro());
+                stmt.setString(11, entidade.getComplemento());
+                stmt.setString(12, entidade.getCidade());
+                stmt.setInt(13, entidade.getNumero());
+                stmt.setString(14,String.valueOf(entidade.getEstado()));
+                stmt.setString(15, entidade.getCpf());
+                stmt.execute();
+                return true;
+            }
         } catch (SQLException e) {
             throw new ClienteException("Erro ao Editar Cliente!\nErro: " + e.getMessage());
         } finally {
             conn.close();
         }
-
+        return false;
     }
 
     public Cliente buscarClientePeloCpf(String cpf) throws SQLException {
@@ -160,7 +160,7 @@ public class ClienteDAO implements Dao<Cliente> {
                 cliente.setSobrenomeUsuario(rs.getString("sobrenome"));
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setGenero(rs.getString("genero").charAt(0));
+                cliente.setGenero(ConvertStringForGenero.parse(rs.getString("genero")));
                 cliente.setDataNascimento(rs.getString("data_nascimento"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setCep(rs.getString("cep"));
@@ -169,7 +169,8 @@ public class ClienteDAO implements Dao<Cliente> {
                 cliente.setComplemento(rs.getString("complemento"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setNumero(rs.getInt("numero"));
-                cliente.setEstado(rs.getString("estado"));
+                cliente.setEstado( ConvertStringForUf.parse(rs.getString("estado")));
+
             }
 
         } catch (SQLException e) {

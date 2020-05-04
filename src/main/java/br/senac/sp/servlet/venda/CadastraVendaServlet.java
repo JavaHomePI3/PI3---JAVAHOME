@@ -43,8 +43,7 @@ public class CadastraVendaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String acao = request.getParameter("metodo");
         configuraAcao(request, response, acao);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cadastraVenda.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("cadastraVenda");
     }
 
     private void configuraAcao(HttpServletRequest request, HttpServletResponse response, String acao) {

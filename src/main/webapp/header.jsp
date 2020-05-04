@@ -26,11 +26,11 @@
                             <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCliente" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Cliente
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
-                                <a class="dropdown-item" href="cadastroCliente.jsp">Novo Cliente</a>
+                                <a class="dropdown-item" href="CadastroCliente">Novo Cliente</a>
                                 <a class="dropdown-item" href="CadastroCliente?action=listar">Editar Cliente</a>
                             </div>
                         </li>

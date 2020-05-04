@@ -1,5 +1,8 @@
 package br.senac.sp.entidade.model;
 
+import br.senac.sp.entidade.enums.Genero;
+import br.senac.sp.entidade.enums.Uf;
+
 /**
  * @author Walter Prata
  */
@@ -10,7 +13,7 @@ public abstract class Usuario {
     private String sobrenomeUsuario;
     private String cpf;
     private String email;
-    private Character genero;
+    private Genero genero;
     private String dataNascimento;
     private String telefone;
     private String cep;
@@ -19,13 +22,13 @@ public abstract class Usuario {
     private String complemento;
     private String cidade;
     private int numero;
-    private String estado;
+    private Uf estado;
 
     public Usuario(){}
 
     public Usuario(int idUsuario, String nomeUsuario, String sobrenomeUsuario, String cpf, String email,
-                   Character genero, String dataNascimento, String telefone, String cep, String rua,
-                   String bairro, String complemento, String cidade, int numero, String estado) {
+                   Genero genero, String dataNascimento, String telefone, String cep, String rua,
+                   String bairro, String complemento, String cidade, int numero, Uf estado) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.sobrenomeUsuario = sobrenomeUsuario;
@@ -83,11 +86,11 @@ public abstract class Usuario {
         this.email = email;
     }
 
-    public Character getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(Character genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
@@ -155,11 +158,11 @@ public abstract class Usuario {
         this.numero = numero;
     }
 
-    public String getEstado() {
+    public Uf getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Uf estado) {
         this.estado = estado;
     }
 
