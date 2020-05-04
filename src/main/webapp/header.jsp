@@ -48,7 +48,8 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="cadastraProduto">Novo Produto</a>
-                                <a class="dropdown-item" href="consultaProduto">Editar Produto</a>
+                                <a class="dropdown-item" href="CadastrarProd.jsp"> Cadastrar Produto </a> <!-- Teste -->
+                                <a class="dropdown-item" href="ConsultaProd.jsp">Editar Produto</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
