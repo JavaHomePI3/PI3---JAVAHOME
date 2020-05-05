@@ -101,20 +101,6 @@
                         Insira o Salário
                     </div>
                 </div>
-                
-                <div class="col-md-4 mb-3">
-                <label for="filial">Filial</label>
-                <select name="filial" class="custom-select d-block w-100" id="filial" required>
-                    <option value="">Selecionar...</option>
-                    <option>São Paulo</option>
-                    <option>Campina</option>
-                    <option>Brasília</option>
-                    <option>Joinville</option>        
-                </select>
-                <div class="invalid-feedback">
-                    Favor selecionar a filial.
-                </div>
-            </div>
     </div>
 
     <div class="col-md-6 mb-3">
