@@ -97,24 +97,12 @@ public class ClienteDAO implements Dao<Cliente> {
         try {
             Cliente clienteEncontrado = buscarClientePeloCpf(entidade.getCpf());
             conn = ConexaoDB.getConexao();
-            if (!entidade.equals(clienteEncontrado)){
+            if (!entidade.equals(clienteEncontrado)) {
 
-                String sql = "UPDATE cliente SET " +
-                        "nome = ?," +
-                        "sobrenome = ?," +
-                        "cpf = ?," +
-                        "email = ?" +
-                        "genero = ?" +
-                        "data_nascimento = ?," +
-                        "telefone = ?," +
-                        "cep = ?," +
-                        "rua = ?," +
-                        "bairro = ?," +
-                        "complemento = ?," +
-                        "cidade = ?," +
-                        "numero = ?," +
-                        "estado = ?" +
-                        " WHERE cpf = ?";
+                String sql = "UPDATE cliente SET nome = ?,sobrenome = ?,cpf = ?" +
+                        ",email = ?,genero = ?,data_nascimento = ?" +
+                        ",telefone = ?,cep = ?,rua = ?,bairro = ?," +
+                        "complemento = ?,cidade = ?,numero = ?,estado = ?WHERE cpf = ?";
 
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, entidade.getNomeUsuario());
@@ -130,9 +118,9 @@ public class ClienteDAO implements Dao<Cliente> {
                 stmt.setString(11, entidade.getComplemento());
                 stmt.setString(12, entidade.getCidade());
                 stmt.setInt(13, entidade.getNumero());
-                stmt.setString(14,String.valueOf(entidade.getEstado()));
+                stmt.setString(14, String.valueOf(entidade.getEstado()));
                 stmt.setString(15, entidade.getCpf());
-                stmt.execute();
+                stmt.executeUpdate();
                 return true;
             }
         } catch (SQLException e) {
@@ -141,6 +129,42 @@ public class ClienteDAO implements Dao<Cliente> {
             conn.close();
         }
         return false;
+    }
+
+    public Cliente buscaClientePeloId(int id) {
+        try {
+            conn = ConexaoDB.getConexao();
+
+            String sql = "SELECT * FROM cliente WHERE id = ?";
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setIdUsuario(rs.getInt("id"));
+                cliente.setNomeUsuario(rs.getString("nome"));
+                cliente.setSobrenomeUsuario(rs.getString("sobrenome"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setGenero(ConvertStringForGenero.parse(rs.getString("genero")));
+                cliente.setDataNascimento(rs.getString("data_nascimento"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setRua(rs.getString("rua"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setNumero(rs.getInt("numero"));
+                cliente.setEstado(ConvertStringForUf.parse(rs.getString("estado")));
+
+                return cliente;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Cliente buscarClientePeloCpf(String cpf) throws SQLException {
@@ -169,7 +193,7 @@ public class ClienteDAO implements Dao<Cliente> {
                 cliente.setComplemento(rs.getString("complemento"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setNumero(rs.getInt("numero"));
-                cliente.setEstado( ConvertStringForUf.parse(rs.getString("estado")));
+                cliente.setEstado(ConvertStringForUf.parse(rs.getString("estado")));
 
             }
 
@@ -189,8 +213,6 @@ public class ClienteDAO implements Dao<Cliente> {
             String sql = "DELETE FROM cliente where id = " + idUsuario;
             st = conn.createStatement();
             st.execute(sql);
-
-
         } catch (SQLException e) {
             throw new ClienteException("Erro ao Deletar Cliente!\nErro: " + e.getMessage());
         } finally {

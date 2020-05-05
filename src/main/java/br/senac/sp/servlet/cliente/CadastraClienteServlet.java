@@ -3,6 +3,7 @@ package br.senac.sp.servlet.cliente;
 import br.senac.sp.entidade.dao.ClienteDAO;
 import br.senac.sp.entidade.enums.ConvertStringForGenero;
 import br.senac.sp.entidade.enums.ConvertStringForUf;
+import br.senac.sp.entidade.enums.Genero;
 import br.senac.sp.entidade.enums.Uf;
 import br.senac.sp.entidade.exception.ClienteException;
 import br.senac.sp.entidade.model.Cliente;
@@ -39,10 +40,10 @@ public class CadastraClienteServlet extends HttpServlet {
                     view = configuraListaDeClientes(request, view);
                     break;
                 case "deletar":
-                    deletaCliente(request);
+                    view = deletaCliente(request);
                     break;
                 case "editar":
-                    view = editaCliente(request, view);
+                    view = editaCliente(request);
                     break;
             }
         }
@@ -77,27 +78,22 @@ public class CadastraClienteServlet extends HttpServlet {
         return view;
     }
 
-    private RequestDispatcher editaCliente(HttpServletRequest request, RequestDispatcher view) {
+    private RequestDispatcher deletaCliente(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
         try {
-            String cpf = request.getParameter("cpf");
-            Cliente cliente = dao.buscarClientePeloCpf(cpf);
-            request.setAttribute("cliente", cliente);
-            view = request.getRequestDispatcher(INSERIR_OU_EDITAR);
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            dao.removerCliente(id);
+        } catch (SQLException e) {
+            System.out.println("Erro ao deletar cliente!");
+            e.printStackTrace();
         }
-        return view;
+        return request.getRequestDispatcher(LISTA_CLIENTE);
     }
 
-    private void deletaCliente(HttpServletRequest request) {
-        try {
-            int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-            String cpf = request.getParameter("cpf");
-            dao.removerCliente(idUsuario);
-            request.setAttribute("cliente", dao.buscarClientePeloCpf(cpf));
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastraClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private RequestDispatcher editaCliente(HttpServletRequest request) {
+        int idUsuario = Integer.parseInt(request.getParameter("id"));
+        request.setAttribute("cliente", dao.buscaClientePeloId(idUsuario));
+        RequestDispatcher view = request.getRequestDispatcher(INSERIR_OU_EDITAR);
+        return view;
     }
 
 
@@ -108,6 +104,7 @@ public class CadastraClienteServlet extends HttpServlet {
         cliente.setSobrenomeUsuario(request.getParameter("sobrenomeCliente"));
         cliente.setCpf(request.getParameter("cpfCliente"));
         cliente.setEmail(request.getParameter("emailCliente"));
+        Genero testege = ConvertStringForGenero.parse(request.getParameter("generoCliente"));
         cliente.setGenero(ConvertStringForGenero.parse(request.getParameter("generoCliente")));
 
         String dataDeNascimento = request.getParameter("data_nascimento");
@@ -120,6 +117,7 @@ public class CadastraClienteServlet extends HttpServlet {
         cliente.setComplemento(request.getParameter("complementoCliente"));
         cliente.setCidade(request.getParameter("cidadeCliente"));
         cliente.setNumero(Integer.parseInt(request.getParameter("numeroCliente")));
+        Uf estado = ConvertStringForUf.parse(request.getParameter("ufCliente"));
         cliente.setEstado(ConvertStringForUf.parse(request.getParameter("ufCliente")));
         return cliente;
     }
