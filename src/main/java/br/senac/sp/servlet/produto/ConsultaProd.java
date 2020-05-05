@@ -7,6 +7,7 @@ package br.senac.sp.servlet.produto;
 
 import br.senac.sp.entidade.dao.ProdutosDao;
 import br.senac.sp.entidade.model.Produto;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
  * @author Vitoria Cristina
  */
 @WebServlet(name = "ConsultaProd", value = "/consultaProduto")
@@ -30,41 +30,24 @@ public class ConsultaProd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String consultaProd = request.getParameter("ConsultaProd");
-        ProdutosDao selectprod = new ProdutosDao();
-        Produto produtos = new Produto(null, 0, null, null, 0, null);
+        String codigoProduto = request.getParameter("ConsultaProd");
+        ProdutosDao dao = new ProdutosDao();
+        Produto produtos;
 
-        if (consultaProd.trim() != null) {
-
+        if (codigoProduto != null) {
             try {
-                produtos = selectprod.PesquisarProduto(consultaProd);
+                produtos = dao.PesquisarProduto(codigoProduto);
+                if (produtos != null) {
+                    request.setAttribute("resultado", produtos);
+                    request.getRequestDispatcher("ConsultaProdResult.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("resultado", "Produto não encontado");
+                    request.getRequestDispatcher("ConsultaProd.jsp").forward(request, response);
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
             System.out.println("to aqui");
-
         }
-
-        if (produtos.getNomeprod() != null) {
-
-            request.setAttribute("resultado", produtos);
-
-            request.getRequestDispatcher("ConsultaProdResult.jsp").forward(request, response);
-
-        } else {
-
-            request.setAttribute("resultado", "Produto não encontado");
-
-            request.getRequestDispatcher("ConsultaProd.jsp").forward(request, response);
-
-        }
-
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

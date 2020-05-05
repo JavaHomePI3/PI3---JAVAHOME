@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Vitoria Cristina
  */
 @WebServlet(name = "AlterarProd", urlPatterns = {"/AlterarProd"})
-
 public class AlterarProd extends HttpServlet {
 
     @Override
@@ -31,9 +30,6 @@ public class AlterarProd extends HttpServlet {
 
         String alterar = String.valueOf(request.getParameter("alterar"));
         String excluir = String.valueOf(request.getParameter("excluir"));
-
-        
-        
 
         if (alterar.equals("alterar")) {
 
@@ -65,10 +61,7 @@ public class AlterarProd extends HttpServlet {
 
                 System.out.println("falhou na hora de deletar");
             }
-
         }
-
     }
-
 }
 
