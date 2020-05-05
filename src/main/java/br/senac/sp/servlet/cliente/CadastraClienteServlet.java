@@ -55,13 +55,13 @@ public class CadastraClienteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Cliente cliente = criaCliente(request);
+        String acao = request.getParameter("acao");
+
         try {
-            String cpf = request.getParameter("cpfCliente");
-            if (cpf == null || cpf.isEmpty()) {
-                dao.inserir(cliente);
-            } else {
-                cliente.setCpf(cpf);
+            if (acao != null){
                 dao.editar(cliente);
+            }else {
+                dao.inserir(cliente);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,6 +94,7 @@ public class CadastraClienteServlet extends HttpServlet {
     private RequestDispatcher editaCliente(HttpServletRequest request) {
         int idUsuario = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("cliente", dao.buscaClientePeloId(idUsuario));
+        request.setAttribute("action","editar");
         RequestDispatcher view = request.getRequestDispatcher(INSERIR_OU_EDITAR);
         return view;
     }
@@ -106,12 +107,9 @@ public class CadastraClienteServlet extends HttpServlet {
         cliente.setSobrenomeUsuario(request.getParameter("sobrenomeCliente"));
         cliente.setCpf(request.getParameter("cpfCliente"));
         cliente.setEmail(request.getParameter("emailCliente"));
-        Genero testege = ConvertStringForGenero.parse(request.getParameter("generoCliente"));
         cliente.setGenero(ConvertStringForGenero.parse(request.getParameter("generoCliente")));
-
         String dataDeNascimento = request.getParameter("data_nascimento");
         cliente.setDataNascimento(dataDeNascimento);
-
         cliente.setTelefone(request.getParameter("telefoneCliente"));
         cliente.setCep(request.getParameter("cepCliente"));
         cliente.setRua(request.getParameter("ruaCliente"));
@@ -119,7 +117,6 @@ public class CadastraClienteServlet extends HttpServlet {
         cliente.setComplemento(request.getParameter("complementoCliente"));
         cliente.setCidade(request.getParameter("cidadeCliente"));
         cliente.setNumero(Integer.parseInt(request.getParameter("numeroCliente")));
-        Uf estado = ConvertStringForUf.parse(request.getParameter("ufCliente"));
         cliente.setEstado(ConvertStringForUf.parse(request.getParameter("ufCliente")));
         return cliente;
     }

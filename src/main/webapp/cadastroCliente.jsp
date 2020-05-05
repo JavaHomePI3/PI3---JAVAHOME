@@ -191,11 +191,13 @@
             </div>
         </div>
         <hr class="mb-4">
-        <c:set var="acao" value="${pageContext.request.getAttribute(\"action\")}"/>
+        <c:set var="acao" value="${requestScope.action}"/>
+
         <c:if test="${acao == null }">
             <button class="btn btn-secondary btn-lg btn-block" type="submit">Gravar</button>
         </c:if>
-        <c:if test="${acao == \"editar\" }">
+
+        <c:if test="${acao != null }">
             <input type="text" value="editar" name="acao" hidden>
             <button class="btn btn-secondary btn-lg btn-block" type="submit">Editar</button>
         </c:if>
