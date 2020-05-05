@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:import url="header.jsp"/>
 
 <c:set var="resultado" value="${requestScope.produtoEncontrado}"/>
@@ -103,29 +103,51 @@
             </tbody>
         </table>
     </div>
-    <div class="form-row">
-        <div class="col"><h2>Dados da venda</h2></div>
+
+    <form class="form-row" action="cadastraVenda" method="post">
+        <div class="col">
+            <div class="form-group col-md-6">
+                <label for="idVendedor">id Vendedor</label>
+                <input type="text" class="form-control" id="idVendedor" name="idVendedor"
+                       placeholder="Digite id do vendedor" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="filial">Filial</label>
+                <select name="filial" class="custom-select d-block w-100" id="filial" required>
+                    <option value="">Selecionar...</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Campina">Campina</option>
+                    <option value="Brasília">Brasília</option>
+                    <option value="Joinville">Joinville</option>
+                </select>
+                <div class="invalid-feedback">
+                    Favor selecionar a filial.
+                </div>
+            </div>
+        </div>
+
         <div class="col">
             <c:set var="totalVenda" value="${requestScope.precoTotal}"/>
-            <form class="form-row" action="cadastraVenda" method="post">
-                <div class="form-group col-md-6">
-                    <label for="totalVenda">Total da venda</label>
-                    <input type="email" class="form-control" id="totalVenda" placeholder="R$: 1000,00" disabled
-                           value="<c:out value="${totalVenda}"/>">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="cpfCliente">CPF cliente</label>
-                    <input type="text" class="form-control" id="cpfCliente" name="cpf" placeholder="333-333-333-33" size="11">
-                </div>
-                <!-- dados para realizar a venda -->
-                <input type="hidden" value="<c:out value="${idFuncionario}"/>" name="idFuncionario">
-                <input type="hidden" value="<c:out value="${idFilial}"/>" name="idFilial">
-                <input type="text" hidden value="vender" name="metodo">
-                <button type="submit" class="btn btn-primary">Realizar Venda</button>
 
-            </form>
+            <div class="form-group col-md-6">
+                <label for="totalVenda">Total da venda</label>
+                <input type="email" class="form-control" id="totalVenda" placeholder="R$: 1000,00" disabled
+                       value="<c:out value="${totalVenda}"/>">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="cpfCliente">CPF cliente</label>
+                <input type="text" class="form-control" id="cpfCliente" name="cpf" placeholder="333-333-333-33"
+                       size="11">
+            </div>
+            <!-- dados para realizar a venda -->
+            <input type="hidden" value="<c:out value="${idFuncionario}"/>" name="idFuncionario">
+            <input type="hidden" value="<c:out value="${idFilial}"/>" name="idFilial">
+            <input type="text" hidden value="vender" name="metodo">
+            <button type="submit" class="btn btn-primary">Realizar Venda</button>
         </div>
-    </div>
+    </form>
+
+
 </div>
 <!-- Large modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -163,9 +185,9 @@
         alert("O estoque não tem essa quantidade de produtos: " + quantidade)
     } else if (mensagem == "semProduto") {
         alert("Não foi encontrado o produto informado!")
-    }else if (mensagem == "NC") {
+    } else if (mensagem == "NC") {
         alert("O CPF informado não foi encontrado na base de dados\nPor favor informe um cpf valido!")
-    }else if (mensagem == "vendido") {
+    } else if (mensagem == "vendido") {
         alert("Venda Realizada com sucesso!")
     }
 </script>

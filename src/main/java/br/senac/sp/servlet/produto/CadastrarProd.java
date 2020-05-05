@@ -27,7 +27,7 @@ public class CadastrarProd extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
         String nomeprod = request.getParameter("nomeprod");
         String codigobarrasprod = request.getParameter("codigoprod");
         String descricaoprod = request.getParameter("descricaoprod");
@@ -60,6 +60,7 @@ public class CadastrarProd extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/CadastrarProd.jsp");
         requestDispatcher.forward(request,response);
     }

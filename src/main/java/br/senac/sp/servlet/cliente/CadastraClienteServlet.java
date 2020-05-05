@@ -32,6 +32,7 @@ public class CadastraClienteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         RequestDispatcher view = request.getRequestDispatcher(INSERIR_OU_EDITAR);
         String acao = request.getParameter("action");
         if (acao != null) {
@@ -52,6 +53,7 @@ public class CadastraClienteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         Cliente cliente = criaCliente(request);
         try {
             String cpf = request.getParameter("cpfCliente");

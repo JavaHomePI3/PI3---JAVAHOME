@@ -3,10 +3,7 @@ package br.senac.sp.servlet.venda;
 import br.senac.sp.entidade.dao.ClienteDAO;
 import br.senac.sp.entidade.dao.ProdutosDao;
 import br.senac.sp.entidade.dao.VendaDao;
-import br.senac.sp.entidade.model.Carrinho;
-import br.senac.sp.entidade.model.Cliente;
-import br.senac.sp.entidade.model.Produto;
-import br.senac.sp.entidade.model.Venda;
+import br.senac.sp.entidade.model.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,8 +18,6 @@ import java.util.Map;
 @WebServlet(name = "cadastraVendaServlet", value = "/cadastraVenda")
 public class CadastraVendaServlet extends HttpServlet {
     Carrinho carrinho = new Carrinho();
-    private Integer idFuncionario;
-    private Integer idFialial;
 
     @Override
     public void destroy() {
@@ -32,7 +27,7 @@ public class CadastraVendaServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        sessionVenda();
+        request.setCharacterEncoding("UTF-8");
         String acao = request.getParameter("metodo");
         configuraListaDeProdutos(request, acao);
         configuraAtributos(request);
@@ -41,6 +36,7 @@ public class CadastraVendaServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String acao = request.getParameter("metodo");
         configuraAcao(request, response, acao);
         response.sendRedirect("cadastraVenda");
@@ -80,18 +76,22 @@ public class CadastraVendaServlet extends HttpServlet {
     private void tentaRealizarVenda(HttpServletRequest request) {
         try {
             String cpf = "";
-            if (request.getParameter("cpf") != null){
+            int idVendedor = Integer.MIN_VALUE;
+            String filial = null;
+            if (request.getParameter("cpf") != null && request.getParameter("idVendedor") != null && request.getParameter("filial") != null){
                 cpf = request.getParameter("cpf");
+                idVendedor = Integer.parseInt(request.getParameter("idVendedor"));
+                filial = request.getParameter("filial");
             }
             Cliente clienteEncontrado = new ClienteDAO().buscarClientePeloCpf(cpf);
             Integer idCliente = null;
             if (clienteEncontrado != null){
                 idCliente = clienteEncontrado.getId();
-                if (idFuncionario != null && idFialial != null) {
+                if (idVendedor >=0 && filial != null) {
                     VendaDao dao = new VendaDao();
 
                     if (!carrinho.getCarrinho().isEmpty()) {
-                        Venda novaVenda = new Venda(idCliente, idFuncionario, idFialial, carrinho);
+                        Venda novaVenda = new Venda(idCliente, idVendedor, filial, carrinho);
                         dao.inserir(novaVenda);
                         atualizaEstoque();
                         destroy();
@@ -102,13 +102,13 @@ public class CadastraVendaServlet extends HttpServlet {
                 } else {
                     request.setAttribute("mensagem", "Session Erro");
                     System.out.println("Erro nas informações de Seção: idCliente,idFuncionario e idFilial.\ncliente: " + idCliente
-                            + " - funcionario: " + idFuncionario + " - Filial: " + idFialial);
+                            + " - funcionario: " + idVendedor + " - Filial: " + filial);
                 }
             }else{
                 request.setAttribute("mensagem", "NC");
                 atualizaListaDeProdutos(request);
                 System.out.println("Erro nas informações de Seção: idCliente,idFuncionario e idFilial.\ncliente: " + idCliente
-                        + " - funcionario: " + idFuncionario + " - Filial: " + idFialial);
+                        + " - funcionario: " + idVendedor + " - Filial: " + filial);
             }
         } catch (SQLException e) {
             System.out.print("Erro ao inserir venda: " + e.getMessage());
@@ -166,8 +166,6 @@ public class CadastraVendaServlet extends HttpServlet {
 
     private void configuraAtributos(HttpServletRequest request) {
         atualizaListaDeProdutos(request);
-        request.setAttribute("idFuncionario", idFuncionario);
-        request.setAttribute("idFilial", idFialial);
     }
 
     private void configuraListaDeProdutos(HttpServletRequest request, String acao) {
@@ -188,11 +186,6 @@ public class CadastraVendaServlet extends HttpServlet {
                 }
             }
         }
-    }
-
-    private void sessionVenda() {
-        idFuncionario = 1;
-        idFialial = 1;
     }
 
     private Produto pesquisaProduto(String codigoDoProduto) {

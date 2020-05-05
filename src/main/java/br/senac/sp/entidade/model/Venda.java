@@ -10,7 +10,7 @@ public class Venda {
     private double precoTotal;
     private Date dataDaVenda;
     private Carrinho carrinho;
-    private int idFilial;
+    private String filial;
 
     public Venda(int id, Carrinho carrinho, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
         this.id = id;
@@ -20,20 +20,20 @@ public class Venda {
         this.precoTotal = precoTotal;
         this.dataDaVenda = dataDaVenda;
     }
-    public Venda(int idCliente, int idVendedor,int idFilial,Carrinho carrinho) {
+    public Venda(int idCliente, int idVendedor,String filial,Carrinho carrinho) {
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
         this.carrinho = carrinho;
-        this.idFilial = idFilial;
+        this.filial = filial;
     }
 
-    public Venda(int idItens, int idCliente, int idVendedor, int idFilial, double precoTotal, Date dataDaVenda) {
+    public Venda(int idItens, int idCliente, int idVendedor, String filial, double precoTotal, Date dataDaVenda) {
         this.idItens = idItens;
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
         this.precoTotal = precoTotal;
         this.dataDaVenda = dataDaVenda;
-        this.idFilial = idFilial;
+        this.filial = filial;
     }
 
     public Venda(Carrinho carrinho, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
@@ -52,12 +52,12 @@ public class Venda {
         return carrinho;
     }
 
-    public int getIdFilial() {
-        return idFilial;
+    public String getIdFilial() {
+        return filial;
     }
 
-    public void setIdFilial(int idFilial) {
-        this.idFilial = idFilial;
+    public void setIdFilial(String filial) {
+        this.filial = filial;
     }
 
     public void setCarrinho(Carrinho carrinho) {

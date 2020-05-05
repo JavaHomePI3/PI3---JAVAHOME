@@ -72,7 +72,7 @@ public class VendaDao implements Dao<Venda> {
         ps.setInt(1, idIten);
         ps.setInt(2, entidade.getIdCliente());
         ps.setInt(3, entidade.getIdVendedor());
-        ps.setInt(4,entidade.getIdFilial());
+        ps.setString(4,entidade.getIdFilial());
         ps.setDouble(5, entidade.getCarrinho().getPrecoTotal());
         ps.execute();
         ps.close();

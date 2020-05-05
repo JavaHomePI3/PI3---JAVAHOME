@@ -29,7 +29,7 @@ public class ConsultaProd extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
         String codigoProduto = request.getParameter("ConsultaProd");
         ProdutosDao dao = new ProdutosDao();
         Produto produtos;
