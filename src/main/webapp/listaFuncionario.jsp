@@ -5,22 +5,13 @@
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <c:import url="header.jsp"/>
-<html>
-    <head>
-       <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <br>
-        <h1 align="center">Lista de Funcion�rios</h1><br>
-    </head>
-<body>
+
     <table class="table table-striped">
         <thead>
             <tr>
-                   
-                <th colspan=2>A豫o</th>
+                <th colspan=2>A占쏙옙o</th>
             </tr>
         </thead>
         <tbody>
@@ -29,5 +20,5 @@
     <center>
     <a class="btn btn-primary" href="index.jsp" role="button">Voltar</a>
     </center>
-</body>
-</html>
+
+<c:import url="footer.jsp"/>
