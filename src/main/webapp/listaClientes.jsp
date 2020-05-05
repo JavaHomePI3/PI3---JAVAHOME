@@ -46,7 +46,7 @@
             <td>${cliente.cidade}</td>
             <td>${cliente.estado}</td>
 
-            <td><a href="CadastroCliente?action=editar&cpf=<c:out value="${cliente.cpf}"/>">Editar</a></td>
+            <td><a href="CadastroCliente?action=editar&id=<c:out value="${cliente.id}"/>">Editar</a></td>
             <td>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
                         onclick="passarIdModal(<c:out value="${cliente.id}"/>)">
