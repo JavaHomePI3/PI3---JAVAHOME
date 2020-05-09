@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-md-6" id="categoria-form">
+                    <div class="form-group col-md-6" id="categoria-form" style="display: none;">
                         <label for="categoria">Categoria de produtos</label>
                         <select name="categoria" class="custom-select d-block w-100" id="categoria" required>
                             <option value="">Selecionar...</option>
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-                         id="cpf-form">
+                         id="cpf-form" style="display: none;">
                         <div class="input-group">
                             <input type="text" class="form-control border-0 small" placeholder="CPF do clinete..."
                                    aria-label="Search" id="cpfCliente" aria-describedby="basic-addon2" maxlength="11">
@@ -95,7 +95,7 @@
                         <tr>
                             <th>Código da venda</th>
                             <th>Código do carrinho</th>
-                            <th>id cliente</th>
+                            <th>Cliente</th>
                             <th>Código do funcionario</th>
                             <th>filial</th>
                             <th>preço total</th>
@@ -110,7 +110,7 @@
                                 <td>${vendas.nomeCliente}</td>
                                 <td>${vendas.idVendedor}</td>
                                 <td>${vendas.filial}</td>
-                                <td>${vendas.precoTotal}</td>
+                                <td>R$: ${vendas.precoTotal}</td>
                                 <td>${vendas.dataDaVenda}</td>
                             </tr>
                         </c:forEach>
@@ -118,7 +118,8 @@
                         </tbody>
                     </table>
                     <div class="text-center">
-                        <div class="spinner-border" id="loading" style="width: 3rem; height: 3rem; position: absolute; display: none;" role="status">
+                        <div class="spinner-border" id="loading"
+                             style="width: 3rem; height: 3rem; position: absolute; display: none;" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
@@ -126,79 +127,31 @@
             </div>
         </div>
     </div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Valor total
+                                </div>
+                                <div class="spinner-border text-primary" role="status" id="loadingValorTotal" style="display: none;">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorTotal">R$: 000,00</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-
-
-<!-- /.container-fluid -->
-<!-- Page level custom scripts -->
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
 <c:import url="footer.jsp"/>
-<script>
-    $(document).ready(function () {
-        $("#categoria-form").css("display", "none");
-        $("#cpf-form").css("display", "none");
-
-        $("#radioFilial").click(function () {
-            $("#filial-form").css("display", "block");
-            $("#categoria-form").css("display", "none");
-            $("#cpf-form").css("display", "none");
-        });
-
-        $("#radioCatProd").click(function () {
-            $("#filial-form").css("display", "none");
-            $("#categoria-form").css("display", "block");
-            $("#cpf-form").css("display", "none");
-        });
-
-        $("#radioCliente").click(function () {
-            $("#filial-form").css("display", "none");
-            $("#categoria-form").css("display", "none");
-            $("#cpf-form").css("display", "inline-block");
-        });
-    });
-
-    function buscarCliente() {
-        let cpf = $('#cpfCliente').val();
-        let url = "relatorio?action=cliente&cpf=" + cpf;
-        $.ajax({
-            type: 'GET',
-            url: url,
-            dataType: "json",
-            beforeSend: function () {
-                // setting a timeout
-                $("#loading").css("display", "inline-block");
-            },
-            success: function (data) {
-                controiHtml(data);
-            },
-            complete: function () {
-                $("#loading").css("display", "none")
-            },
-        });
-
-        function controiHtml(data) {
-            var html = data.reduce(function (string, obj, i) {
-                return string + "<tr> <td>" + obj.id + "</td><td>" + obj.idItens + "</td> <td>" + obj.nomeCliente + " </td> <td>" + obj.idVendedor + " </td> <td>" +
-                    obj.filial + " </td> <td>" + obj.precoTotal + "</td> <td>" + obj.dataDaVenda + "</td></tr>";
-            }, '');
-            $("#dataTable tbody").html(html);
-        }
-    }
-
-    function buscarFilial() {
-        let filial = $('#filial');
-        alert(filial.val())
-
-    }
-
-    function buscarCategoria() {
-        let categoria = $('#categoria');
-        alert(categoria.val())
-
-    }
-
-</script>
+<script src="js/relatorio/relatorio.js"></script>

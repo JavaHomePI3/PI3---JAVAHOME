@@ -27,23 +27,10 @@ public class RelatorioServlet extends HttpServlet {
         ClienteDAO clienteDao = new ClienteDAO();
         if (request.getParameter("action") != null) {
             String acao = request.getParameter("action");
-
             if (acao.equals("cliente")) {
-                try {
-                    if (request.getParameter("cpf") != null){
-                        String cpfCliente = request.getParameter("cpf").trim();
-                        Cliente cliente = clienteDao.buscarClientePeloCpf(cpfCliente);
-                        List<Venda> vendasPorCliente = dao.buscarPorCliente(String.valueOf(cliente.getId()));
-                        colocaNomeDoClienteNaVenda(clienteDao,vendasPorCliente);
-                        String json = new Gson().toJson(vendasPorCliente);
-                        response.setContentType("application/json");
-                        response.setCharacterEncoding("utf-8");
-                        response.getWriter().write(json);
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
+                buscaCliente(request, response, dao, clienteDao);
+            }else if(acao.equals("filial")){
+                buscaPorFilial(request, response, dao, clienteDao);
             }
         }else{
             try {
@@ -56,6 +43,41 @@ public class RelatorioServlet extends HttpServlet {
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/relatorio.jsp");
             requestDispatcher.forward(request, response);
+        }
+    }
+
+    private void buscaPorFilial(HttpServletRequest request, HttpServletResponse response, VendaDao dao, ClienteDAO clienteDao) throws IOException {
+        try {
+            String nomeFilial = request.getParameter("nome").replace("%20"," ");
+            List<Venda> vendasPorFilial = dao.buscarPor("filial",nomeFilial);
+            for (Venda v: vendasPorFilial){
+                Cliente cliente = clienteDao.buscaClientePeloId(v.getIdCliente());
+                v.setNomeCliente(cliente.getNomeUsuario());
+            }
+            criaJsonResposta(response, vendasPorFilial);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void criaJsonResposta(HttpServletResponse response, List<Venda> vendasPorFilial) throws IOException {
+        String json = new Gson().toJson(vendasPorFilial);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().write(json);
+    }
+
+    private void buscaCliente(HttpServletRequest request, HttpServletResponse response, VendaDao dao, ClienteDAO clienteDao) throws IOException {
+        try {
+            if (request.getParameter("cpf") != null){
+                String cpfCliente = request.getParameter("cpf").trim();
+                Cliente cliente = clienteDao.buscarClientePeloCpf(cpfCliente);
+                List<Venda> vendasPorCliente = dao.buscarPorCliente(String.valueOf(cliente.getId()));
+                colocaNomeDoClienteNaVenda(clienteDao,vendasPorCliente);
+                criaJsonResposta(response, vendasPorCliente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

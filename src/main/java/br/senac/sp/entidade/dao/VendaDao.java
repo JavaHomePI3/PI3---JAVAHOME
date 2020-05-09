@@ -164,6 +164,38 @@ public class VendaDao implements Dao<Venda> {
         return null;
     }
 
+    public List<Venda> buscarPor(String coluna,String buscaPor) throws SQLException {
+        try {
+            conexao = ConexaoDB.getConexao();
+            String sql = "SELECT * FROM vendas where "+coluna+"=\"" +buscaPor+"\"";
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                vendas.add(new Venda(
+                        rs.getInt("id"),
+                        rs.getInt("id_itens"),//falta fazer a logica para tratar o json
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_funcionario"),
+                        rs.getString("filial"),
+                        rs.getDouble("preco_total"),
+                        rs.getDate("create_at")
+                ));
+            }
+            preparedStatement.close();
+            rs.close();
+            if (vendas.isEmpty()) {
+                throw new VendasException("Erro ao buscar produtos!");
+            }
+            return vendas;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conexao.close();
+        }
+        return null;
+    }
+
     @Override
     public boolean editar(Venda entidade) {
         return false;
