@@ -6,6 +6,7 @@ public class Venda {
     private int id;
     private int idItens;
     private int idCliente;
+    private String nomeCliente;
     private int idVendedor;
     private double precoTotal;
     private Date dataDaVenda;
@@ -20,20 +21,22 @@ public class Venda {
         this.precoTotal = precoTotal;
         this.dataDaVenda = dataDaVenda;
     }
-    public Venda(int idCliente, int idVendedor,String filial,Carrinho carrinho) {
+
+    public Venda(int idCliente, int idVendedor, String filial, Carrinho carrinho) {
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
         this.carrinho = carrinho;
         this.filial = filial;
     }
 
-    public Venda(int idItens, int idCliente, int idVendedor, String filial, double precoTotal, Date dataDaVenda) {
+    public Venda(int id, int idItens, int idCliente, int idFuncionario, String filial, double precoTotal, Date dataDaVenda) {
+        this.id = id;
         this.idItens = idItens;
         this.idCliente = idCliente;
-        this.idVendedor = idVendedor;
+        this.idVendedor = idFuncionario;
+        this.filial = filial;
         this.precoTotal = precoTotal;
         this.dataDaVenda = dataDaVenda;
-        this.filial = filial;
     }
 
     public Venda(Carrinho carrinho, int idCliente, int idVendedor, double precoTotal, Date dataDaVenda) {
@@ -44,6 +47,14 @@ public class Venda {
         this.dataDaVenda = dataDaVenda;
     }
 
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
     public int getId() {
         return id;
     }
@@ -52,11 +63,11 @@ public class Venda {
         return carrinho;
     }
 
-    public String getIdFilial() {
+    public String getFilial() {
         return filial;
     }
 
-    public void setIdFilial(String filial) {
+    public void setFilial(String filial) {
         this.filial = filial;
     }
 

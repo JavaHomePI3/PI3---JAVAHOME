@@ -23,8 +23,8 @@ public class ConexaoDB {
 
     public static Connection getConexao() throws SQLException {
         String dbURL = "jdbc:mysql://localhost/senac?useTimezone=true&serverTimezone=UTC";
-        String user = "senac";
-        String password = "senac";
+        String user = "root";
+        String password = "";
         return DriverManager.getConnection(dbURL, user, password);
     }
 }

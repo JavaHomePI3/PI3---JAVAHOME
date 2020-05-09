@@ -162,7 +162,7 @@
 
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
-                    <a class="nav-link" href="Relatorio.jsp">
+                    <a class="nav-link" href="relatorio">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Relatorio</span></a>
                 </li>

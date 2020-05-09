@@ -72,7 +72,7 @@ public class VendaDao implements Dao<Venda> {
         ps.setInt(1, idIten);
         ps.setInt(2, entidade.getIdCliente());
         ps.setInt(3, entidade.getIdVendedor());
-        ps.setString(4,entidade.getIdFilial());
+        ps.setString(4,entidade.getFilial());
         ps.setDouble(5, entidade.getCarrinho().getPrecoTotal());
         ps.execute();
         ps.close();
@@ -111,9 +111,41 @@ public class VendaDao implements Dao<Venda> {
             while (rs.next()) {
                 vendas.add(new Venda(
                         rs.getInt("id"),
-                        null,//falta fazer a logica para tratar o json
+                        rs.getInt("id_itens"),//falta fazer a logica para tratar o json
                         rs.getInt("id_cliente"),
                         rs.getInt("id_funcionario"),
+                        rs.getString("filial"),
+                        rs.getDouble("preco_total"),
+                        rs.getDate("create_at")
+                ));
+            }
+            preparedStatement.close();
+            rs.close();
+            if (vendas.isEmpty()) {
+                throw new VendasException("Erro ao buscar produtos!");
+            }
+            return vendas;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conexao.close();
+        }
+        return null;
+    }
+    public List<Venda> buscarPorCliente(String idCliente) throws SQLException {
+        try {
+            conexao = ConexaoDB.getConexao();
+            String sql = "SELECT * FROM vendas where id_cliente ="+idCliente;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                vendas.add(new Venda(
+                        rs.getInt("id"),
+                        rs.getInt("id_itens"),//falta fazer a logica para tratar o json
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_funcionario"),
+                        rs.getString("filial"),
                         rs.getDouble("preco_total"),
                         rs.getDate("create_at")
                 ));

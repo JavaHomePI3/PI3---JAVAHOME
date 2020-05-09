@@ -93,23 +93,28 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Código da venda</th>
+                            <th>Código do carrinho</th>
+                            <th>id cliente</th>
+                            <th>Código do funcionario</th>
+                            <th>filial</th>
+                            <th>preço total</th>
+                            <th>Data da venda</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
+                        <c:forEach var="vendas" items="${requestScope.vendas}">
+                            <tr>
+                                <td>${vendas.id}</td>
+                                <td>${vendas.idItens}</td>
+                                <td>${vendas.nomeCliente}</td>
+                                <td>${vendas.idVendedor}</td>
+                                <td>${vendas.filial}</td>
+                                <td>${vendas.precoTotal}</td>
+                                <td>${vendas.dataDaVenda}</td>
+                            </tr>
+                        </c:forEach>
+
                         </tbody>
                     </table>
                 </div>
@@ -152,8 +157,21 @@
     });
 
     function buscarCliente() {
-        let cpf = $('#cpfCliente');
-        alert(cpf.val())
+        let cpf = $('#cpfCliente').val();
+        let url = "relatorio?action=cliente&cpf="+cpf;
+
+        $.get(url,function (data) {
+
+            var html = data.reduce(function(string, obj, i) {
+                return string+"<tr> <td>" +obj.id+ "</td><td>"+ obj.idItens+"</td> <td>" +obj.nomeCliente+" </td> <td>"+ obj.idVendedor+" </td> <td>"+
+                    obj.filial+" </td> <td>"+ obj.precoTotal+"</td> <td>"+ obj.dataDaVenda+"</td></tr>";
+            }, '');
+            $("#dataTable tbody").html(html);
+
+            // for (linha=0;linha < data.length ; linha++){
+            //     console.log(data[linha].id)
+            // }
+        })
     }
     function buscarFilial() {
         let filial = $('#filial');
