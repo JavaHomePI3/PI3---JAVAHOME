@@ -53,7 +53,7 @@
                         </select>
                         <div class="input-group-append" style="margin-top: 5px;">
                             <button class="btn btn-primary" type="button" onclick="buscarFilial()">
-                                <i class="fas fa-search fa-sm" >Buscar</i>
+                                <i class="fas fa-search fa-sm">Buscar</i>
                             </button>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-                          id="cpf-form">
+                         id="cpf-form">
                         <div class="input-group">
                             <input type="text" class="form-control border-0 small" placeholder="CPF do clinete..."
                                    aria-label="Search" id="cpfCliente" aria-describedby="basic-addon2" maxlength="11">
@@ -117,6 +117,11 @@
 
                         </tbody>
                     </table>
+                    <div class="text-center">
+                        <div class="spinner-border" id="loading" style="width: 3rem; height: 3rem; position: absolute; display: none;" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -133,7 +138,7 @@
 <script src="js/demo/datatables-demo.js"></script>
 <c:import url="footer.jsp"/>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#categoria-form").css("display", "none");
         $("#cpf-form").css("display", "none");
 
@@ -158,26 +163,38 @@
 
     function buscarCliente() {
         let cpf = $('#cpfCliente').val();
-        let url = "relatorio?action=cliente&cpf="+cpf;
+        let url = "relatorio?action=cliente&cpf=" + cpf;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: "json",
+            beforeSend: function () {
+                // setting a timeout
+                $("#loading").css("display", "inline-block");
+            },
+            success: function (data) {
+                controiHtml(data);
+            },
+            complete: function () {
+                $("#loading").css("display", "none")
+            },
+        });
 
-        $.get(url,function (data) {
-
-            var html = data.reduce(function(string, obj, i) {
-                return string+"<tr> <td>" +obj.id+ "</td><td>"+ obj.idItens+"</td> <td>" +obj.nomeCliente+" </td> <td>"+ obj.idVendedor+" </td> <td>"+
-                    obj.filial+" </td> <td>"+ obj.precoTotal+"</td> <td>"+ obj.dataDaVenda+"</td></tr>";
+        function controiHtml(data) {
+            var html = data.reduce(function (string, obj, i) {
+                return string + "<tr> <td>" + obj.id + "</td><td>" + obj.idItens + "</td> <td>" + obj.nomeCliente + " </td> <td>" + obj.idVendedor + " </td> <td>" +
+                    obj.filial + " </td> <td>" + obj.precoTotal + "</td> <td>" + obj.dataDaVenda + "</td></tr>";
             }, '');
             $("#dataTable tbody").html(html);
-
-            // for (linha=0;linha < data.length ; linha++){
-            //     console.log(data[linha].id)
-            // }
-        })
+        }
     }
+
     function buscarFilial() {
         let filial = $('#filial');
         alert(filial.val())
 
     }
+
     function buscarCategoria() {
         let categoria = $('#categoria');
         alert(categoria.val())
