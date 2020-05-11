@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.senac.sp.entidade.model;
 
 import br.senac.sp.entidade.enums.Departamento;
@@ -28,6 +23,10 @@ public class Funcionario extends Usuario {
         this.departamento = departamento;
         this.salario = salario;
         this.cargo = cargo;
+    }
+
+    public Funcionario() {
+        
     }
 
    
