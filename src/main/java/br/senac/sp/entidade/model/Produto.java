@@ -140,4 +140,20 @@ public class Produto {
     public int hashCode() {
         return Objects.hash(idProduto);
     }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "idProduto=" + idProduto +
+                ", codigobarrasprod='" + codigobarrasprod + '\'' +
+                ", valorprod=" + valorprod +
+                ", nomeprod='" + nomeprod + '\'' +
+                ", dtCadastro=" + dtCadastro +
+                ", descricaoprod='" + descricaoprod + '\'' +
+                ", qtdestoque=" + qtdestoque +
+                ", itensvenda=" + itensvenda +
+                ", idloja=" + idloja +
+                ", categoriaprod='" + categoriaprod + '\'' +
+                '}';
+    }
 }

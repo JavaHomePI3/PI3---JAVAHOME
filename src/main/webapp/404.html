@@ -116,7 +116,7 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="relatorio.jsp">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span></a>
       </li>

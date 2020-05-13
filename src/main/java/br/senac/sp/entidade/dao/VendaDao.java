@@ -8,10 +8,7 @@ import br.senac.sp.entidade.model.Venda;
 import com.google.gson.Gson;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class VendaDao implements Dao<Venda> {
     private final List<Venda> vendas = new ArrayList<>();
@@ -72,7 +69,7 @@ public class VendaDao implements Dao<Venda> {
         ps.setInt(1, idIten);
         ps.setInt(2, entidade.getIdCliente());
         ps.setInt(3, entidade.getIdVendedor());
-        ps.setString(4,entidade.getFilial());
+        ps.setString(4, entidade.getFilial());
         ps.setDouble(5, entidade.getCarrinho().getPrecoTotal());
         ps.execute();
         ps.close();
@@ -94,7 +91,7 @@ public class VendaDao implements Dao<Venda> {
             }
         } catch (SQLException e) {
             throw new VendasException("Erro ao Procurar entidade no banco \nErro: " + e.getMessage());
-        }finally {
+        } finally {
             conexao.close();
         }
 
@@ -130,12 +127,13 @@ public class VendaDao implements Dao<Venda> {
         } finally {
             conexao.close();
         }
-        return null;
+        return new ArrayList<>();
     }
+
     public List<Venda> buscarPorCliente(String idCliente) throws SQLException {
         try {
             conexao = ConexaoDB.getConexao();
-            String sql = "SELECT * FROM vendas where id_cliente ="+idCliente;
+            String sql = "SELECT * FROM vendas where id_cliente =" + idCliente;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -164,10 +162,10 @@ public class VendaDao implements Dao<Venda> {
         return null;
     }
 
-    public List<Venda> buscarPor(String coluna,String buscaPor) throws SQLException {
+    public List<Venda> buscarPor(String coluna, String buscaPor) throws SQLException {
         try {
             conexao = ConexaoDB.getConexao();
-            String sql = "SELECT * FROM vendas where "+coluna+"=\"" +buscaPor+"\"";
+            String sql = "SELECT * FROM vendas where " + coluna + "=\"" + buscaPor + "\"";
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -194,6 +192,53 @@ public class VendaDao implements Dao<Venda> {
             conexao.close();
         }
         return null;
+    }
+    public String relatorioGeralVenda(int idVenda) throws SQLException {
+        try {
+            conexao = ConexaoDB.getConexao();
+            String query = "SELECT * FROM vendas INNER JOIN itens ON vendas.id_itens = itens.id " +
+                    "INNER JOIN cliente ON vendas.id_cliente = cliente.id " +
+                    "INNER JOIN funcionario ON vendas.id_funcionario = funcionario.id WHERE vendas.id ="+idVenda;
+            PreparedStatement preparedStatement = conexao.prepareStatement(query);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            List<String> json = new ArrayList<>();
+            while (rs.next()){
+                for (int i=1; i <= 39; i++){
+                        json.add(rs.getString(i));
+                }
+            }
+
+            return new Gson().toJson(json);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            conexao.close();
+        }
+        return null;
+    }
+    public String buscaItens(int idItens) throws SQLException {
+        try {
+            conexao = ConexaoDB.getConexao();
+            String sql = "SELECT * FROM itens where id = " + idItens;
+            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            String json = "";
+
+            while (rs.next()) {
+                json = rs.getString("lista_intes");
+            }
+            System.out.println(json);
+            preparedStatement.close();
+            rs.close();
+
+            return json;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conexao.close();
+        }
+        return "";
     }
 
     @Override
@@ -234,8 +279,8 @@ public class VendaDao implements Dao<Venda> {
     private List<Produto> parseMapForList(Carrinho itens) {
         List<Produto> parseMapForList = new ArrayList<>();
         for (Map.Entry<Produto, Integer> produto : itens.getCarrinho().entrySet()) {
-           produto.getKey().setItensvenda(produto.getValue());
-           parseMapForList.add(produto.getKey());
+            produto.getKey().setItensvenda(produto.getValue());
+            parseMapForList.add(produto.getKey());
         }
         return parseMapForList;
     }

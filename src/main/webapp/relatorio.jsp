@@ -1,9 +1,26 @@
 <%@    taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:import url="header.jsp"/>
+<link rel="stylesheet" type="text/css"
+      href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sp-1.0.1/sl-1.3.1/datatables.min.css"/>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!-- End of Topbar -->
 <!-- Custom styles for this page -->
-<div class="container-fluid">
+<style>
+    .linhaTabela:hover {
+        color: #ffffff;
+        background-color: #4e73df;
+    }
+
+    .linhaTabela {
+        cursor: pointer;
+    }
+    .container-edit{
+        margin-top: 30px;
+    }
+</style>
+<div class="container-fluid container-edit">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Relatórios</h1>
     <!-- Content Row -->
@@ -104,7 +121,8 @@
                         </thead>
                         <tbody>
                         <c:forEach var="vendas" items="${requestScope.vendas}">
-                            <tr>
+                            <tr class="linhaTabela" onclick="buscarDetalhesVenda(${vendas.idItens})" data-toggle="modal"
+                                data-target=".bd-example-modal-lg">
                                 <td>${vendas.id}</td>
                                 <td>${vendas.idItens}</td>
                                 <td>${vendas.nomeCliente}</td>
@@ -130,14 +148,15 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Valor total
                                 </div>
-                                <div class="spinner-border text-primary" role="status" id="loadingValorTotal" style="display: none;">
+                                <div class="spinner-border text-primary loadingValorTotal" role="status"
+                                     style="display: none;">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorTotal">R$: 000,00</div>
@@ -146,6 +165,31 @@
                                 <i class="fas fa-calendar fa-2x text-gray-300"></i>
                             </div>
                         </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="myPieChart"></canvas>
+                            </div>
+                            <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i> Total da venda
+                    </span>
+                                <span class="mr-2">
+                      <i class="fas fa-circle text-success"></i> Mais vendido
+                    </span>
+                                <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Venda por filial
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -153,5 +197,85 @@
     </div>
 
 </div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content container">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <table class="table-responsive table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">código</th>
+                                <th scope="col">valor unit</th>
+                                <th scope="col">nome</th>
+                                <TH scope="col">categoria</TH>
+                                <th scope="col">qtd estoque</th>
+                                <th scope="col">qtd venda</th>
+                                <th scope="col">valor total</th>
+                            </tr>
+                            <tbody id="rootModal">
+
+                            </tbody>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 ml-auto">
+                            <!-- TODO-->
+                        </div>
+                        <div class="col-md-2 ml-auto">
+                            <!-- TODO-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 ml-auto">
+                            <!-- TODO-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+
+                            <div class="row">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2" id="rootValorTotal">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    Valor total
+                                                </div>
+
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <c:import url="footer.jsp"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript"
+        src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sp-1.0.1/sl-1.3.1/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#dataTable").DataTable({
+            dom: 'Bfrtip',
+            buttons: {
+                buttons: ['copy', 'csv', 'excel']
+            }
+        });
+
+    })
+</script>
 <script src="js/relatorio/relatorio.js"></script>

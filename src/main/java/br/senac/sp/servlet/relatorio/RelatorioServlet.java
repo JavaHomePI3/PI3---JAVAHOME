@@ -29,13 +29,17 @@ public class RelatorioServlet extends HttpServlet {
             String acao = request.getParameter("action");
             if (acao.equals("cliente")) {
                 buscaCliente(request, response, dao, clienteDao);
-            }else if(acao.equals("filial")){
-                buscaPorFilial(request, response, dao, clienteDao);
+            } else if (acao.equals("filial")) {
+                buscaPor(request, response, "nome", "filial", dao, clienteDao);
+            } else if (acao.equals("categoria")) {
+                buscaPor(request, response, "nome", "filial", dao, clienteDao);
+            } else if (acao.equals("detalhes")) {
+                pegaItensDaVenda(request, response, dao);
             }
-        }else{
+        } else {
             try {
                 List<Venda> vendas = dao.buscar();
-                colocaNomeDoClienteNaVenda(clienteDao, vendas);
+                configuraListaDeVenda(clienteDao, vendas, dao);
                 request.setAttribute("vendas", vendas);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -46,15 +50,27 @@ public class RelatorioServlet extends HttpServlet {
         }
     }
 
-    private void buscaPorFilial(HttpServletRequest request, HttpServletResponse response, VendaDao dao, ClienteDAO clienteDao) throws IOException {
+    private void pegaItensDaVenda(HttpServletRequest request, HttpServletResponse response, VendaDao dao) throws IOException {
+        int idItens = Integer.parseInt(request.getParameter("CodigoItens"));
         try {
-            String nomeFilial = request.getParameter("nome").replace("%20"," ");
-            List<Venda> vendasPorFilial = dao.buscarPor("filial",nomeFilial);
-            for (Venda v: vendasPorFilial){
+            String json = dao.buscaItens(idItens);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().write(json);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void buscaPor(HttpServletRequest request, HttpServletResponse response, String parametro, String colunaSql, VendaDao dao, ClienteDAO clienteDao) throws IOException {
+        try {
+            String nomeFilial = request.getParameter(parametro).replace("%20", " ");
+            List<Venda> resultados = dao.buscarPor(colunaSql, nomeFilial);
+            for (Venda v : resultados) {
                 Cliente cliente = clienteDao.buscaClientePeloId(v.getIdCliente());
                 v.setNomeCliente(cliente.getNomeUsuario());
             }
-            criaJsonResposta(response, vendasPorFilial);
+            criaJsonResposta(response, resultados);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,11 +85,11 @@ public class RelatorioServlet extends HttpServlet {
 
     private void buscaCliente(HttpServletRequest request, HttpServletResponse response, VendaDao dao, ClienteDAO clienteDao) throws IOException {
         try {
-            if (request.getParameter("cpf") != null){
+            if (request.getParameter("cpf") != null) {
                 String cpfCliente = request.getParameter("cpf").trim();
                 Cliente cliente = clienteDao.buscarClientePeloCpf(cpfCliente);
                 List<Venda> vendasPorCliente = dao.buscarPorCliente(String.valueOf(cliente.getId()));
-                colocaNomeDoClienteNaVenda(clienteDao,vendasPorCliente);
+                configuraListaDeVenda(clienteDao, vendasPorCliente, dao);
                 criaJsonResposta(response, vendasPorCliente);
             }
         } catch (SQLException e) {
@@ -81,9 +97,10 @@ public class RelatorioServlet extends HttpServlet {
         }
     }
 
-    private void colocaNomeDoClienteNaVenda(ClienteDAO clienteDao, List<Venda> vendas) {
+    private void configuraListaDeVenda(ClienteDAO clienteDao, List<Venda> vendas, VendaDao dao) {
         for (Venda v : vendas) {
             v.setNomeCliente(clienteDao.buscaClientePeloId(v.getIdCliente()).getNomeUsuario());
+
         }
     }
 }

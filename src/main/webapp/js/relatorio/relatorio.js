@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     $("#radioFilial").click(function () {
         $("#filial-form").css("display", "block");
@@ -17,19 +18,69 @@ $(document).ready(function () {
         $("#cpf-form").css("display", "inline-block");
     });
 });
+function buscarDetalhesVenda(codigoCarrinho) {
+    let url = "relatorio?action=detalhes&CodigoItens="+codigoCarrinho;
 
+    function getError() {
+        return function (jqXHR, exception) {
+            if (jqXHR.status === 0) {
+                alert('Not connect.\n Verify Network.');
+            } else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                console.log('Internal Server Error [500].');
+                alert("Não foi encontrado registros para essa filial!")
+            } else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                alert('Time out error.');
+            } else if (exception === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error.\n' + jqXHR.responseText);
+            }
+        };
+    }
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: "json",
+        error:  getError(),
+        beforeSend: getBeforeSend(),
+        success: function (data) {
+            let valorTotal = 0;
+            let html = data.reduce(function (string, obj) {
+                valorTotal += (obj.itensvenda*obj.valorprod);
+                return string +"<tr class='linhaTabela'><td>"+obj.idProduto
+                    +"</td><td>"+obj.codigobarrasprod
+                    +"</td><td>"+obj.valorprod.toFixed(2)
+                    +"</td><td>"+obj.nomeprod
+                    +"</td><td>"+obj.categoriaprod
+                    +"</td><td>"+obj.qtdestoque
+                    +"</td><td>"+obj.itensvenda
+                    +"</td><td>"+(obj.itensvenda*obj.valorprod).toFixed(2)+"</td></tr>";
+            }, '');
+            let htmlValorTotal = " <div class=\"text-xs font-weight-bold text-primary text-uppercase mb-1\">Valor total</div>" +
+                "<div class='h5 mb-0 font-weight-bold text-gray-800'>R$:"+valorTotal.toFixed(2) +"</div>";
+            $("#rootValorTotal").html(htmlValorTotal);
+            $("table #rootModal").html(html);
+        },
+        complete: getComplete(),
+    });
+}
 function getBeforeSend() {
     return function () {
         $("#valorTotal").css("display", "none");
         $("#loading").css("display", "inline-block");
-        $("#loadingValorTotal").css("display", "inline-block");
+        $(".loadingValorTotal").css("display", "inline-block");
     };
 }
 
 function getComplete() {
     return function () {
         $("#loading").css("display", "none")
-        $("#loadingValorTotal").css("display", "none");
+        $(".loadingValorTotal").css("display", "none");
         $("#valorTotal").css("display", "block");
     };
 }
@@ -118,3 +169,4 @@ function buscarCategoria() {
     let categoria = $('#categoria');
     alert(categoria.val())
 }
+
