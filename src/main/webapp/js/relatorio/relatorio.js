@@ -116,7 +116,8 @@ function controiHtml(data) {
     let valorToal = 0.00;
     let html = data.reduce(function (string, obj) {
         valorToal += parseFloat(obj.precoTotal);
-        return string + "<tr> <td>" + obj.id + "</td><td>" + obj.idItens + "</td> <td>" + obj.nomeCliente + " </td> <td>" + obj.idVendedor + " </td> <td>" +
+        return string + "<tr class=\"linhaTabela\" onclick=\"buscarDetalhesVenda("+obj.idItens+")\" data-toggle=\"modal\"\n" +
+            "                                data-target=\".bd-example-modal-lg\"> <td>" + obj.id + "</td><td>" + obj.idItens + "</td> <td>" + obj.nomeCliente + " </td> <td>" + obj.idVendedor + " </td> <td>" +
             obj.filial + " </td> <td>R$: " + obj.precoTotal.toFixed(1) + "</td> <td>" + obj.dataDaVenda + "</td></tr>";
     }, '');
     let htmlValorTotal = "<div class=\"h5 mb-0 font-weight-bold text-gray-800\" id=\"valorTotal\">R$: " + valorToal.toFixed(2) + "</div>";
