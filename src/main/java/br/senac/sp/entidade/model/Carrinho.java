@@ -1,6 +1,7 @@
-package br.senac.sp.entidade.model;
+package br.senac.sp.entidade.model.carrinho;
 
 import br.senac.sp.entidade.exception.VendasException;
+import br.senac.sp.entidade.model.Produto;
 
 import java.util.HashMap;
 import java.util.Map;
