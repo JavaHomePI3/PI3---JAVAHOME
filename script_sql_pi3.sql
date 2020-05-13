@@ -55,6 +55,9 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
   `cidade` varchar(50) DEFAULT '0',
   `numero` int(11) DEFAULT 0,
   `estado` varchar(50) DEFAULT '0',
+  `departamento` varchar(50) DEFAULT '0',
+  `cargo` varchar(50) DEFAULT '0',
+  `salario` float DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
