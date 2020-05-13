@@ -14,63 +14,6 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary container-fluid">
-        <a class="navbar-brand" href="index.jsp">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCliente" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Cliente
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
-                        <a class="dropdown-item" href="CadastroCliente">Novo Cliente</a>
-                        <a class="dropdown-item" href="CadastroCliente?action=listar">Editar Cliente</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Venda
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownVenda">
-                        <a class="dropdown-item" href="cadastraVenda">Realiza Venda</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Produtos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="cadastraProduto">Novo Produto</a>
-                        <!-- <a class="dropdown-item" href="CadastrarProd.jsp"> Cadastrar Produto </a> Teste -->
-                        <a class="dropdown-item" href="ConsultaProd.jsp">Editar Produto</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Funcionario
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
-                        <a class="dropdown-item" href="cadastroFuncionario.jsp">Novo Funcionario</a>
-                        <a class="dropdown-item" href="listaFuncionario.jsp">Editar Funcionario</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
 <div id="wrapper">
 
     <!-- Sidebar -->
@@ -125,3 +68,55 @@
 
         <!-- Main Content -->
         <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary container-fluid">
+                <a class="navbar-brand" href="index.jsp">Home</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCliente" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Cliente
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
+                                <a class="dropdown-item" href="CadastroCliente">Novo Cliente</a>
+                                <a class="dropdown-item" href="CadastroCliente?action=listar">Editar Cliente</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Venda
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownVenda">
+                                <a class="dropdown-item" href="cadastraVenda">Realiza Venda</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Produtos
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="cadastraProduto">Novo Produto</a>
+                                <!-- <a class="dropdown-item" href="CadastrarProd.jsp"> Cadastrar Produto </a> Teste -->
+                                <a class="dropdown-item" href="ConsultaProd.jsp">Editar Produto</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Funcionario
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
+                                <a class="dropdown-item" href="cadastroFuncionario.jsp">Novo Funcionario</a>
+                                <a class="dropdown-item" href="listaFuncionario.jsp">Editar Funcionario</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>

@@ -20,6 +20,14 @@
     .container-edit {
         margin-top: 30px;
     }
+
+    td.details-control {
+        background: url('img/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+    tr.shown td.details-control {
+        background: url('img/details_close.png') no-repeat center center;
+    }
 </style>
 <div class="container-fluid container-edit">
     <!-- Page Heading -->
@@ -32,10 +40,18 @@
     </div>
     <div class="card-body">
         <!-- Page Heading -->
-
         <!-- DataTales Example -->
         <div class="card shadow mb-4 container-fluid">
-            <div class="card-header py-3 row">
+            <div style="margin: 10px;">
+                <p class=" font-weight-bold text-primary">Busca Seletiva</p>
+                <button class="btn btn-primary" type="button" id="btnBuscaSeletiva">
+                    Ativar
+                </button>
+                <button class="btn btn-primary" type="button" id="btnBuscaSeletivaDesativa" style="display: none;">
+                    Desativar
+                </button>
+            </div>
+            <div class="card-header py-3 row" id="formBuscaSeletiva" style="display: none;">
                 <div class="col">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="radioFilial"
@@ -286,6 +302,19 @@
             }
         });
 
+        $("#btnBuscaSeletiva").click(function () {
+            $("#formBuscaSeletiva").toggle("slow",function () {
+                $("#btnBuscaSeletiva").toggle();
+                $("#btnBuscaSeletivaDesativa").toggle();
+            });
+        });
+
+        $("#btnBuscaSeletivaDesativa").click(function () {
+            $("#formBuscaSeletiva").toggle("slow",function () {
+                $("#btnBuscaSeletiva").toggle();
+                $("#btnBuscaSeletivaDesativa").toggle();
+            });
+        });
     })
 </script>
 <script src="js/relatorio/relatorio.js"></script>

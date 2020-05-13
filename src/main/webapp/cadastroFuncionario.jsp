@@ -24,7 +24,7 @@
 
     <div class="col-md-6 mb-3">
         <h6><b>Dados Pessoais</b></h6><br>
-        <form method="POST" action='cadastroFuncionario' name="inserir" >
+        <form method="POST" action='CadastroFuncionario' name="inserir" >
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <label>Nome</label>

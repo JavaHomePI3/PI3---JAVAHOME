@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -43,7 +44,8 @@ public class RelatorioServlet extends HttpServlet {
                 List<Venda> vendas = dao.buscar();
                 configuraListaDeVenda(clienteDao, vendas);
                 request.setAttribute("vendas", vendas);
-                request.setAttribute("valorTotal",valorTotal);
+                BigDecimal db = new BigDecimal(valorTotal);
+                request.setAttribute("valorTotal",db.setScale(2));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
