@@ -13,7 +13,7 @@ public class Funcionario extends Usuario {
     private Departamento departamento;
     private Double salario;
     private String cargo;
-
+    public Funcionario(){}
     public Funcionario(Departamento departamento, Double salario, String cargo, int idUsuario, String nomeUsuario,
                        String sobreNomeUsuario, String cpf, String email, Genero genero, String dataNascimento,
                        String telefone, String cep, String rua, String bairro, String complemento,
@@ -24,11 +24,6 @@ public class Funcionario extends Usuario {
         this.salario = salario;
         this.cargo = cargo;
     }
-
-    public Funcionario() {
-        
-    }
-
    
 
     public Departamento getDepartamento() {
