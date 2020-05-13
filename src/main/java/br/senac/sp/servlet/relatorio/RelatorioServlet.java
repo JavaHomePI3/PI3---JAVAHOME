@@ -18,6 +18,7 @@ import java.util.List;
 
 @WebServlet(name = "RelatorioServlet", value = "/relatorio")
 public class RelatorioServlet extends HttpServlet {
+    private double valorTotal;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -25,6 +26,7 @@ public class RelatorioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         VendaDao dao = new VendaDao();
         ClienteDAO clienteDao = new ClienteDAO();
+
         if (request.getParameter("action") != null) {
             String acao = request.getParameter("action");
             if (acao.equals("cliente")) {
@@ -39,8 +41,9 @@ public class RelatorioServlet extends HttpServlet {
         } else {
             try {
                 List<Venda> vendas = dao.buscar();
-                configuraListaDeVenda(clienteDao, vendas, dao);
+                configuraListaDeVenda(clienteDao, vendas);
                 request.setAttribute("vendas", vendas);
+                request.setAttribute("valorTotal",valorTotal);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -89,7 +92,7 @@ public class RelatorioServlet extends HttpServlet {
                 String cpfCliente = request.getParameter("cpf").trim();
                 Cliente cliente = clienteDao.buscarClientePeloCpf(cpfCliente);
                 List<Venda> vendasPorCliente = dao.buscarPorCliente(String.valueOf(cliente.getId()));
-                configuraListaDeVenda(clienteDao, vendasPorCliente, dao);
+                configuraListaDeVenda(clienteDao, vendasPorCliente);
                 criaJsonResposta(response, vendasPorCliente);
             }
         } catch (SQLException e) {
@@ -97,10 +100,11 @@ public class RelatorioServlet extends HttpServlet {
         }
     }
 
-    private void configuraListaDeVenda(ClienteDAO clienteDao, List<Venda> vendas, VendaDao dao) {
+    private void configuraListaDeVenda(ClienteDAO clienteDao, List<Venda> vendas) {
+        valorTotal = 0;
         for (Venda v : vendas) {
             v.setNomeCliente(clienteDao.buscaClientePeloId(v.getIdCliente()).getNomeUsuario());
-
+            valorTotal+= v.getPrecoTotal();
         }
     }
 }
