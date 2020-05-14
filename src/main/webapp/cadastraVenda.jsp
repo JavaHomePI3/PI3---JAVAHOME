@@ -116,7 +116,7 @@
                 <select name="filial" class="custom-select d-block w-100" id="filial" required>
                     <option value="">Selecionar...</option>
                     <option value="São Paulo">São Paulo</option>
-                    <option value="Campina">Campina</option>
+                    <option value="Campina">Campinas</option>
                     <option value="Brasília">Brasília</option>
                     <option value="Joinville">Joinville</option>
                 </select>

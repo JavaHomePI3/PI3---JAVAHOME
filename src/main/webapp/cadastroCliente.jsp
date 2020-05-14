@@ -199,7 +199,7 @@
 
         <c:if test="${acao != null }">
             <input type="text" value="editar" name="acao" hidden>
-            <button class="btn btn-secondary btn-lg btn-block" type="submit">Editar</button>
+            <button class="btn btn-secondary btn-lg btn-block" type="submit">Confirmar</button>
         </c:if>
         </form>
         <a class="btn btn-secondary btn-lg btn-block" href="CadastroCliente?action=listar" type="submit">Lista de Clientes</a>
