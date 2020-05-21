@@ -25,9 +25,10 @@ public class Funcionario extends Usuario {
         this.cargo = cargo;
     }
    
-
+    System.out.println("José e Carlos s2");
     public Departamento getDepartamento() {
         return departamento;
+        
     }
 
     public void setDepartamento(Departamento departamento) {
