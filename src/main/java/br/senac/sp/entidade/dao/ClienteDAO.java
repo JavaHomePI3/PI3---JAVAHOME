@@ -6,13 +6,14 @@ import br.senac.sp.entidade.enums.ConvertStringForGenero;
 import br.senac.sp.entidade.enums.ConvertStringForUf;
 import br.senac.sp.entidade.exception.ClienteException;
 import br.senac.sp.entidade.model.Cliente;
+import br.senac.sp.entidade.model.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClienteDAO implements Dao<Cliente> {
+public class ClienteDAO implements Dao<Usuario> {
 
     private Connection conn;
     private PreparedStatement stmt;
@@ -21,7 +22,7 @@ public class ClienteDAO implements Dao<Cliente> {
 
 
     @Override
-    public boolean inserir(Cliente entidade) throws SQLException {
+    public boolean inserir(Usuario entidade) throws SQLException {
 
         try {
             conn = ConexaoDB.getConexao();
@@ -54,8 +55,8 @@ public class ClienteDAO implements Dao<Cliente> {
     }
 
     @Override
-    public List<Cliente> buscar() throws ClienteException {
-        List<Cliente> listaDeClientes = new ArrayList<>();
+    public List<Usuario> buscar() throws ClienteException {
+        List<Usuario> listaDeClientes = new ArrayList<>();
         try {
             conn = ConexaoDB.getConexao();
             String sql = "SELECT * FROM cliente";
@@ -92,7 +93,7 @@ public class ClienteDAO implements Dao<Cliente> {
     }
 
     @Override
-    public boolean editar(Cliente entidade) throws SQLException {
+    public boolean editar(Usuario entidade) throws SQLException {
 
         try {
             Cliente clienteEncontrado = buscarClientePeloCpf(entidade.getCpf());
@@ -222,7 +223,7 @@ public class ClienteDAO implements Dao<Cliente> {
     }
 
     @Override
-    public boolean remover(Cliente entidade) throws SQLException {
+    public boolean remover(Usuario entidade) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
