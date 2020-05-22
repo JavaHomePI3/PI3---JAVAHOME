@@ -1,1 +1,1 @@
-web: java -jar target/java-getting-started-1.0.jar
+web java $JAVA_OPTS -jar webapp-runner.jar ${WEBAPP_RUNNER_OPTS} --port $PORT ./target/JavaHome-1.0.war
