@@ -29,6 +29,7 @@ public abstract class Usuario {
     public Usuario(int idUsuario, String nomeUsuario, String sobrenomeUsuario, String cpf, String email,
                    Genero genero, String dataNascimento, String telefone, String cep, String rua,
                    String bairro, String complemento, String cidade, int numero, Uf estado) {
+
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.sobrenomeUsuario = sobrenomeUsuario;

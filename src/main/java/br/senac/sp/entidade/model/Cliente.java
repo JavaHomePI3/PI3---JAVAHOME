@@ -11,9 +11,7 @@ public class Cliente extends Usuario {
 
     private Integer quantidadeCompras;
 
-    public Cliente(){
-        
-    }
+    public Cliente(){ }
     
     public Cliente(Integer quantidadeCompras, int idUsuario, String nomeUsuario, String sobreNomeUsuario,
                    String cpf, String email, Genero genero, String dataNascimento, String telefone, String cep,
@@ -23,7 +21,6 @@ public class Cliente extends Usuario {
         
         this.quantidadeCompras = 0;
     }
-
 
     public Integer getQuantidadeCompras() {
         return quantidadeCompras;
