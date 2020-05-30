@@ -22,9 +22,15 @@ public class ConexaoDB {
     }
 
     public static Connection getConexao() throws SQLException {
-        String dbURL = "jdbc:mysql://localhost/senac?useTimezone=true&serverTimezone=UTC";
-        String user = "root";
-        String password = "";
+
+        //mysql://
+        // user: b6ebe10989a5f3
+        // senha: 1133ac46
+        // host: us-cdbr-east-05.cleardb.net
+        // /heroku_77b37ec5c6ca4dc?reconnect=true
+        String dbURL = "jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_77b37ec5c6ca4dc?reconnect=true";
+        String user = "b6ebe10989a5f3";
+        String password = "1133ac46";
         return DriverManager.getConnection(dbURL, user, password);
     }
 }
