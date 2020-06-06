@@ -21,7 +21,9 @@ public class JwtFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) servletResponse;
 
         System.out.println(req.getRequestURI());
-        if(req.getRequestURI().contains("/login")){
+        if(req.getRequestURI().contains("/login") ||
+                req.getRequestURI().contains("/vendor") ||
+                req.getRequestURI().contains("/css" )){
             filterChain.doFilter(servletRequest, servletResponse);
         }else{
             String token = "";
