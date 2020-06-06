@@ -2,7 +2,6 @@
 <c:import url="header.jsp" />
 <!-- Page Wrapper -->
 
-
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -174,7 +173,7 @@
                                 Activity Log
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>
@@ -469,6 +468,25 @@
 
             </div>
             <!-- /.container-fluid -->
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sair</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja sair?
+            </div>
+            <div class="modal-footer">
+                <a href="login?sair=sair" class="btn btn-danger">Deletar</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <c:import url="footer.jsp" />
