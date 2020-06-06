@@ -38,8 +38,7 @@ public class LoginControllerServlet extends HttpServlet {
                 me.setUsername(credentials.getEmail());
                 me.setToken(token);
                 req.getSession().setAttribute(JWTUtil.TOKEN_HEADER,token);
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index.jsp");
-                requestDispatcher.forward(req, resp);
+                resp.sendRedirect("index.jsp");
             } else{
 
                 resp.sendRedirect("404.jsp");
