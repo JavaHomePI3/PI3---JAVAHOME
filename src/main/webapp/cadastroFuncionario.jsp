@@ -52,10 +52,10 @@
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="generoFuncionario">Sexo</label>
-                    <select name="genero" class="custom-select d-block w-100" id="generoFuncionario" required>
+                    <select name="generoFuncionario" class="custom-select d-block w-100" id="generoFuncionario" required>
                         <option value="">Selecionar...</option>
-                        <option>Feminino</option>
-                        <option>Masculino</option>
+                        <option value="Feminino">Feminino</option>
+                        <option value="Masculino">Masculino</option>
                     </select>
                     <div class="invalid-feedback">
                         Favor selecionar o sexo.
@@ -71,24 +71,21 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label>Telefone</label>
-                    <input name="telefoneFuncionario" type="number" class="form-control" id="telefoneFuncionario" placeholder="(00) 00000-0000" value=""
+                    <input name="telefone" type="number" class="form-control" id="telefoneFuncionario" placeholder="(00) 00000-0000" value=""
                            maxlength="30" required>
                     <div class="invalid-feedback">
                         Inserir telefone
                     </div>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label>Departamento</label>
-                    <input name="departamento" type="text" class="form-control" id="departamento" placeholder="" value=""
-                           maxlength="30" required>
-                    <div class="invalid-feedback">
-                        Inserir Departamento
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label>Cargo</label>
-                    <input name="cargo" type="text" class="form-control" id="cargo" placeholder="" value=""
-                           maxlength="30" required>
+                    <label for="dep">Departamento</label>
+                    <select name="departamento" class="custom-select d-block w-100" id="dep" required>
+                        <option value="">Selecionar...</option>
+                        <option value="ADM">Admin</option>
+                        <option value="VENDAS">Vendedor</option>
+                        <option value="BACKOFFICE">Back Office</option>
+                        <option value="TI">T.I</option>
+                    </select>
                     <div class="invalid-feedback">
                         Inserir Cargo
                     </div>
@@ -99,6 +96,20 @@
                        placeholder="00,00" required>
                     <div class="invalid-feedback">
                         Insira o Salário
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Email</label>
+                    <input name="emailFuncionario" type="text" class="form-control" id="email" placeholder="Email..." value="" required >
+                    <div class="invalid-feedback">
+                        Email obrigatório
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Senha</label>
+                    <input name="senha" type="password" class="form-control" id="senha" placeholder="Senha" value="" required>
+                    <div class="invalid-feedback">
+                        Senha é obrigatório
                     </div>
                 </div>
     </div>
@@ -126,7 +137,7 @@
             </div>
             <div class="col-md-2 mb-3">
                 <label>Nº</label>
-                <input name="numero" type="number" class="form-control" id="numeroFuncionario" placeholder="" value=""
+                <input name="numeroFuncionario" type="number" class="form-control" id="numeroFuncionario" placeholder="" value=""
                        maxlength="30" required>
                 <div class="invalid-feedback">
                     Número obrigatório
@@ -158,7 +169,7 @@
             </div> 
             <div class="col-md-4 mb-3">
                 <label for="ufFuncionario">UF</label>
-                <select name="uf" class="custom-select d-block w-100" id="ufFuncionario" required>
+                <select name="ufFuncionario" class="custom-select d-block w-100" id="ufFuncionario" required>
                     <option value="">Selecionar...</option>
                     <option>AC</option>
                     <option>AL</option>

@@ -1,10 +1,11 @@
-package br.senac.sp.token;
+package br.senac.sp.servlet.login;
 
 public class Credentials {
 
     private String email;
     private String password;
     private String token;
+
     public Credentials(String email, String password){
         this.email = email;
         this.password = password;

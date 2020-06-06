@@ -76,7 +76,7 @@ INSERT INTO `funcionario` (`id`, `nome`, `sobrenome`, `cpf`, `email`, `genero`, 
 -- Copiando estrutura para tabela senac.itens
 CREATE TABLE IF NOT EXISTS `itens` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
-  `lista_intes` longtext CHARACTER SET utf8mb4 NOT NULL DEFAULT 'Não tem itens' CHECK (json_valid(`lista_intes`)),
+  `lista_intes` longtext CHARACTER SET utf8mb4 NOT NULL CHECK (json_valid(`lista_intes`)),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
@@ -118,26 +118,11 @@ INSERT INTO `produtos` (`idprod`, `codigobarrasprod`, `nomeprod`, `valor`, `data
 	(1, 'teste', 'teste', 123.00, '2020-04-18', 'teste', 'Jogo', 0, 0),
 	(2, 'seila', 'teste', 123.00, '2020-04-18', 'teste', 'Jogo', 17, 0),
 	(3, '2526', 'teclad top', 1.00, '2020-05-13', 'teclado gamer top', 'Jogo', 1, 0),
-	(4, 'meupiru', 'teclad top', 1000.00, '2020-05-13', 'teclado gamer top', 'Brinde', 50, 0);
+	(4, 'meupiru', 'teclad top', 1000.00, '2020-05-13', 'teclado gamer top', 'Brinde', 50, 0);vendas
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela senac.vendas
-CREATE TABLE IF NOT EXISTS `vendas` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
-  `id_itens` int(255),
-  `id_cliente` int(255) DEFAULT NULL,
-  `id_funcionario` int(255) DEFAULT NULL,
-  `filial` varchar(50) DEFAULT NULL,
-  `preco_total` double DEFAULT NULL,
-  `create_at` date DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_itens` (`id_itens`),
-  KEY `FK_func` (`id_funcionario`),
-  KEY `FK_cliente` (`id_cliente`),
-  CONSTRAINT `FK_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `FK_func` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_itens` FOREIGN KEY (`id_itens`) REFERENCES `itens` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+heroku_77b37ec5c6ca4dc ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela senac.vendas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;

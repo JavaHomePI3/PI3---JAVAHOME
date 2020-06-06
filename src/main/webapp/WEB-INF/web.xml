@@ -17,7 +17,7 @@
     </error-page>
     <filter>
         <filter-name>jwtFilter</filter-name>
-        <filter-class>br.senac.sp.token.filter.JwtFilter</filter-class>
+        <filter-class>br.senac.sp.servlet.login.filter.JwtFilter</filter-class>
     </filter>
 
     <filter-mapping>

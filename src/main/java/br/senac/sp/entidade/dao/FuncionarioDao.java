@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FuncionarioDAO implements Dao<Funcionario> {
+public class FuncionarioDao implements Dao<Funcionario> {
 
     private Connection conn;
     private PreparedStatement stmt;
@@ -23,6 +23,7 @@ public class FuncionarioDAO implements Dao<Funcionario> {
 
         try {
             conn = ConexaoDB.getConexao();
+            //`id`, `nome`, `sobrenome`, `cpf`, `email`, `genero`, `data_nascimento`,tell,cep,rua,bairro,complemen,cit,num,estado,senha,depart,salario
             String sql = "INSERT INTO funcionario VALUES (default,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, entidade.getNomeUsuario());
@@ -39,12 +40,10 @@ public class FuncionarioDAO implements Dao<Funcionario> {
             stmt.setString(12, entidade.getCidade());
             stmt.setInt(13, entidade.getNumero());
             stmt.setString(14, String.valueOf(entidade.getEstado()));
-            stmt.setString(15, String.valueOf(entidade.getDepartamento()));
-            stmt.setString(16, entidade.getCargo());
+            stmt.setString(15, String.valueOf(entidade.getSenha()));
+            stmt.setString(16, String.valueOf(entidade.getDepartamento()));
             stmt.setDouble(17, entidade.getSalario());
-
             stmt.execute();
-
             return true;
         } catch (SQLException e) {
             throw new FuncionarioException("Erro ao Cadastrar Funcionario!\nErro: " + e.getMessage());
@@ -82,7 +81,6 @@ public class FuncionarioDAO implements Dao<Funcionario> {
                 funcionario.setNumero(rs.getInt("numero"));
                 funcionario.setEstado(ConvertStringForUf.parse(rs.getString("estado")));
                 funcionario.setDepartamento(ConvertStringForDepartamento.parse(rs.getString("departamento")));
-                funcionario.setCargo(rs.getString("cargo"));
                 funcionario.setSalario(rs.getDouble("salario"));
                 listaDeFuncionarios.add(funcionario);
             }
@@ -126,7 +124,6 @@ public class FuncionarioDAO implements Dao<Funcionario> {
                 stmt.setString(14, String.valueOf(entidade.getEstado()));
                 stmt.setString(15, entidade.getCpf());
                 stmt.setString(15, String.valueOf(entidade.getDepartamento()));
-                stmt.setString(16, entidade.getCargo());
                 stmt.setDouble(17, entidade.getSalario());
                 stmt.executeUpdate();
                 return true;
@@ -167,7 +164,6 @@ public class FuncionarioDAO implements Dao<Funcionario> {
                 funcionario.setNumero(rs.getInt("numero"));
                 funcionario.setEstado(ConvertStringForUf.parse(rs.getString("estado")));
                 funcionario.setDepartamento(ConvertStringForDepartamento.parse(rs.getString("departamento")));
-                funcionario.setCargo(rs.getString("cargo"));
                 funcionario.setSalario(rs.getDouble("salario"));
 
                 return funcionario;
@@ -207,7 +203,6 @@ public class FuncionarioDAO implements Dao<Funcionario> {
                 funcionario.setNumero(rs.getInt("numero"));
                 funcionario.setEstado(ConvertStringForUf.parse(rs.getString("estado")));
                 funcionario.setDepartamento(ConvertStringForDepartamento.parse(rs.getString("departamento")));
-                funcionario.setCargo(rs.getString("cargo"));
                 funcionario.setSalario(rs.getDouble("salario"));
 
             }

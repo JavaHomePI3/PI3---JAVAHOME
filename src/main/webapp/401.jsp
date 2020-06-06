@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -18,31 +19,31 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-primary" style="background: white;">
 
 <div class="container">
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
 
-          <!-- 404 Error Text -->
-          <div class="text-center">
+        <!-- 404 Error Text -->
+        <div class="text-center">
             <div class="error mx-auto" data-text="404">401</div>
             <p class="lead text-gray-800 mb-5">Você não tem acesso!</p>
             <p class="text-gray-500 mb-0">Tente efetuar o login.</p>
             <a href="login">&larr;Efetuar login</a>
-          </div>
-
         </div>
-        <!-- Bootstrap core JavaScript-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
-        </body>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        </html>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"/>
+</body>
+
+</html>

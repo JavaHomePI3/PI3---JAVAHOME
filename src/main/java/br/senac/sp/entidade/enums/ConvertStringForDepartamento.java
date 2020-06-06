@@ -19,4 +19,19 @@ public abstract class ConvertStringForDepartamento {
                 return null;
         }
     }
+
+    public static String parseString(Departamento departamento){
+        switch (departamento){
+            case ADM:
+                return "ADM";
+            case VENDAS:
+                return "VENDAS";
+            case BACKOFFICE:
+                return "BACKOFFICE";
+            case TI:
+                return "TI";
+            default:
+                return "";
+        }
+    }
 }

@@ -1,9 +1,6 @@
 package br.senac.sp.servlet.funcionario;
-import br.senac.sp.entidade.dao.FuncionarioDAO;
-import br.senac.sp.entidade.enums.ConvertStringForGenero;
-import br.senac.sp.entidade.enums.ConvertStringForUf;
-import br.senac.sp.entidade.enums.Genero;
-import br.senac.sp.entidade.enums.Uf;
+import br.senac.sp.entidade.dao.FuncionarioDao;
+import br.senac.sp.entidade.enums.*;
 import br.senac.sp.entidade.exception.FuncionarioException;
 import br.senac.sp.entidade.model.Funcionario;
 import javax.servlet.RequestDispatcher;
@@ -15,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 /**
  *
  * @author joao.lucas
@@ -25,7 +21,7 @@ import java.util.logging.Logger;
 public class CadastraFuncionarioServlet extends HttpServlet{
         private static String INSERIR_OU_EDITAR = "/cadastroFuncionario.jsp";
     private static String LISTA_FUNCIONARIO = "/listaFuncionario.jsp";
-    private FuncionarioDAO dao = new FuncionarioDAO();
+    private FuncionarioDao dao = new FuncionarioDao();
      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -54,11 +50,11 @@ public class CadastraFuncionarioServlet extends HttpServlet{
         String acao = request.getParameter("acao");
 
         try {
-            if (acao != null){
-                dao.editar(funcionario);
-            }else {
+//            if (acao != null){
+//                dao.editar(funcionario);
+//            }else {
                 dao.inserir(funcionario);
-            }
+            //}
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,22 +94,23 @@ public class CadastraFuncionarioServlet extends HttpServlet{
 
     private Funcionario criaFuncionario(HttpServletRequest request) {
         Funcionario funcionario = new Funcionario();
-
-        funcionario.setNomeUsuario(request.getParameter("nomeFuncionario"));
-        funcionario.setSobrenomeUsuario(request.getParameter("sobrenomeFuncionario"));
-        funcionario.setCpf(request.getParameter("cpfCFuncionario"));
-        funcionario.setEmail(request.getParameter("emailFuncionario"));
-        funcionario.setGenero(ConvertStringForGenero.parse(request.getParameter("generoFuncionario")));
-        String dataDeNascimento = request.getParameter("data_nascimento");
-        funcionario.setDataNascimento(dataDeNascimento);
-        funcionario.setTelefone(request.getParameter("telefoneFuncionario"));
-        funcionario.setCep(request.getParameter("cepFuncionario"));
-        funcionario.setRua(request.getParameter("ruaFuncionario"));
-        funcionario.setBairro(request.getParameter("bairroFuncionario"));
-        funcionario.setComplemento(request.getParameter("complementoFuncionario"));
-        funcionario.setCidade(request.getParameter("cidadeFuncionario"));
-        funcionario.setNumero(Integer.parseInt(request.getParameter("numeroFuncionario")));
-        funcionario.setEstado(ConvertStringForUf.parse(request.getParameter("ufFuncionario")));
+        funcionario.setNomeUsuario(request.getParameter("nomeFuncionario").trim());
+        funcionario.setSobrenomeUsuario(request.getParameter("sobrenomeFuncionario").trim());
+        funcionario.setCpf(request.getParameter("cpfFuncionario").trim());
+        funcionario.setEmail(request.getParameter("emailFuncionario").trim());
+        funcionario.setSenha(SenhaUtils.criar(request.getParameter("senha").trim()));
+        funcionario.setDepartamento(ConvertStringForDepartamento.parse(request.getParameter("departamento").trim()));
+        funcionario.setGenero(ConvertStringForGenero.parse(request.getParameter("generoFuncionario").trim()));
+        funcionario.setDataNascimento(request.getParameter("data_nascimento").trim());
+        funcionario.setTelefone(request.getParameter("telefone").trim());
+        funcionario.setCep(request.getParameter("cepFuncionario").trim());
+        funcionario.setRua(request.getParameter("ruaFuncionario").trim());
+        funcionario.setBairro(request.getParameter("bairroFuncionario").trim());
+        funcionario.setComplemento(request.getParameter("complementoFuncionario").trim());
+        funcionario.setCidade(request.getParameter("cidadeFuncionario").trim());
+        funcionario.setNumero(Integer.parseInt(request.getParameter("numeroFuncionario").trim()));
+        funcionario.setEstado(ConvertStringForUf.parse(request.getParameter("ufFuncionario").trim()));
+        funcionario.setSalario(Double.valueOf(request.getParameter("salario")));
         return funcionario;
     }
 }

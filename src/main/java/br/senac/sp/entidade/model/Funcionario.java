@@ -12,8 +12,9 @@ public class Funcionario extends Usuario {
     
     private Departamento departamento;
     private Double salario;
-    private String cargo;
+    private String senha;
     public Funcionario(){}
+
     public Funcionario(Departamento departamento, Double salario, String cargo, int idUsuario, String nomeUsuario,
                        String sobreNomeUsuario, String cpf, String email, Genero genero, String dataNascimento,
                        String telefone, String cep, String rua, String bairro, String complemento,
@@ -22,9 +23,15 @@ public class Funcionario extends Usuario {
                 cep, rua, bairro, complemento, cidade, numero, estado);
         this.departamento = departamento;
         this.salario = salario;
-        this.cargo = cargo;
     }
-   
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public Departamento getDepartamento() {
         return departamento;
@@ -40,14 +47,6 @@ public class Funcionario extends Usuario {
 
     public void setSalario(Double salario) {
         this.salario = salario;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
     }
     
 }

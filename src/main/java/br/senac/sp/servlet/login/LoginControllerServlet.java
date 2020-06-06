@@ -1,7 +1,7 @@
-package br.senac.sp.token;
+package br.senac.sp.servlet.login;
 
-import br.senac.sp.token.filter.JWTUtil;
-import com.google.gson.Gson;
+import br.senac.sp.entidade.dao.LoginDao;
+import br.senac.sp.servlet.login.filter.JWTUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,9 +13,6 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginControllerServlet", value = "/login")
 public class LoginControllerServlet extends HttpServlet {
-
-    private final String USERNAME = "admin@hotmail.com";
-    private final String PASSWORD = "Admin81776279-9";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,17 +28,15 @@ public class LoginControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("email") != null && req.getParameter("password") != null ){
             Credentials credentials = new Credentials(req.getParameter("email").trim(),req.getParameter("password").trim());
-
-            if(this.USERNAME.equals(credentials.getEmail()) && this.PASSWORD.equals(credentials.getPassword())){
+            boolean auth = new LoginDao().auth(credentials);
+            if(auth){
                 String token = JWTUtil.create(credentials.getEmail());
-                UserLogged me = new UserLogged();
-                me.setUsername(credentials.getEmail());
-                me.setToken(token);
                 req.getSession().setAttribute(JWTUtil.TOKEN_HEADER,token);
+                req.getSession().setAttribute(JWTUtil.TOKEN_USER_NAME,credentials.getEmail());
                 resp.sendRedirect("index.jsp");
             } else{
 
-                resp.sendRedirect("404.jsp");
+                resp.sendRedirect("login");
             }
         }
     }
