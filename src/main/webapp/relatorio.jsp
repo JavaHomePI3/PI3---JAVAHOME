@@ -62,7 +62,7 @@
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="exampleRadios" id="radioCatProd"
-                               value="option2">
+                               value="option2" >
                         <label class="form-check-label" for="radioCatProd">
                             categoria de produtos
                         </label>

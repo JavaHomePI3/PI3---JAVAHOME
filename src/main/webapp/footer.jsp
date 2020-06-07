@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 </div>
 <!-- End of Main Content -->
 <!-- Modal -->
@@ -24,7 +25,34 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <!-- Grid column -->
+
+
+                <!-- Links -->
+                <h5 class="text-uppercase">Integrantes:</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!">João Lucas</a>
+                    </li>
+                    <li>
+                        <a href="#!">José Ramalho</a>
+                    </li>
+                    <li>
+                        <a href="#!">Leandro Preto</a>
+                    </li>
+                    <li>
+                        <a href="#!">Murilo Mendes</a>
+                    </li>
+                    <li>
+                        <a href="#!">Vitória Cristina</a>
+                    </li>
+                    <li>
+                        <a href="#!">Walter Prata</a>
+                    </li>
+                </ul>
+                <span>Copyright &copy; Nosso Website 2020</span>
+
         </div>
     </div>
 </footer>

@@ -6,6 +6,7 @@ import br.senac.sp.entidade.enums.ConvertStringForGenero;
 import br.senac.sp.entidade.enums.ConvertStringForUf;
 import br.senac.sp.entidade.exception.FuncionarioException;
 import br.senac.sp.entidade.model.Funcionario;
+import br.senac.sp.servlet.funcionario.SenhaUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class FuncionarioDao implements Dao<Funcionario> {
                 funcionario.setEmail(rs.getString("email"));
                 funcionario.setGenero(ConvertStringForGenero.parse(rs.getString("genero")));
                 funcionario.setDataNascimento(rs.getString("data_nascimento"));
-                funcionario.setTelefone(rs.getString("telefone"));
+                funcionario.setTelefone(rs.getString("tell"));
                 funcionario.setCep(rs.getString("cep"));
                 funcionario.setRua(rs.getString("rua"));
                 funcionario.setBairro(rs.getString("bairro"));
@@ -88,7 +89,7 @@ public class FuncionarioDao implements Dao<Funcionario> {
             rs.close();
 
         } catch (SQLException e) {
-            throw new FuncionarioException("Erro ao Cadastrar Funcionario!\nErro: " + e.getMessage());
+            throw new FuncionarioException("Erro ao Buscar Funcionario!\nErro: " + e.getMessage());
         }
         return listaDeFuncionarios;
     }
@@ -98,34 +99,40 @@ public class FuncionarioDao implements Dao<Funcionario> {
 
         try {
             Funcionario funcionarioEncontrado = buscarFuncionarioPeloCpf(entidade.getCpf());
+            entidade.setIdUsuario(funcionarioEncontrado.getId());
             conn = ConexaoDB.getConexao();
             if (!entidade.equals(funcionarioEncontrado)) {
+                if (entidade.getSenha() == null){
+                    entidade.setSenha(funcionarioEncontrado.getSenha());
+                }
+
 
                 String sql = "UPDATE funcionario SET nome = ?,sobrenome = ?,cpf = ?"
-                        + ",email = ?,genero = ?,data_nascimento = ?"
-                        + ",telefone = ?,cep = ?,rua = ?,bairro = ?"
+                        + ",genero = ?,data_nascimento = ?"
+                        + ",tell = ?,cep = ?,rua = ?,bairro = ?"
                         + ",complemento = ?,cidade = ?,numero = ?,estado = ?"
-                        + ",departamento = ?, cargo = ?, salario = ?WHERE cpf = ?";
+                        + ",senha = ?,departamento = ?, salario = ?WHERE id = ?";
 
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, entidade.getNomeUsuario());
                 stmt.setString(2, entidade.getSobrenomeUsuario());
                 stmt.setString(3, entidade.getCpf());
-                stmt.setString(4, entidade.getEmail());
-                stmt.setString(5, String.valueOf(entidade.getGenero()));
-                stmt.setString(6, entidade.getDataNascimento());
-                stmt.setString(7, entidade.getTelefone());
-                stmt.setString(8, entidade.getCep());
-                stmt.setString(9, entidade.getRua());
-                stmt.setString(10, entidade.getBairro());
-                stmt.setString(11, entidade.getComplemento());
-                stmt.setString(12, entidade.getCidade());
-                stmt.setInt(13, entidade.getNumero());
-                stmt.setString(14, String.valueOf(entidade.getEstado()));
-                stmt.setString(15, entidade.getCpf());
+                System.out.println("GENERO: "+entidade.getGenero());
+                stmt.setString(4, String.valueOf(entidade.getGenero()));
+                stmt.setString(5, entidade.getDataNascimento());
+                stmt.setString(6, entidade.getTelefone());
+                stmt.setString(7, entidade.getCep());
+                stmt.setString(8, entidade.getRua());
+                stmt.setString(9, entidade.getBairro());
+                stmt.setString(10, entidade.getComplemento());
+                stmt.setString(11, entidade.getCidade());
+                stmt.setInt(12, entidade.getNumero());
+                stmt.setString(13, String.valueOf(entidade.getEstado()));
+                stmt.setString(14, String.valueOf(entidade.getSenha()));
                 stmt.setString(15, String.valueOf(entidade.getDepartamento()));
-                stmt.setDouble(17, entidade.getSalario());
-                stmt.executeUpdate();
+                stmt.setDouble(16, entidade.getSalario());
+                stmt.setDouble(17, entidade.getId());
+                stmt.execute();
                 return true;
             }
         } catch (SQLException e) {
@@ -155,7 +162,7 @@ public class FuncionarioDao implements Dao<Funcionario> {
                 funcionario.setEmail(rs.getString("email"));
                 funcionario.setGenero(ConvertStringForGenero.parse(rs.getString("genero")));
                 funcionario.setDataNascimento(rs.getString("data_nascimento"));
-                funcionario.setTelefone(rs.getString("telefone"));
+                funcionario.setTelefone(rs.getString("tell"));
                 funcionario.setCep(rs.getString("cep"));
                 funcionario.setRua(rs.getString("rua"));
                 funcionario.setBairro(rs.getString("bairro"));
@@ -194,7 +201,7 @@ public class FuncionarioDao implements Dao<Funcionario> {
                 funcionario.setEmail(rs.getString("email"));
                 funcionario.setGenero(ConvertStringForGenero.parse(rs.getString("genero")));
                 funcionario.setDataNascimento(rs.getString("data_nascimento"));
-                funcionario.setTelefone(rs.getString("telefone"));
+                funcionario.setTelefone(rs.getString("tell"));
                 funcionario.setCep(rs.getString("cep"));
                 funcionario.setRua(rs.getString("rua"));
                 funcionario.setBairro(rs.getString("bairro"));
@@ -202,6 +209,7 @@ public class FuncionarioDao implements Dao<Funcionario> {
                 funcionario.setCidade(rs.getString("cidade"));
                 funcionario.setNumero(rs.getInt("numero"));
                 funcionario.setEstado(ConvertStringForUf.parse(rs.getString("estado")));
+                funcionario.setSenha(rs.getString("senha"));
                 funcionario.setDepartamento(ConvertStringForDepartamento.parse(rs.getString("departamento")));
                 funcionario.setSalario(rs.getDouble("salario"));
 

@@ -4,6 +4,8 @@ import br.senac.sp.entidade.enums.Departamento;
 import br.senac.sp.entidade.enums.Genero;
 import br.senac.sp.entidade.enums.Uf;
 
+import java.util.Objects;
+
 /**
  *
  * @author Walter Prata
@@ -13,6 +15,7 @@ public class Funcionario extends Usuario {
     private Departamento departamento;
     private Double salario;
     private String senha;
+
     public Funcionario(){}
 
     public Funcionario(Departamento departamento, Double salario, String cargo, int idUsuario, String nomeUsuario,
@@ -48,5 +51,20 @@ public class Funcionario extends Usuario {
     public void setSalario(Double salario) {
         this.salario = salario;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Funcionario that = (Funcionario) o;
+        return departamento == that.departamento &&
+                Objects.equals(salario, that.salario) &&
+                Objects.equals(senha, that.senha);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), departamento, salario, senha);
+    }
 }

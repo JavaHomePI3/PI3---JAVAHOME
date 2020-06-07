@@ -3,6 +3,8 @@ package br.senac.sp.entidade.model;
 import br.senac.sp.entidade.enums.Genero;
 import br.senac.sp.entidade.enums.Uf;
 
+import java.util.Objects;
+
 /**
  * @author Walter Prata
  */
@@ -168,29 +170,29 @@ public abstract class Usuario {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + this.idUsuario;
-        return hash;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return idUsuario == usuario.idUsuario &&
+                numero == usuario.numero &&
+                Objects.equals(nomeUsuario, usuario.nomeUsuario) &&
+                Objects.equals(sobrenomeUsuario, usuario.sobrenomeUsuario) &&
+                Objects.equals(cpf, usuario.cpf) &&
+                Objects.equals(email, usuario.email) &&
+                genero == usuario.genero &&
+                Objects.equals(dataNascimento, usuario.dataNascimento) &&
+                Objects.equals(telefone, usuario.telefone) &&
+                Objects.equals(cep, usuario.cep) &&
+                Objects.equals(rua, usuario.rua) &&
+                Objects.equals(bairro, usuario.bairro) &&
+                Objects.equals(complemento, usuario.complemento) &&
+                Objects.equals(cidade, usuario.cidade) &&
+                estado == usuario.estado;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Usuario other = (Usuario) obj;
-        if (this.idUsuario != other.idUsuario) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(idUsuario, nomeUsuario, sobrenomeUsuario, cpf, email, genero, dataNascimento, telefone, cep, rua, bairro, complemento, cidade, numero, estado);
     }
-
-
 }

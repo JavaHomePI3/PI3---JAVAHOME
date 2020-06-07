@@ -28,6 +28,9 @@ public class ConexaoDB {
         // senha: 1133ac46
         // host: us-cdbr-east-05.cleardb.net
         // /heroku_77b37ec5c6ca4dc?reconnect=true
+//        String dbURL = "jdbc:mysql://localhost/senac?useTimezone=true&serverTimezone=UTC";
+//        String user = "root";
+//        String password = "";
         String dbURL = "jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_77b37ec5c6ca4dc?reconnect=true";
         String user = "b6ebe10989a5f3";
         String password = "1133ac46";

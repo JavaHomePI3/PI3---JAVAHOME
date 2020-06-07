@@ -3,6 +3,8 @@ import br.senac.sp.entidade.dao.FuncionarioDao;
 import br.senac.sp.entidade.enums.*;
 import br.senac.sp.entidade.exception.FuncionarioException;
 import br.senac.sp.entidade.model.Funcionario;
+import br.senac.sp.servlet.login.filter.JWTUtil;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,35 +28,39 @@ public class CadastraFuncionarioServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         RequestDispatcher view = request.getRequestDispatcher(INSERIR_OU_EDITAR);
-        String acao = request.getParameter("action");
-        if (acao != null) {
+        String acao = request.getParameter("action").trim();
+
             switch (acao) {
                 case "listar":
                     view = configuraListaDeFuncionarios(request, view);
                     break;
                 case "deletar":
-                    view = deletaFuncionario(request);
+                    view = deletaFuncionario(request,response);
                     break;
                 case "editar":
                     view = editaFuncionario(request);
                     break;
             }
-        }
-        view.forward(request, response);
+            view.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        Funcionario funcionario = criaFuncionario(request);
-        String acao = request.getParameter("acao");
+        String acao = "";
+        if (request.getParameter("action") != null){
+            acao = request.getParameter("action");
+        }
+
+        Funcionario funcionario = criaFuncionario(request,acao);
+
 
         try {
-//            if (acao != null){
-//                dao.editar(funcionario);
-//            }else {
+            if (acao.equals("editar")){
+                dao.editar(funcionario);
+            }else {
                 dao.inserir(funcionario);
-            //}
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,7 +70,7 @@ public class CadastraFuncionarioServlet extends HttpServlet{
     private RequestDispatcher configuraListaDeFuncionarios(HttpServletRequest request, RequestDispatcher view) {
         try {
             List<Funcionario> listaDeFuncionario = dao.buscar();
-            request.setAttribute("funcionarios", listaDeFuncionario);
+            request.setAttribute("clientes", listaDeFuncionario);
             view = request.getRequestDispatcher(LISTA_FUNCIONARIO);
         } catch (FuncionarioException e) {
             e.printStackTrace();
@@ -72,10 +78,16 @@ public class CadastraFuncionarioServlet extends HttpServlet{
         return view;
     }
 
-    private RequestDispatcher deletaFuncionario(HttpServletRequest request) {
-        int id = Integer.parseInt(request.getParameter("id"));
+    private RequestDispatcher deletaFuncionario(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id").trim());
         try {
-            dao.removerFuncionario(id);
+            Funcionario funcionario = dao.buscaFuncionarioPeloId(id);
+            if (request.getSession().getAttribute(JWTUtil.TOKEN_USER_NAME).equals(funcionario.getEmail())){
+                response.setStatus(401);
+            }else{
+                dao.removerFuncionario(id);
+                response.setStatus(200);
+            }
         } catch (SQLException e) {
             System.out.println("Erro ao deletar funcionario!");
             e.printStackTrace();
@@ -86,19 +98,22 @@ public class CadastraFuncionarioServlet extends HttpServlet{
     private RequestDispatcher editaFuncionario(HttpServletRequest request) {
         int idUsuario = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("funcionario", dao.buscaFuncionarioPeloId(idUsuario));
-        request.setAttribute("action","editar");
-        RequestDispatcher view = request.getRequestDispatcher(INSERIR_OU_EDITAR);
-        return view;
+        return request.getRequestDispatcher(INSERIR_OU_EDITAR);
     }
 
 
-    private Funcionario criaFuncionario(HttpServletRequest request) {
+    private Funcionario criaFuncionario(HttpServletRequest request, String acao) {
         Funcionario funcionario = new Funcionario();
         funcionario.setNomeUsuario(request.getParameter("nomeFuncionario").trim());
         funcionario.setSobrenomeUsuario(request.getParameter("sobrenomeFuncionario").trim());
         funcionario.setCpf(request.getParameter("cpfFuncionario").trim());
-        funcionario.setEmail(request.getParameter("emailFuncionario").trim());
-        funcionario.setSenha(SenhaUtils.criar(request.getParameter("senha").trim()));
+        if (request.getParameter("emailFuncionario") != null){
+            funcionario.setEmail(request.getParameter("emailFuncionario").trim());
+        }
+        if (!request.getParameter("senha").trim().isEmpty()){
+            funcionario.setSenha(SenhaUtils.criar(request.getParameter("senha").trim()));
+        }
+        funcionario.setGenero(ConvertStringForGenero.parse(request.getParameter("generoFuncionario").trim()));
         funcionario.setDepartamento(ConvertStringForDepartamento.parse(request.getParameter("departamento").trim()));
         funcionario.setGenero(ConvertStringForGenero.parse(request.getParameter("generoFuncionario").trim()));
         funcionario.setDataNascimento(request.getParameter("data_nascimento").trim());
