@@ -1,12 +1,3 @@
-<%-- 
-    Document   : CadastrarProd
-    Created on : 18/04/2020, 15:58:14
-    Author     : Vitoria Cristina
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
-<!-- Custom fonts for this template -->
-
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
