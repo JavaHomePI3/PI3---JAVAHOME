@@ -14,30 +14,41 @@ import java.io.IOException;
 @WebServlet(name = "LoginControllerServlet", value = "/login")
 public class LoginControllerServlet extends HttpServlet {
 
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
+    public static final String INDEX_JSP = "index.jsp";
+    public static final String URL_LOGIN = "login";
+    public static final String PAGE_LOGIN_JSP = "/login.jsp";
+    public static final String SAIR = "sair";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("sair")!= null){
+        if (req.getParameter(SAIR)!= null){
             req.getSession().invalidate();
         }
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/login.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(PAGE_LOGIN_JSP);
         requestDispatcher.forward(req, resp);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("email") != null && req.getParameter("password") != null ){
-            Credentials credentials = new Credentials(req.getParameter("email").trim(),req.getParameter("password").trim());
+        if (req.getParameter(EMAIL) != null && req.getParameter(PASSWORD) != null ){
+            Credentials credentials = new Credentials(req.getParameter(EMAIL).trim(),req.getParameter(PASSWORD).trim());
             boolean auth = new LoginDao().auth(credentials);
             if(auth){
                 String token = JWTUtil.create(credentials.getEmail());
-                req.getSession().setAttribute(JWTUtil.TOKEN_HEADER,token);
-                req.getSession().setAttribute(JWTUtil.TOKEN_USER_NAME,credentials.getEmail());
-                resp.sendRedirect("index.jsp");
+                setAuth(req, credentials, token);
+                resp.sendRedirect(INDEX_JSP);
             } else{
-
-                resp.sendRedirect("login");
+                resp.sendRedirect(URL_LOGIN);
             }
         }
+    }
+
+    private void setAuth(HttpServletRequest req, Credentials credentials, String token) {
+        req.getSession().setAttribute(JWTUtil.TOKEN_HEADER,token);
+        req.getSession().setAttribute(JWTUtil.TOKEN_USER_NAME,credentials.getEmail());
+        req.getSession().setAttribute(JWTUtil.TOKEN_AUTH,credentials.getAuth());
     }
 }

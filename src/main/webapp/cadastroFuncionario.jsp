@@ -16,11 +16,6 @@
         <h1 align="cemter">Cadastrar Funcionário</h1>
     </c:if>
 
-    <script>
-        $(function () {
-            $('input[name=dataNascimento]').datepicker();
-        });
-    </script>
 
     <div class="col-md-6 mb-3">
         <h6><b>Dados Pessoais</b></h6><br>
@@ -272,3 +267,8 @@
     </div>
 </div>
 <c:import url="footer.jsp"/>
+<script>
+    $(function () {
+        $('input[name=dataNascimento]').datepicker();
+    });
+</script>

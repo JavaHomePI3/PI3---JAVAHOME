@@ -5,11 +5,21 @@ public class Credentials {
     private String email;
     private String password;
     private String token;
+    private String auth;
 
     public Credentials(String email, String password){
         this.email = email;
         this.password = password;
     }
+
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
+    }
+
     public String getEmail() {
         return email;
     }

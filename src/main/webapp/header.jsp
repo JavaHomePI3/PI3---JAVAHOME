@@ -1,5 +1,5 @@
+<%@ page import="br.senac.sp.servlet.login.filter.JWTUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,11 +48,41 @@
         </div>
 
         <!-- Nav Item - Charts -->
+        <c:if test="${sessionScope.userAuth.equals('VENDAS') || sessionScope.userAuth.equals('BACKOFFICE')}">
+            <style>
+                .sidebar {
+                    display: none;
+                }
+            </style>
+        </c:if>
+        <c:if test="${sessionScope.userAuth.equals('ADM')}">
+            <style>
+                #navbarDropdownCliente{
+                    display: none;
+                }
+                #navbarDropdownVenda{
+                    display: none;
+                }
+            </style>
+        </c:if>
+
+        <c:if test="${sessionScope.userAuth.equals('BACKOFFICE')}">
+            <style>
+                #navbarDropdownVenda{
+                    display: none;
+                }
+                #navbarDropd{
+                    display: none;
+                }
+            </style>
+        </c:if>
+
         <li class="nav-item">
             <a class="nav-link" href="relatorio">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Relatorio</span></a>
         </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -97,38 +127,46 @@
                                 <a class="dropdown-item" href="cadastraVenda">Realizar Venda</a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Produtos
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="cadastraProduto">Novo Produto</a>
-                                <a class="dropdown-item" href="ConsultaProd.jsp">Editar Produto</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropd" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Funcionario
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
-                                <a class="dropdown-item" href="cadastroFuncionario.jsp">Novo Funcionario</a>
-                                <a class="dropdown-item" href="CadastroFuncionario?action=listar">Editar Funcionario</a>
-                            </div>
-                        </li>
+                        <c:if test="${!sessionScope.userAuth.equals('VENDAS')}">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Produtos
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="cadastraProduto">Novo Produto</a>
+                                    <a class="dropdown-item" href="ConsultaProd.jsp">Editar Produto</a>
+                                </div>
+                            </li>
+                        </c:if>
+                        <c:if test="${!sessionScope.userAuth.equals('VENDAS')}">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropd" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Funcionario
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownCliente">
+                                    <a class="dropdown-item" href="cadastroFuncionario.jsp">Novo Funcionario</a>
+                                    <a class="dropdown-item" href="CadastroFuncionario?action=listar">Editar
+                                        Funcionario</a>
+                                </div>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
                 <div class="form-inline">
                     <div class="topbar-divider d-none d-sm-block"></div>
                     <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow" style="list-style: none;color: white" >
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color: white;">
+                    <li class="nav-item dropdown no-arrow" style="list-style: none;color: white">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="color: white !important;">Valerie Luna</span>
-                            <img class="img-profile rounded-circle" style="width: 20%;" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                            <img class="img-profile rounded-circle" style="width: 20%;"
+                                 src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                         </a>
                         <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout

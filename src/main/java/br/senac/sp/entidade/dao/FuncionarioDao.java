@@ -47,11 +47,11 @@ public class FuncionarioDao implements Dao<Funcionario> {
             stmt.execute();
             return true;
         } catch (SQLException e) {
-            throw new FuncionarioException("Erro ao Cadastrar Funcionario!\nErro: " + e.getMessage());
+            System.out.println("Funcionario erro: "+e.getMessage());
+            return false;
         } finally {
             conn.close();
         }
-
     }
 
     @Override

@@ -1,11 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <c:import url="header.jsp"/>
-<style>
-    #accordionSidebar{
-        display: none;
-    }
-</style>
 <h1 align="center" style="margin: 20px;">Lista de Funcionários</h1><br>
 <div class="container-fluid table-responsive">
     <table class="table table-striped" style="overflow: auto;">

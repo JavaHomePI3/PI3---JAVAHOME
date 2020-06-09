@@ -17,11 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *
  * @author Vitoria Cristina
  */
 @WebServlet(name = "CadastrarProd", value = "/cadastraProduto")
-
 public class CadastrarProd extends HttpServlet {
 
     @Override
@@ -62,7 +60,8 @@ public class CadastrarProd extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/CadastrarProd.jsp");
-        requestDispatcher.forward(request,response);
+        requestDispatcher.forward(request, response);
+
     }
 }
 

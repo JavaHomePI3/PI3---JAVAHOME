@@ -1,4 +1,5 @@
 package br.senac.sp.servlet.funcionario;
+
 import br.senac.sp.entidade.dao.FuncionarioDao;
 import br.senac.sp.entidade.enums.*;
 import br.senac.sp.entidade.exception.FuncionarioException;
@@ -16,50 +17,48 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- *
  * @author joao.lucas
  */
 @WebServlet(name = "CadastraFuncionarioServlet", value = "/CadastroFuncionario")
-public class CadastraFuncionarioServlet extends HttpServlet{
-        private static String INSERIR_OU_EDITAR = "/cadastroFuncionario.jsp";
+public class CadastraFuncionarioServlet extends HttpServlet {
+    private static String INSERIR_OU_EDITAR = "/cadastroFuncionario.jsp";
     private static String LISTA_FUNCIONARIO = "/listaFuncionario.jsp";
     private FuncionarioDao dao = new FuncionarioDao();
-     @Override
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         RequestDispatcher view = request.getRequestDispatcher(INSERIR_OU_EDITAR);
         String acao = request.getParameter("action").trim();
-
-            switch (acao) {
-                case "listar":
-                    view = configuraListaDeFuncionarios(request, view);
-                    break;
-                case "deletar":
-                    view = deletaFuncionario(request,response);
-                    break;
-                case "editar":
-                    view = editaFuncionario(request);
-                    break;
-            }
-            view.forward(request, response);
+        switch (acao) {
+            case "listar":
+                view = configuraListaDeFuncionarios(request, view);
+                break;
+            case "deletar":
+                view = deletaFuncionario(request, response);
+                break;
+            case "editar":
+                view = editaFuncionario(request);
+                break;
+        }
+        view.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String acao = "";
-        if (request.getParameter("action") != null){
+        if (request.getParameter("action") != null) {
             acao = request.getParameter("action");
         }
 
-        Funcionario funcionario = criaFuncionario(request,acao);
-
+        Funcionario funcionario = criaFuncionario(request, acao);
 
         try {
-            if (acao.equals("editar")){
+            if (acao.equals("editar")) {
                 dao.editar(funcionario);
-            }else {
-                dao.inserir(funcionario);
+            } else if (!dao.inserir(funcionario)){
+                System.out.println("Erro ao cadastrar funcionário");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,9 +81,9 @@ public class CadastraFuncionarioServlet extends HttpServlet{
         int id = Integer.parseInt(request.getParameter("id").trim());
         try {
             Funcionario funcionario = dao.buscaFuncionarioPeloId(id);
-            if (request.getSession().getAttribute(JWTUtil.TOKEN_USER_NAME).equals(funcionario.getEmail())){
+            if (request.getSession().getAttribute(JWTUtil.TOKEN_USER_NAME).equals(funcionario.getEmail())) {
                 response.setStatus(401);
-            }else{
+            } else {
                 dao.removerFuncionario(id);
                 response.setStatus(200);
             }
@@ -107,10 +106,10 @@ public class CadastraFuncionarioServlet extends HttpServlet{
         funcionario.setNomeUsuario(request.getParameter("nomeFuncionario").trim());
         funcionario.setSobrenomeUsuario(request.getParameter("sobrenomeFuncionario").trim());
         funcionario.setCpf(request.getParameter("cpfFuncionario").trim());
-        if (request.getParameter("emailFuncionario") != null){
+        if (request.getParameter("emailFuncionario") != null) {
             funcionario.setEmail(request.getParameter("emailFuncionario").trim());
         }
-        if (!request.getParameter("senha").trim().isEmpty()){
+        if (!request.getParameter("senha").trim().isEmpty()) {
             funcionario.setSenha(SenhaUtils.criar(request.getParameter("senha").trim()));
         }
         funcionario.setGenero(ConvertStringForGenero.parse(request.getParameter("generoFuncionario").trim()));

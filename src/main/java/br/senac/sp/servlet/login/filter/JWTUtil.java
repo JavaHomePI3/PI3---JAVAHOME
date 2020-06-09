@@ -6,10 +6,11 @@ import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 
 public class JWTUtil {
+    public static final String TAG_TOKEN = "Token: ";
     private static Key key;
-
     public static final String TOKEN_HEADER = "Authentication";
     public static final String TOKEN_USER_NAME = "user_name";
+    public static final String TOKEN_AUTH = "userAuth";
 
     public static String create(String subject) {
         key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -17,7 +18,7 @@ public class JWTUtil {
                 .setSubject(subject)
                 .signWith(key)
                 .compact();
-        System.out.println("Token: " + token);
+        System.out.println(TAG_TOKEN + token);
         return token;
     }
 
