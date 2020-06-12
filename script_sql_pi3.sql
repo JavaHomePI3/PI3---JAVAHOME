@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Servidor:                     127.0.0.1
--- Versão do servidor:           10.4.11-MariaDB - mariadb.org binary distribution
--- OS do Servidor:               Win64
+-- Servidor:                     us-cdbr-east-05.cleardb.net
+-- Versão do servidor:           5.5.62-log - MySQL Community Server (GPL)
+-- OS do Servidor:               Linux
 -- HeidiSQL Versão:              11.0.0.5919
 -- --------------------------------------------------------
 
@@ -12,11 +12,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Copiando estrutura do banco de dados para senac
-CREATE DATABASE IF NOT EXISTS `senac` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `senac`;
+-- Copiando estrutura do banco de dados para heroku_77b37ec5c6ca4dc
+CREATE DATABASE IF NOT EXISTS `heroku_77b37ec5c6ca4dc` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `heroku_77b37ec5c6ca4dc`;
 
--- Copiando estrutura para tabela senac.cliente
+-- Copiando estrutura para tabela heroku_77b37ec5c6ca4dc.cliente
 CREATE TABLE IF NOT EXISTS `cliente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(30) DEFAULT NULL,
@@ -36,51 +36,57 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela senac.cliente: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela heroku_77b37ec5c6ca4dc.cliente: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
 INSERT INTO `cliente` (`id`, `nome`, `sobrenome`, `cpf`, `email`, `genero`, `data_nascimento`, `telefone`, `cep`, `rua`, `bairro`, `complemento`, `cidade`, `numero`, `estado`) VALUES
 	(11, 'lezzma', 'Ramalho', '33333333333', 'neto.silva101@outlook.com', 'MASCULINO', '1998-01-05', '11951333960', '04849160', 'rua manuel pla', 'Bairro residencial cocaia', '11951333960', 'São paulo', '12', 'SP'),
-	(15, 'José', 'Ramalho', '38879169807', 'neto.silva101@outlook.com', 'MASCULINO', '1998-01-05', '11951333960', '04849160', 'rua manuel pla', 'Bairro residencial cocaia', 'c', 'São paulo', '12', 'PR'),
-	(16, 'José', 'Ramalho', '38879169807', 'neto.silva101@outlook.com', 'MASCULINO', '2020-05-19', '11951333960', '04849160', 'rua manuel pla', 'cocaia', 'v', 'São paulo', '12', 'PI');
+	(15, 'José', 'Ramalho', '38879169807', 'neto.silva101@outlook.com', 'MASCULINO', '1998-01-05', '11951333960', '04849160', 'rua manuel pla', 'Bairro residencial cocaia', 'c', 'São paulo', '12', 'PR');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 
--- Copiando estrutura para tabela senac.funcionario
+-- Copiando estrutura para tabela heroku_77b37ec5c6ca4dc.funcionario
 CREATE TABLE IF NOT EXISTS `funcionario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) DEFAULT '0',
   `sobrenome` varchar(50) DEFAULT '0',
-  `cpf` varchar(50) DEFAULT '0',
-  `email` varchar(50) DEFAULT '0',
-  `genero` char(1) DEFAULT '0',
+  `cpf` varchar(50) NOT NULL DEFAULT '0',
+  `email` varchar(50) NOT NULL DEFAULT '0',
+  `genero` varchar(50) DEFAULT NULL,
   `data_nascimento` date DEFAULT NULL,
-  `tell` float DEFAULT 0,
+  `tell` float DEFAULT '0',
   `cep` varchar(8) DEFAULT '0',
   `rua` varchar(50) DEFAULT '0',
   `bairro` varchar(50) DEFAULT '0',
-  `complemento` char(1) DEFAULT '0',
+  `complemento` varchar(10) DEFAULT NULL,
   `cidade` varchar(50) DEFAULT '0',
-  `numero` int(11) DEFAULT 0,
+  `numero` int(11) DEFAULT '0',
   `estado` varchar(50) DEFAULT '0',
-  `departamento` varchar(50) DEFAULT '0',
-  `cargo` varchar(50) DEFAULT '0',
-  `salario` float DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `senha` varchar(250) NOT NULL,
+  `departamento` varchar(50) NOT NULL DEFAULT 'Não definido',
+  `salario` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `cpf` (`cpf`)
+) ENGINE=InnoDB AUTO_INCREMENT=3391 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela senac.funcionario: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela heroku_77b37ec5c6ca4dc.funcionario: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` (`id`, `nome`, `sobrenome`, `cpf`, `email`, `genero`, `data_nascimento`, `tell`, `cep`, `rua`, `bairro`, `complemento`, `cidade`, `numero`, `estado`) VALUES
-	(1, 'teste', 'teste', '0', '0', '0', NULL, 0, '0', '0', '0', '0', '0', 0, '0');
+INSERT INTO `funcionario` (`id`, `nome`, `sobrenome`, `cpf`, `email`, `genero`, `data_nascimento`, `tell`, `cep`, `rua`, `bairro`, `complemento`, `cidade`, `numero`, `estado`, `senha`, `departamento`, `salario`) VALUES
+	(1, 'ADM', 'NETO', '33333333333', 'admin@hotmail.com', 'MASCULINO', '2020-06-06', 11951300000, '04849160', 'rua', 'worggwart', 'quartos', 'São paulo', 12, 'SP', 'ba3b99ab58669e2f15083f4528f42c9e', 'TI', 1200),
+	(2, 'Venda', 'Venda', '55555555555', 'venda@hotmail.com', 'MASCULINO', '2020-06-09', 11951300000, '04849160', 'beco de agonal', 'worggwart', 'quartos', 'São paulo', 93, 'SP', 'ba3b99ab58669e2f15083f4528f42c9e', 'VENDAS', 5000),
+	(11, 'Professor', 'Ramalho', '12312312312', 'proff@hotmail.com', 'MASCULINO', '2020-06-09', 11951300000, '04849160', 'beco de agonal', 'worggwart', 'c', 'São paulo', 12, 'PI', 'eb4d5530306fc1aef0be70116382718c', 'TI', 12000),
+	(3341, 'T.I', 'Ramalho', '31331331330', 'ti@hotmail.com', 'MASCULINO', '2020-06-10', 11951300000, '04849160', 'beco de agonal', 'worggwart', 'quartos', 'São paulo', 1, 'SP', 'ba3b99ab58669e2f15083f4528f42c9e', 'TI', 10000),
+	(3371, 'Adiministrador', 'teste', '99999999999', 'administrador@hotmail.com', 'MASCULINO', '2020-06-08', 11951300000, '04849160', 'beco de agonal', 'worggwart', 'c', 'São paulo', 12, 'PB', 'ba3b99ab58669e2f15083f4528f42c9e', 'ADM', 1500),
+	(3381, 'Backoffice', 'teste', '88888888888', 'back@hotmail.com', 'FEMININO', '2020-06-10', 11951300000, '04849160', 'manuel', 'worggwart', 'c', 'São paulo', 23, 'SE', 'eb4d5530306fc1aef0be70116382718c', 'BACKOFFICE', 6000);
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 
--- Copiando estrutura para tabela senac.itens
+-- Copiando estrutura para tabela heroku_77b37ec5c6ca4dc.itens
 CREATE TABLE IF NOT EXISTS `itens` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
-  `lista_intes` longtext CHARACTER SET utf8mb4 NOT NULL CHECK (json_valid(`lista_intes`)),
+  `lista_intes` longtext CHARACTER SET utf8mb4 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela senac.itens: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela heroku_77b37ec5c6ca4dc.itens: ~16 rows (aproximadamente)
 /*!40000 ALTER TABLE `itens` DISABLE KEYS */;
 INSERT INTO `itens` (`id`, `lista_intes`) VALUES
 	(28, '[{"idProduto":1,"codigobarrasprod":"teste","valorprod":123.0,"nomeprod":"teste","dtCadastro":"abr 17, 2020","descricaoprod":"teste","qtdestoque":23,"itensvenda":1,"idloja":0,"categoriaprod":"Jogo"},{"idProduto":2,"codigobarrasprod":"seila","valorprod":123.0,"nomeprod":"teste","dtCadastro":"abr 17, 2020","descricaoprod":"teste","qtdestoque":23,"itensvenda":2,"idloja":0,"categoriaprod":"Jogo"}]'),
@@ -95,10 +101,13 @@ INSERT INTO `itens` (`id`, `lista_intes`) VALUES
 	(37, '[{"idProduto":1,"codigobarrasprod":"teste","valorprod":123.0,"nomeprod":"teste","dtCadastro":"abr 17, 2020","descricaoprod":"teste","qtdestoque":9,"itensvenda":1,"idloja":0,"categoriaprod":"Jogo"}]'),
 	(38, '[{"idProduto":1,"codigobarrasprod":"teste","valorprod":123.0,"nomeprod":"teste","dtCadastro":"abr 17, 2020","descricaoprod":"teste","qtdestoque":8,"itensvenda":2,"idloja":0,"categoriaprod":"Jogo"}]'),
 	(39, '[{"idProduto":1,"codigobarrasprod":"teste","valorprod":123.0,"nomeprod":"teste","dtCadastro":"abr 17, 2020","descricaoprod":"teste","qtdestoque":6,"itensvenda":1,"idloja":0,"categoriaprod":"Jogo"}]'),
-	(40, '[{"idProduto":1,"codigobarrasprod":"teste","valorprod":123.0,"nomeprod":"teste","dtCadastro":"abr 17, 2020","descricaoprod":"teste","qtdestoque":5,"itensvenda":5,"idloja":0,"categoriaprod":"Jogo"}]');
+	(40, '[{"idProduto":1,"codigobarrasprod":"teste","valorprod":123.0,"nomeprod":"teste","dtCadastro":"abr 17, 2020","descricaoprod":"teste","qtdestoque":5,"itensvenda":5,"idloja":0,"categoriaprod":"Jogo"}]'),
+	(41, '[{"idProduto":1,"codigobarrasprod":"teste","valorprod":123.0,"nomeprod":"teste","dtCadastro":"Apr 18, 2020","descricaoprod":"teste","qtdestoque":1000,"itensvenda":2,"idloja":0,"categoriaprod":"Jogo"},{"idProduto":2,"codigobarrasprod":"seila","valorprod":123.0,"nomeprod":"teste","dtCadastro":"Apr 18, 2020","descricaoprod":"teste","qtdestoque":100,"itensvenda":3,"idloja":0,"categoriaprod":"Jogo"}]'),
+	(51, '[{"idProduto":1,"codigobarrasprod":"teste","valorprod":123.0,"nomeprod":"teste","dtCadastro":"Apr 18, 2020","descricaoprod":"teste","qtdestoque":998,"itensvenda":1,"idloja":0,"categoriaprod":"Jogo"}]'),
+	(61, '[{"idProduto":1,"codigobarrasprod":"teste","valorprod":123.0,"nomeprod":"teste","dtCadastro":"Apr 18, 2020","descricaoprod":"teste","qtdestoque":997,"itensvenda":1,"idloja":0,"categoriaprod":"Jogo"},{"idProduto":2,"codigobarrasprod":"seila","valorprod":123.0,"nomeprod":"teste","dtCadastro":"Apr 18, 2020","descricaoprod":"teste","qtdestoque":97,"itensvenda":20,"idloja":0,"categoriaprod":"Jogo"}]');
 /*!40000 ALTER TABLE `itens` ENABLE KEYS */;
 
--- Copiando estrutura para tabela senac.produtos
+-- Copiando estrutura para tabela heroku_77b37ec5c6ca4dc.produtos
 CREATE TABLE IF NOT EXISTS `produtos` (
   `idprod` int(11) NOT NULL AUTO_INCREMENT,
   `codigobarrasprod` varchar(30) NOT NULL,
@@ -110,36 +119,45 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   `quantidadeprod` int(11) NOT NULL,
   `idloja` int(11) NOT NULL,
   PRIMARY KEY (`idprod`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela senac.produtos: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela heroku_77b37ec5c6ca4dc.produtos: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
 INSERT INTO `produtos` (`idprod`, `codigobarrasprod`, `nomeprod`, `valor`, `dataCadastroprod`, `descricaoprod`, `categoriaprod`, `quantidadeprod`, `idloja`) VALUES
-	(1, 'teste', 'teste', 123.00, '2020-04-18', 'teste', 'Jogo', 0, 0),
-	(2, 'seila', 'teste', 123.00, '2020-04-18', 'teste', 'Jogo', 17, 0),
-	(3, '2526', 'teclad top', 1.00, '2020-05-13', 'teclado gamer top', 'Jogo', 1, 0),
-	(4, 'meupiru', 'teclad top', 1000.00, '2020-05-13', 'teclado gamer top', 'Brinde', 50, 0);vendas
+	(1, 'teste', 'teste', 123.00, '2020-04-18', 'teste', 'Jogo', 996, 0),
+	(2, 'seila', 'teste', 123.00, '2020-04-18', 'teste', 'Jogo', 77, 0),
+	(3, '2526', 'teclad top', 1.00, '2020-05-13', 'teclado gamer top', 'Jogo', 100, 0),
+	(11, '1234', 'teste', 10.00, '2020-06-09', 'teste 1234', 'Outros', 22, 0);
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela senac.vendas
-heroku_77b37ec5c6ca4dc ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+-- Copiando estrutura para tabela heroku_77b37ec5c6ca4dc.vendas
+CREATE TABLE IF NOT EXISTS `vendas` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `id_itens` int(255) DEFAULT NULL,
+  `id_cliente` int(255) DEFAULT NULL,
+  `id_funcionario` int(255) DEFAULT NULL,
+  `filial` varchar(50) DEFAULT NULL,
+  `preco_total` double DEFAULT NULL,
+  `create_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_itens` (`id_itens`),
+  KEY `FK_func` (`id_funcionario`),
+  KEY `FK_cliente` (`id_cliente`),
+  CONSTRAINT `FK_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `FK_func` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_itens` FOREIGN KEY (`id_itens`) REFERENCES `itens` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela senac.vendas: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela heroku_77b37ec5c6ca4dc.vendas: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
 INSERT INTO `vendas` (`id`, `id_itens`, `id_cliente`, `id_funcionario`, `filial`, `preco_total`, `create_at`) VALUES
 	(22, 28, 15, 1, 'Brasília', 369, '2020-05-12'),
 	(23, 29, 15, 1, 'São Paulo', 615, '2020-05-13'),
 	(24, 30, 15, 1, 'Brasília', 369, '2020-05-13'),
 	(25, 31, 15, 1, 'São Paulo', 123, '2020-05-13'),
-	(26, 32, 15, 1, 'Joinville', 246, '2020-05-13'),
-	(27, 33, 15, 1, 'São Paulo', 246, '2020-05-13'),
-	(28, 34, 15, 1, 'São Paulo', 246, '2020-05-13'),
-	(29, 35, 15, 1, 'Campina', 123, '2020-05-13'),
-	(30, 36, 15, 1, 'Brasília', 123, '2020-05-13'),
-	(31, 37, 15, 1, 'Brasília', 123, '2020-05-13'),
-	(32, 38, 15, 1, 'Brasília', 246, '2020-05-13'),
-	(33, 39, 15, 1, 'Joinville', 123, '2020-05-13'),
-	(34, 40, 11, 1, 'São Paulo', 615, '2020-05-13');
+	(41, 41, 15, 2, 'São Paulo', 615, '2020-06-11'),
+	(51, 51, 11, 2, 'São Paulo', 123, '2020-06-11'),
+	(61, 61, 15, 2, 'São Paulo', 2583, '2020-06-12');
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
